@@ -1,4 +1,4 @@
-# NorthQStandalone
+# OpenhabNorthQIntegration
 
 This is a openhan project with an integration of NorthQ devices as bindings.
 Developed by DTU students in cource 02162 Software Engineering 2.
