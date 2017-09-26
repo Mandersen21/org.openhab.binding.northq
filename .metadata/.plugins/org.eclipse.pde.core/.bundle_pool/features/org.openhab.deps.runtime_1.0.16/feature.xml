@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.openhab.deps.runtime"
+      label="org.openhab.deps.runtime"
+      version="1.0.16">
+
+   <description>
+      Feature bundling all openHAB runtime dependencies, except openHAB and SmartHome bundles.
+   </description>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <plugin
+         id="javax.transaction"
+         download-size="28"
+         install-size="52"
+         version="1.1.1.v201105210645"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.google.guava"
+         download-size="2211"
+         install-size="4997"
+         version="15.0.0.v201403281430"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.server"
+         download-size="529"
+         install-size="1122"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtext.xbase"
+         download-size="2456"
+         install-size="6651"
+         version="2.12.0.v20170519-0752"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.collections"
+         download-size="598"
+         install-size="1211"
+         version="3.2.0.v2013030210310"
+         unpack="false"/>
+
+   <plugin
+         id="com.google.gson"
+         download-size="253"
+         install-size="504"
+         version="2.7.0.v20170129-0911"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.net"
+         download-size="287"
+         install-size="564"
+         version="3.2.0.v201305141515"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.event"
+         download-size="33"
+         install-size="60"
+         version="1.4.0.v20170105-1446"
+         unpack="false"/>
+
+   <plugin
+         id="ch.qos.logback.core"
+         download-size="380"
+         install-size="722"
+         version="1.0.7.v20121108-1250"
+         unpack="false"/>
+
+   <plugin
+         id="com.google.inject"
+         download-size="508"
+         install-size="1162"
+         version="3.0.0.v201312141243"
+         unpack="false"/>
+
+   <plugin
+         id="org.slf4j.log4j"
+         download-size="29"
+         install-size="47"
+         version="1.7.2.v20130115-1340"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.jersey-min"
+         download-size="4439"
+         install-size="9475"
+         version="2.22.2"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.weaving.hook"
+         download-size="50"
+         install-size="98"
+         version="1.2.0.v20160929-1449"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtext"
+         download-size="2538"
+         install-size="5846"
+         version="2.12.0.v20170518-0959"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtext.smap"
+         download-size="18"
+         install-size="31"
+         version="2.12.0.v20170519-0752"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.osgi.alpn.fragment"
+         download-size="9"
+         install-size="14"
+         version="9.3.14.v20161028"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.felix.gogo.command"
+         download-size="56"
+         install-size="113"
+         version="0.10.0.v201209301215"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.ecore"
+         download-size="1174"
+         install-size="2902"
+         version="2.13.0.v20170609-0707"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.webapp"
+         download-size="119"
+         install-size="261"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.exec"
+         download-size="61"
+         install-size="116"
+         version="1.1.0.v201301240602"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.osgi.httpservice"
+         download-size="12"
+         install-size="20"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="javax.servlet"
+         download-size="103"
+         install-size="203"
+         version="3.1.0.v20140303-1611"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.transforms.hook"
+         download-size="29"
+         install-size="54"
+         version="1.2.0.v20170105-1446"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.osgi"
+         download-size="1354"
+         install-size="2875"
+         version="3.12.0.v20170512-1932"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.http.servlet"
+         download-size="195"
+         install-size="443"
+         version="1.4.0.v20170524-1452"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.httpcomponents.httpclient"
+         download-size="613"
+         install-size="1259"
+         version="4.2.6.v201311072007"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtext.util"
+         download-size="270"
+         install-size="580"
+         version="2.12.0.v20170518-0959"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.common"
+         download-size="350"
+         install-size="737"
+         version="2.13.0.v20170609-0707"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtext.common.types"
+         download-size="480"
+         install-size="1150"
+         version="2.12.0.v20170519-0752"
+         unpack="false"/>
+
+   <plugin
+         id="javax.jmdns"
+         download-size="207"
+         install-size="410"
+         version="3.5.2"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.swagger-all"
+         download-size="6725"
+         install-size="14267"
+         version="1.5.7"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.deploy"
+         download-size="58"
+         install-size="113"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.httpclient"
+         download-size="314"
+         install-size="650"
+         version="3.1.0.v201012070820"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.http"
+         download-size="156"
+         install-size="300"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.websocket.api"
+         download-size="53"
+         install-size="91"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.websocket.common"
+         download-size="201"
+         install-size="410"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.websocket.client"
+         download-size="42"
+         install-size="90"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.xml"
+         download-size="56"
+         install-size="124"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.felix.gogo.runtime"
+         download-size="78"
+         install-size="154"
+         version="0.10.0.v201209301036"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtend.lib"
+         download-size="161"
+         install-size="367"
+         version="2.12.0.v20170518-0757"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtend.lib.macro"
+         download-size="72"
+         install-size="134"
+         version="2.12.0.v20170518-0757"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.client"
+         download-size="275"
+         install-size="584"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.jupnp"
+         download-size="725"
+         install-size="1468"
+         version="2.2.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.antlr.runtime"
+         download-size="201"
+         install-size="425"
+         version="3.2.0.v201101311130"
+         unpack="false"/>
+
+   <plugin
+         id="org.objectweb.asm"
+         download-size="62"
+         install-size="127"
+         version="5.0.1.v201404251740"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.felix.gogo.shell"
+         download-size="59"
+         install-size="121"
+         version="0.10.0.v201212101605"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.httpcomponents.httpcore"
+         download-size="253"
+         install-size="507"
+         version="4.2.5.v201311072007"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.ds"
+         download-size="28"
+         install-size="56"
+         version="1.5.0.v20170307-1429"
+         unpack="false"/>
+
+   <plugin
+         id="org.slf4j.jul"
+         download-size="11"
+         install-size="18"
+         version="1.7.2.v20121108-1250"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.xtext.xbase.lib"
+         download-size="146"
+         install-size="368"
+         version="2.12.0.v20170518-0757"
+         unpack="false"/>
+
+   <plugin
+         id="javax.inject"
+         download-size="12"
+         install-size="21"
+         version="1.0.0.v20091030"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.osgi.boot"
+         download-size="123"
+         install-size="250"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.util"
+         download-size="457"
+         install-size="885"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.publisher"
+         download-size="32"
+         install-size="60"
+         version="5.3.1.201602281253"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.osgi.services"
+         download-size="118"
+         install-size="184"
+         version="3.6.0.v20170228-1906"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.provider.swagger"
+         download-size="9"
+         install-size="13"
+         version="1.1.1.201602281253"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.provider.security"
+         download-size="8"
+         install-size="11"
+         version="2.2.0.201602281253"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.io"
+         download-size="190"
+         install-size="391"
+         version="2.2.0.v201405211200"
+         unpack="false"/>
+
+   <plugin
+         id="ch.qos.logback.slf4j"
+         download-size="10"
+         install-size="16"
+         version="1.0.7.v20121108-1250"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="ch.qos.logback.classic"
+         download-size="255"
+         install-size="518"
+         version="1.0.7.v20121108-1250"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.provider.gson"
+         download-size="5"
+         install-size="8"
+         version="2.3.0.201602281253"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.region"
+         download-size="75"
+         install-size="157"
+         version="1.4.0.v20170117-1425"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.console"
+         download-size="117"
+         install-size="239"
+         version="1.1.300.v20170512-2111"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.rewrite"
+         download-size="41"
+         install-size="73"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.slf4j.api"
+         download-size="34"
+         install-size="61"
+         version="1.7.2.v20121108-1250"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.codec"
+         download-size="251"
+         install-size="504"
+         version="1.6.0.v201305230611"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.lang"
+         download-size="292"
+         install-size="619"
+         version="2.6.0.v201404270220"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.ecore.xmi"
+         download-size="225"
+         install-size="483"
+         version="2.13.0.v20170609-0707"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.util"
+         download-size="76"
+         install-size="139"
+         version="1.0.500.v20130404-1337"
+         unpack="false"/>
+
+   <plugin
+         id="javax.xml"
+         download-size="232"
+         install-size="378"
+         version="1.3.4.v201005080400"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.common"
+         download-size="118"
+         install-size="223"
+         version="3.9.0.v20170207-1454"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.io"
+         download-size="125"
+         install-size="247"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.security"
+         download-size="102"
+         install-size="207"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.servlet"
+         download-size="124"
+         install-size="261"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jetty.proxy"
+         download-size="93"
+         install-size="200"
+         version="9.3.14.v20161028"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.registry"
+         download-size="182"
+         install-size="377"
+         version="3.7.0.v20170222-1344"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.cm"
+         download-size="72"
+         install-size="147"
+         version="1.2.0.v20170105-1446"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.logging"
+         download-size="66"
+         install-size="138"
+         version="1.1.1.v201101211721"
+         unpack="false"/>
+
+   <plugin
+         id="javax.mail"
+         download-size="313"
+         install-size="588"
+         version="1.4.0.v201005080615"
+         unpack="false"/>
+
+   <plugin
+         id="javax.xml.bind"
+         download-size="115"
+         install-size="224"
+         version="2.2.0.v201105210648"
+         unpack="false"/>
+
+   <plugin
+         id="javax.activation"
+         download-size="54"
+         install-size="105"
+         version="1.1.0.v201211130549"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.paho.client.mqttv3"
+         download-size="157"
+         install-size="311"
+         version="1.0.2"
+         unpack="false"/>
+
+   <plugin
+         id="com.jayway.jsonpath.json-path"
+         download-size="185"
+         install-size="379"
+         version="2.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.minidev.accessors-smart"
+         download-size="78"
+         install-size="159"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.minidev.json-smart"
+         download-size="193"
+         install-size="382"
+         version="2.2.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.mapdb.mapdb"
+         download-size="406"
+         install-size="817"
+         version="1.0.9"
+         unpack="false"/>
+
+   <plugin
+         id="com.neuronrobotics.nrjavaserial"
+         download-size="519"
+         install-size="1294"
+         version="3.12.0.OH"
+         unpack="false"/>
+
+   <plugin
+         id="californium-osgi"
+         download-size="297"
+         install-size="627"
+         version="1.0.6"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.californium.scandium"
+         download-size="278"
+         install-size="599"
+         version="1.0.6"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.californium.element-connector"
+         download-size="34"
+         install-size="68"
+         version="1.0.6"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.annotation"
+         download-size="25"
+         install-size="59"
+         version="2.1.100.v20170511-1408"
+         unpack="false"/>
+</feature>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2015-2016 by the respective copyright holders.
+
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+-->
+<feature
+      id="org.openhab.feature.p2"
+      label="openHAB Core Components"
+      version="2.2.0.201706290927"
+      provider-name="openHAB.org">
+
+   <description>
+      This features defines all bundles that form the openHAB core runtime.
+   </description>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <plugin
+         id="org.openhab.core"
+         download-size="13"
+         install-size="20"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+   <plugin
+         id="org.openhab.core.compat1x"
+         download-size="1016"
+         install-size="1212"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+         
+   <plugin
+         id="org.openhab.io.jetty.certificate"
+         download-size="466"
+         install-size="949"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+   <plugin
+         id="org.openhab.io.sound"
+         download-size="99"
+         install-size="110"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+   <plugin
+         id="org.openhab.ui.dashboard"
+         download-size="457"
+         install-size="626"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+   <plugin
+         id="org.openhab.io.rest.docs"
+         download-size="927"
+         install-size="3256"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+   <plugin
+         id="org.openhab.ui.classicui"
+         download-size="4"
+         install-size="3"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+   <plugin
+         id="org.openhab.ui.basicui"
+         download-size="467"
+         install-size="976"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+   <plugin
+         id="org.openhab.ui.paperui"
+         download-size="87"
+         install-size="159"
+         version="2.2.0.201706290927"
+         unpack="false"/>
+
+</feature>

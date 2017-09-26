@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2014-2017 by the respective copyright holders.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+-->
+<feature
+      id="org.eclipse.smarthome.feature.runtime.ui"
+      label="Eclipse SmartHome UI"
+      version="0.9.0.201709260841"
+      provider-name="Eclipse.org/SmartHome">
+
+   <description>
+      This feature defines all bundles that form the Eclipse SmartHome UI.
+   </description>
+
+   <copyright>
+      Copyright (c) 2014-2016 by the respective copyright holders.
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.smarthome.feature.runtime.core"/>
+      <import feature="org.eclipse.smarthome.feature.runtime.model"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.smarthome.ui"
+         download-size="159"
+         install-size="221"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.ui.icon"
+         download-size="15"
+         install-size="25"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.ui.iconset.classic"
+         download-size="854"
+         install-size="1302"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.ui.classic"
+         download-size="226"
+         install-size="373"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.ui.basic"
+         download-size="1061"
+         install-size="3143"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+   
+   <plugin
+         id="org.eclipse.smarthome.ui.paper"
+         download-size="809"
+         install-size="1940"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+</feature>

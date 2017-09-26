@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2014-2017 by the respective copyright holders.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+-->
+<feature
+      id="org.eclipse.smarthome.feature.runtime.rest"
+      label="Eclipse SmartHome REST Support"
+      version="0.9.0.201709260841"
+      provider-name="Eclipse.org/SmartHome">
+
+   <description>
+      This feature defines all bundles that form the Eclipse SmartHome REST support
+   </description>
+
+   <copyright>
+      Copyright (c) 2014-2016 by the respective copyright holders.
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.smarthome.feature.runtime.core"/>
+      <import feature="org.eclipse.smarthome.feature.runtime.model"/>
+      <import feature="org.eclipse.smarthome.feature.runtime.ui"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest"
+         download-size="27"
+         install-size="45"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.optimize"
+         download-size="7"
+         install-size="10"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.auth"
+         download-size="5"
+         install-size="6"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.auth.basic"
+         download-size="5"
+         install-size="5"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.core"
+         download-size="88"
+         install-size="201"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.mdns"
+         download-size="6"
+         install-size="7"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.sitemap"
+         download-size="30"
+         install-size="61"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.sse"
+         download-size="18"
+         install-size="27"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.voice"
+         download-size="8"
+         install-size="12"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.io.rest.log"
+         download-size="8"
+         install-size="11"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+</feature>

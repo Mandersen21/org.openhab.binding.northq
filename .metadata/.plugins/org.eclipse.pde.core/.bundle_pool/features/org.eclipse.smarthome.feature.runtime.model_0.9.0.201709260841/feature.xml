@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2014-2017 by the respective copyright holders.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+-->
+<feature
+      id="org.eclipse.smarthome.feature.runtime.model"
+      label="Eclipse SmartHome Model Support"
+      version="0.9.0.201709260841"
+      provider-name="Eclipse.org/SmartHome">
+
+   <description>
+      This feature defines all bundles that form the Eclipse SmartHome
+Model Support.
+   </description>
+
+   <copyright>
+      Copyright (c) 2014-2016 by the respective copyright holders.
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.smarthome.feature.runtime.core"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.smarthome.model.core"
+         download-size="23"
+         install-size="38"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.item"
+         download-size="116"
+         install-size="252"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.sitemap"
+         download-size="284"
+         install-size="886"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.rule"
+         download-size="322"
+         install-size="926"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.script"
+         download-size="283"
+         install-size="757"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.persistence"
+         download-size="644"
+         install-size="930"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.thing"
+         download-size="192"
+         install-size="468"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.item.runtime"
+         download-size="5"
+         install-size="4"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.persistence.runtime"
+         download-size="5"
+         install-size="4"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.rule.runtime"
+         download-size="31"
+         install-size="69"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.script.runtime"
+         download-size="11"
+         install-size="18"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.sitemap.runtime"
+         download-size="5"
+         install-size="4"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.thing.runtime"
+         download-size="5"
+         install-size="4"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.item.ide"
+         download-size="44"
+         install-size="141"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.sitemap.ide"
+         download-size="297"
+         install-size="1262"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.rule.ide"
+         download-size="287"
+         install-size="1293"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.script.ide"
+         download-size="249"
+         install-size="1103"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.persistence.ide"
+         download-size="48"
+         install-size="171"
+         version="0.9.0.201709260841"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smarthome.model.thing.ide"
+         download-size="58"
+         install-size="211"
+         version="0.9.0.201709260841"
+         unpack="false"/>         
+
+   <plugin
+         id="org.eclipse.smarthome.model.lsp"
+         download-size="9"
+         install-size="13"
+         version="0.9.0.201709260841"
+         unpack="false"/>         
+
+</feature>
