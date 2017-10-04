@@ -40,7 +40,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
-            System.out.print("Motion clicked");
+            System.out.print("Registered interactions with plug");
         }
     }
 

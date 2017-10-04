@@ -8,7 +8,7 @@
  */
 package org.openhab.binding.northq.internal;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -21,7 +21,7 @@ import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQPlugHandler;
 import org.osgi.service.component.annotations.Component;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 
 /**
  * The {@link NorthQHandlerFactory} is responsible for creating things and thing
@@ -35,8 +35,11 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
 
     // private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Collections.singleton(THING_TYPE_SAMPLE);
 
-    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet
-            .of(NorthQPlugHandler.SUPPORTED_THING_TYPE, NorthQMotionHandler.SUPPORTED_THING_TYPE);
+    // private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet
+    // .of(NorthQPlugHandler.SUPPORTED_THING_TYPE, NorthQMotionHandler.SUPPORTED_THING_TYPE);
+
+    private static final Collection<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Lists
+            .newArrayList(NorthQPlugHandler.SUPPORTED_THING_TYPE, NorthQMotionHandler.SUPPORTED_THING_TYPE);
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
