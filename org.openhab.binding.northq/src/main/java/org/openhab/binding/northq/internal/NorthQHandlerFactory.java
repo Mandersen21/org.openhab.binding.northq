@@ -10,17 +10,20 @@ package org.openhab.binding.northq.internal;
 
 import static org.openhab.binding.northq.NorthQBindingConstants.*;
 
-import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.openhab.binding.northq.handler.NorthQHandler;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
+import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.handler.NorthQMotionHandler;
+import org.openhab.binding.northq.handler.NorthQPlugHandler;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -33,7 +36,8 @@ import org.osgi.service.component.annotations.Component;
 @NonNullByDefault
 public class NorthQHandlerFactory extends BaseThingHandlerFactory {
 
-    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Collections.singleton(THING_TYPE_SAMPLE);
+    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Stream.of(THING_TYPE_QPLUG, THING_TYPE_QMOTION)
+            .collect(Collectors.toSet());
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
@@ -44,8 +48,12 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
     protected @Nullable ThingHandler createHandler(Thing thing) {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
 
-        if (thingTypeUID.equals(THING_TYPE_SAMPLE)) {
-            return new NorthQHandler(thing);
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPLUG)) {
+            return new NorthQPlugHandler(thing);
+        }
+
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QMOTION)) {
+            return new NorthQMotionHandler(thing);
         }
 
         return null;
