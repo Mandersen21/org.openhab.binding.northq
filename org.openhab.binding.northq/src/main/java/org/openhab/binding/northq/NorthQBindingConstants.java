@@ -17,15 +17,16 @@ import org.eclipse.smarthome.core.thing.ThingTypeUID;
  *
  * @author DTU_02162_group03 - Initial contribution
  */
- @NonNullByDefault
+@NonNullByDefault
 public class NorthQBindingConstants {
 
     private static final String BINDING_ID = "northq";
 
     // List of all Thing Type UIDs
-    public static final ThingTypeUID THING_TYPE_SAMPLE = new ThingTypeUID(BINDING_ID, "sample");
+    public static final ThingTypeUID THING_TYPE_SAMPLE = new ThingTypeUID(BINDING_ID, "northq-binding");
 
     // List of all Channel ids
-    public static final String CHANNEL_1 = "channel1";
+    public static final String CHANNEL_QPLUG = "channelplug";
+    public static final String CHANNEL_QMOTION = "channelmotion";
 
 }
