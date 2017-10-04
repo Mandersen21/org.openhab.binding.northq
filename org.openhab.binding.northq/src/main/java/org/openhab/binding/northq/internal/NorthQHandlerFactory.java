@@ -8,7 +8,11 @@
  */
 package org.openhab.binding.northq.internal;
 
-import java.util.Collection;
+import static org.openhab.binding.northq.NorthQBindingConstants.*;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -17,11 +21,10 @@ import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
+import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQPlugHandler;
 import org.osgi.service.component.annotations.Component;
-
-import com.google.common.collect.Lists;
 
 /**
  * The {@link NorthQHandlerFactory} is responsible for creating things and thing
@@ -33,13 +36,8 @@ import com.google.common.collect.Lists;
 @NonNullByDefault
 public class NorthQHandlerFactory extends BaseThingHandlerFactory {
 
-    // private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Collections.singleton(THING_TYPE_SAMPLE);
-
-    // private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet
-    // .of(NorthQPlugHandler.SUPPORTED_THING_TYPE, NorthQMotionHandler.SUPPORTED_THING_TYPE);
-
-    private static final Collection<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Lists
-            .newArrayList(NorthQPlugHandler.SUPPORTED_THING_TYPE, NorthQMotionHandler.SUPPORTED_THING_TYPE);
+    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Stream.of(THING_TYPE_QPLUG, THING_TYPE_QMOTION)
+            .collect(Collectors.toSet());
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
@@ -50,11 +48,11 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
     protected @Nullable ThingHandler createHandler(Thing thing) {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
 
-        if (NorthQPlugHandler.SUPPORTED_THING_TYPE.equals(thing.getThingTypeUID())) {
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPLUG)) {
             return new NorthQPlugHandler(thing);
         }
 
-        if (NorthQMotionHandler.SUPPORTED_THING_TYPE.equals(thing.getThingTypeUID())) {
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QMOTION)) {
             return new NorthQMotionHandler(thing);
         }
 

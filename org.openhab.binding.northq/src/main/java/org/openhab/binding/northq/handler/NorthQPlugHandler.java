@@ -8,13 +8,12 @@
  */
 package org.openhab.binding.northq.handler;
 
-import static org.openhab.binding.northq.NorthQBindingConstants.*;
+import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QPLUG;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
-import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.slf4j.Logger;
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
-    public static final ThingTypeUID SUPPORTED_THING_TYPE = THING_TYPE_QPLUG;
+    // public static final ThingTypeUID SUPPORTED_THING_TYPE = THING_TYPE_QPLUG;
 
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
