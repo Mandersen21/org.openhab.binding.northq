@@ -8,12 +8,13 @@
  */
 package org.openhab.binding.northq.handler;
 
-import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QMOTION;
+import static org.openhab.binding.northq.NorthQBindingConstants.*;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
+import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.slf4j.Logger;
@@ -28,6 +29,8 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQMotionHandler extends BaseThingHandler {
 
+    public static final ThingTypeUID SUPPORTED_THING_TYPE = THING_TYPE_QMOTION;
+
     private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
 
     public NorthQMotionHandler(Thing thing) {
@@ -37,7 +40,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(CHANNEL_QMOTION)) {
-
+            System.out.print("Registered interactions with motion");
         }
     }
 
