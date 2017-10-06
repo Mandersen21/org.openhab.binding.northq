@@ -8,7 +8,7 @@
  */
 package org.openhab.binding.northq.handler;
 
-import static org.openhab.binding.northq.NorthQBindingConstants.*;
+import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QPLUG;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -19,8 +19,6 @@ import org.eclipse.smarthome.core.types.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import services.NorthqServices;
-
 /**
  * The {@link NorthQPlugHandler} is responsible for handling commands, which are
  * sent to one of the channels.
@@ -30,47 +28,24 @@ import services.NorthqServices;
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
-    private NorthqServices northQServices;
-
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
     public NorthQPlugHandler(Thing thing) {
         super(thing);
-
-        northQServices = new NorthqServices();
     }
 
     @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
 
-        // Get token
-        try {
-            // User user = northQServices.postLogin("dtu3", "dtu3");
-        } catch (Exception e) {
-
-        }
-
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
-            if (command.equals("ON")) {
-                handleTurnPlugOn(TOKEN);
+            if (command.toString().equals("ON")) {
+                System.out.println("ON!!!!!!!!!!!!!!");
             } else {
-                handleTurnPlugOn(TOKEN);
+                System.out.println("OFF!!!!!!!!!!!!!!");
             }
         }
-    }
-
-    public void handleTurnPlugOn(String token) {
-        System.out.println("Operating with token: " + token);
-
-        // Turn plug on
-    }
-
-    public void handleTurnPlugOff(String token) {
-        System.out.println("Operating with token: " + token);
-
-        // Turn plug off
     }
 
     @Override

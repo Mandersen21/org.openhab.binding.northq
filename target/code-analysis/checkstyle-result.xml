@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.1">
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\.classpath">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\about.html">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\build.properties">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\binding\binding.xml">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\i18n\northq_xx_XX.properties">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\thing\thing-types.xml">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\META-INF\MANIFEST.MF">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\.gitignore">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\org.openhab.binding.northq.internal.NorthQHandlerFactory.xml">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\pom.xml">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\README.md">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
+<error line="41" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="44" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="46" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\NorthQHandlerFactory.java">
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\NorthQBindingConstants.java">
+</file>
+</checkstyle>

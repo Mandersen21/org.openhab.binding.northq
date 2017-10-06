@@ -29,9 +29,4 @@ public class NorthQBindingConstants {
     // List of all Channel ids
     public static final String CHANNEL_QPLUG = "channelplug";
     public static final String CHANNEL_QMOTION = "channelmotion";
-
-    // Token
-    public static String TOKEN = "";
-    // public static Date TOKEN_DATETIME_OLD;
-    // public static Date TOKEN_DATETIME_NEW;
 }
