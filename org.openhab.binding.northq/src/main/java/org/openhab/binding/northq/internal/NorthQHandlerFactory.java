@@ -39,6 +39,10 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
     private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Stream.of(THING_TYPE_QPLUG, THING_TYPE_QMOTION)
             .collect(Collectors.toSet());
 
+    public NorthQHandlerFactory() {
+
+    }
+
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
         return SUPPORTED_THING_TYPES_UIDS.contains(thingTypeUID);

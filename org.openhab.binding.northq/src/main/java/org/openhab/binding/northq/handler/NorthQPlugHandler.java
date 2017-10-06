@@ -8,7 +8,7 @@
  */
 package org.openhab.binding.northq.handler;
 
-import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QPLUG;
+import static org.openhab.binding.northq.NorthQBindingConstants.*;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -19,6 +19,8 @@ import org.eclipse.smarthome.core.types.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import services.NorthqServices;
+
 /**
  * The {@link NorthQPlugHandler} is responsible for handling commands, which are
  * sent to one of the channels.
@@ -28,19 +30,47 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
-    // public static final ThingTypeUID SUPPORTED_THING_TYPE = THING_TYPE_QPLUG;
+    private NorthqServices northQServices;
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
     public NorthQPlugHandler(Thing thing) {
         super(thing);
+
+        northQServices = new NorthqServices();
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
-        if (channelUID.getId().equals(CHANNEL_QPLUG)) {
-            System.out.print("Registered interactions with plug");
+
+        // Get token
+        try {
+            // User user = northQServices.postLogin("dtu3", "dtu3");
+        } catch (Exception e) {
+
         }
+
+        if (channelUID.getId().equals(CHANNEL_QPLUG)) {
+            if (command.equals("ON")) {
+                handleTurnPlugOn(TOKEN);
+            } else {
+                handleTurnPlugOn(TOKEN);
+            }
+        }
+    }
+
+    public void handleTurnPlugOn(String token) {
+        System.out.println("Operating with token: " + token);
+
+        // Turn plug on
+    }
+
+    public void handleTurnPlugOff(String token) {
+        System.out.println("Operating with token: " + token);
+
+        // Turn plug off
     }
 
     @Override

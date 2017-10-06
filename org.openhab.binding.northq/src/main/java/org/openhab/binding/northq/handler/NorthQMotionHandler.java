@@ -30,6 +30,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
 
     // public static final ThingTypeUID SUPPORTED_THING_TYPE = THING_TYPE_QMOTION;
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
 
     public NorthQMotionHandler(Thing thing) {
