@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.8.1" timestamp="2017-10-06T15:25:34.564">
+<pmd version="5.8.1" timestamp="2017-10-07T13:15:07.225">
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
 <violation beginline="43" endline="43" begincolumn="13" endcolumn="28" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.print is used
 </violation>
 </file>
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
-<violation beginline="43" endline="45" begincolumn="39" endcolumn="13" rule="EmptyIfStmt" ruleset="Empty Code" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/empty.html#EmptyIfStmt" priority="3">
-Avoid empty if statements
-</violation>
-<violation beginline="45" endline="47" begincolumn="20" endcolumn="13" rule="EmptyIfStmt" ruleset="Empty Code" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/empty.html#EmptyIfStmt" priority="3">
-Avoid empty if statements
-</violation>
-<violation beginline="61" endline="61" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleTurnPlugOn" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="50" endline="50" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="67" endline="67" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleTurnPlugOff" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="56" endline="56" begincolumn="21" endcolumn="39" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
+Avoid printStackTrace(); use a logger call instead.
+</violation>
+<violation beginline="60" endline="60" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
 </file>

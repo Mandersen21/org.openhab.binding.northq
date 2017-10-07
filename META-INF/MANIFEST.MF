@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/NorthQServicesStandAlonePackage.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: NorthQ Binding
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
