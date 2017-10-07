@@ -29,12 +29,4 @@ public class NorthQBindingConstants {
     // Channel IDs
     public static final String CHANNEL_QPLUG = "channelplug";
     public static final String CHANNEL_QMOTION = "channelmotion";
-
-    // Authendication
-    public static String TOKEN = "Not assigned";
-    public static String USERNAME = "Not assigned";
-    public static String PASSWORD = "Not assigned";
-
-    // Gateway
-    public static String GATEWAY_ID = "Not assigned";
 }

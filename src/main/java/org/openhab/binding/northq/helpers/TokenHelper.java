@@ -8,7 +8,7 @@
  */
 package org.openhab.binding.northq.helpers;
 
-import static org.openhab.binding.northq.NorthQBindingConstants.TOKEN;
+import static org.openhab.binding.northq.common.NorthQConfig.TOKEN;
 
 import model.json.User;
 import services.NorthqServices;
@@ -27,8 +27,8 @@ public class TokenHelper {
         services = new NorthqServices();
     }
 
+    // TODO: Implement timing when token should be changed, like update TOKEN every 2 day etc
     public String getToken(String username, String password) {
-
         if (TOKEN.isEmpty()) {
             User user = null;
             try {
