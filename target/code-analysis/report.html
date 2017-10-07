@@ -11,8 +11,8 @@
    <body>
       <h2>Report
          					 
-         					(2017-10-06+02:00;
-         					 15:25:39.526+02:00)
+         					(2017-10-07+02:00;
+         					 13:15:14.037+02:00)
          				
       </h2>
       <h3>Summary Messages</h3>
@@ -25,16 +25,6 @@
             <th align="left">count</th>
          </tr>
          <tr>
-            <td colspan="5">empty code</td>
-         </tr>
-         <tr class="alternate">
-            <td></td>
-            <td>pmd</td>
-            <td align="left">3</td>
-            <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/empty.html#EmptyIfStmt">EmptyIfStmt</a></td>
-            <td align="center">2</td>
-         </tr>
-         <tr>
             <td colspan="5">java logging</td>
          </tr>
          <tr class="alternate">
@@ -44,6 +34,13 @@
             <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln">SystemPrintln</a></td>
             <td align="center">3</td>
          </tr>
+         <tr class="alternate">
+            <td></td>
+            <td>pmd</td>
+            <td align="left">3</td>
+            <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace">AvoidPrintStackTrace</a></td>
+            <td align="center">1</td>
+         </tr>
          <tr>
             <td colspan="5">style</td>
          </tr>
@@ -52,18 +49,25 @@
             <td>checkstyle</td>
             <td align="left">3</td>
             <td>NewlineAtEndOfFileCheck</td>
-            <td align="center">3</td>
+            <td align="center">4</td>
          </tr>
          <tr class="alternate">
             <td></td>
             <td>checkstyle</td>
             <td align="left">3</td>
             <td>NoEmptyLineSeparatorCheck</td>
-            <td align="center">3</td>
+            <td align="center">1</td>
+         </tr>
+         <tr class="alternate">
+            <td></td>
+            <td>checkstyle</td>
+            <td align="left">3</td>
+            <td>TodoCommentCheck</td>
+            <td align="center">1</td>
          </tr>
          <tr class="dark">
             <td colspan="4"></td>
-            <td align="center">11</td>
+            <td align="center">10</td>
          </tr>
       </table>
       <p></p>
@@ -78,6 +82,21 @@
          </tr>
          <tr class="alternate">
             <td><a href="#.binding.northq.internal.NorthQHandlerFactory.xml" title=".binding.northq.internal.NorthQHandlerFactory.xml">.binding.northq.internal.NorthQHandlerFactory.xml</a></td>
+            <td align="center">
+               <div class="p1">0</div>
+            </td>
+            <td align="center">
+               <div class="p2">0</div>
+            </td>
+            <td align="center">
+               <div class="p3">1</div>
+            </td>
+            <td align="center">
+               <div class="p3">1</div>
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td><a href="#.binding.northq\.classpath" title=".binding.northq\.classpath">.binding.northq\.classpath</a></td>
             <td align="center">
                <div class="p1">0</div>
             </td>
@@ -145,10 +164,10 @@
                <div class="p2">0</div>
             </td>
             <td align="center">
-               <div class="p3">7</div>
+               <div class="p3">5</div>
             </td>
             <td align="center">
-               <div class="p3">7</div>
+               <div class="p3">5</div>
             </td>
          </tr>
          <tr class="dark">
@@ -160,10 +179,10 @@
                <div class="p2">0</div>
             </td>
             <td align="center">
-               <div class="p3">11</div>
+               <div class="p3">10</div>
             </td>
             <td align="center">
-               <div class="p3">11</div>
+               <div class="p3">10</div>
             </td>
          </tr>
       </table>
@@ -171,6 +190,24 @@
       <h3>Details by Class</h3>
       <table width="90%" border="0" class="details">
          <th align="left" colspan="6"><a name=".binding.northq.internal.NorthQHandlerFactory.xml">.binding.northq.internal.NorthQHandlerFactory.xml</a></th>
+         <tr>
+            <th align="left" width="80pt">tool</th>
+            <th align="left" width="50pt">priority</th>
+            <th align="left" width="30pt">line</th>
+            <th align="left" width="80pt">category</th>
+            <th align="left" width="380pt">rule</th>
+            <th align="left">message</th>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>0</td>
+            <td>style</td>
+            <td>NewlineAtEndOfFileCheck</td>
+            <td>File does not end with a newline.</td>
+         </tr>
+      </table><br><table width="90%" border="0" class="details">
+         <th align="left" colspan="6"><a name=".binding.northq\.classpath">.binding.northq\.classpath</a></th>
          <tr>
             <th align="left" width="80pt">tool</th>
             <th align="left" width="50pt">priority</th>
@@ -257,29 +294,7 @@
          <tr class="alternate">
             <td>pmd</td>
             <td>3</td>
-            <td>43</td>
-            <td>empty code</td>
-            <td>EmptyIfStmt</td>
-            <td>
-               Avoid empty if statements
-               
-            </td>
-         </tr>
-         <tr class="alternate">
-            <td>pmd</td>
-            <td>3</td>
-            <td>45</td>
-            <td>empty code</td>
-            <td>EmptyIfStmt</td>
-            <td>
-               Avoid empty if statements
-               
-            </td>
-         </tr>
-         <tr class="alternate">
-            <td>pmd</td>
-            <td>3</td>
-            <td>61</td>
+            <td>50</td>
             <td>java logging</td>
             <td>SystemPrintln</td>
             <td>
@@ -290,7 +305,18 @@
          <tr class="alternate">
             <td>pmd</td>
             <td>3</td>
-            <td>67</td>
+            <td>56</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>60</td>
             <td>java logging</td>
             <td>SystemPrintln</td>
             <td>
@@ -301,7 +327,7 @@
          <tr class="alternate">
             <td>checkstyle</td>
             <td>3</td>
-            <td>41</td>
+            <td>47</td>
             <td>style</td>
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line after opening brace</td>
@@ -309,18 +335,10 @@
          <tr class="alternate">
             <td>checkstyle</td>
             <td>3</td>
-            <td>44</td>
+            <td>55</td>
             <td>style</td>
-            <td>NoEmptyLineSeparatorCheck</td>
-            <td>Remove empty line after opening brace</td>
-         </tr>
-         <tr class="alternate">
-            <td>checkstyle</td>
-            <td>3</td>
-            <td>46</td>
-            <td>style</td>
-            <td>NoEmptyLineSeparatorCheck</td>
-            <td>Remove empty line after opening brace</td>
+            <td>TodoCommentCheck</td>
+            <td>Comment matches to-do format '(TODO)|(FIXME)'.</td>
          </tr>
       </table><br></body>
 </html>

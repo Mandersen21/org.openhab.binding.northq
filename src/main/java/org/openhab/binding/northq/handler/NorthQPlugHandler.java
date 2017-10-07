@@ -19,6 +19,9 @@ import org.eclipse.smarthome.core.types.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import model.json.User;
+import services.NorthqServices;
+
 /**
  * The {@link NorthQPlugHandler} is responsible for handling commands, which are
  * sent to one of the channels.
@@ -28,11 +31,14 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
+    public NorthqServices service;
+
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
     public NorthQPlugHandler(Thing thing) {
         super(thing);
+        service = new NorthqServices();
     }
 
     @SuppressWarnings("unlikely-arg-type")
@@ -41,9 +47,18 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
             if (command.toString().equals("ON")) {
-                System.out.println("ON!!!!!!!!!!!!!!");
+                System.out.println("Plug should be turned on");
+
+                try {
+                    User user = service.postLogin("dtu3", "dtu3");
+                    System.out.println("Token: " + user.token);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                // System.out.println("Token received from token service: " + tokenService.getToken());
             } else {
-                System.out.println("OFF!!!!!!!!!!!!!!");
+                System.out.println("Plug should be turned off");
             }
         }
     }
