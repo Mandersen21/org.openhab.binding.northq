@@ -22,11 +22,19 @@ public class NorthQBindingConstants {
 
     private static final String BINDING_ID = "northq";
 
-    // List of all Thing Type UIDs
+    // Thing Type UIDs
     public static final ThingTypeUID THING_TYPE_QPLUG = new ThingTypeUID(BINDING_ID, "qPlug");
     public static final ThingTypeUID THING_TYPE_QMOTION = new ThingTypeUID(BINDING_ID, "qMotion");
 
-    // List of all Channel ids
+    // Channel IDs
     public static final String CHANNEL_QPLUG = "channelplug";
     public static final String CHANNEL_QMOTION = "channelmotion";
+
+    // Authendication
+    public static String TOKEN = "Not assigned";
+    public static String USERNAME = "Not assigned";
+    public static String PASSWORD = "Not assigned";
+
+    // Gateway
+    public static String GATEWAY_ID = "Not assigned";
 }
