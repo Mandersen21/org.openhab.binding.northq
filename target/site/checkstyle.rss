@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017 openHAB.org</copyright>
     <item>
-      <title>File: 15,
+      <title>File: 17,
              Errors: 0,
              Warnings: 0,
-             Infos: 6
+             Infos: 11
       </title>
             <link>${project.url}/checkstyle.html</link>
       <description>
@@ -63,7 +63,21 @@ under the License.
                   <a href="${project.url}/checkstyle.html#.classpath">.classpath</a>
                 </td>
                 <td>
-                  1
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.common.NorthQConfig.java">src/main/java/org/openhab/binding/northq/internal/common/NorthQConfig.java</a>
+                </td>
+                <td>
+                  4
                 </td>
                 <td>
                   0
@@ -144,6 +158,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.helpers.TokenHelper.java">src/main/java/org/openhab/binding/northq/internal/helpers/TokenHelper.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#ESH-INF.i18n.northq_xx_XX.properties">ESH-INF/i18n/northq_xx_XX.properties</a>
                 </td>
                 <td>
@@ -161,7 +189,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQPlugHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQPlugHandler.java</a>
                 </td>
                 <td>
-                  2
+                  3
                 </td>
                 <td>
                   0

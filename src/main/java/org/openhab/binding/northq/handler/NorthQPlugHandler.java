@@ -16,7 +16,7 @@ import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
-import org.openhab.binding.northq.helpers.TokenHelper;
+import org.openhab.binding.northq.internal.helpers.TokenHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

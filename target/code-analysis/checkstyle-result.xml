@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.1">
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\.classpath">
-<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 </file>
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\about.html">
 </file>
@@ -29,8 +28,18 @@
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
 </file>
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
-<error line="47" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="55" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="49" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="51" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="61" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\common\NorthQConfig.java">
+<error line="20" column="26" severity="info" message="Name &apos;TOKEN&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="21" column="26" severity="info" message="Name &apos;USERNAME&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="22" column="26" severity="info" message="Name &apos;PASSWORD&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="25" column="26" severity="info" message="Name &apos;GATEWAY_ID&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+</file>
+<file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\helpers\TokenHelper.java">
+<error line="30" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 </file>
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\NorthQHandlerFactory.java">
 </file>
