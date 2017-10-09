@@ -3,11 +3,11 @@ package org.openhab.binding.northq.common;
 public class NorthQConfig {
 
     // Authentication
-    public static String TOKEN = "Not assigned";
-    public static String USERNAME = "Not assigned";
-    public static String PASSWORD = "Not assigned";
+    public static String TOKEN = "";
+    public static String USERNAME = "";
+    public static String PASSWORD = "";
 
     // Gateway
-    public static String GATEWAY_ID = "Not assigned";
+    public static String GATEWAY_ID = "";
 
 }
