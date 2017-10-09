@@ -22,11 +22,13 @@ public class NorthQBindingConstants {
 
     private static final String BINDING_ID = "northq";
 
-    // List of all Thing Type UIDs
+    // Thing Type UIDs
+    public static final ThingTypeUID THING_TYPE_QSTICK = new ThingTypeUID(BINDING_ID, "qStick");
     public static final ThingTypeUID THING_TYPE_QPLUG = new ThingTypeUID(BINDING_ID, "qPlug");
     public static final ThingTypeUID THING_TYPE_QMOTION = new ThingTypeUID(BINDING_ID, "qMotion");
 
-    // List of all Channel ids
+    // Channel IDs
+    public static final String CHANNEL_QSTICK = "channelstick";
     public static final String CHANNEL_QPLUG = "channelplug";
     public static final String CHANNEL_QMOTION = "channelmotion";
 }

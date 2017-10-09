@@ -35,7 +35,8 @@ import org.osgi.service.component.annotations.Component;
 public class NorthQHandlerFactory extends BaseThingHandlerFactory {
 
     private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = new HashSet<ThingTypeUID>(
-            Arrays.asList(NorthQBindingConstants.THING_TYPE_QPLUG, NorthQBindingConstants.THING_TYPE_QMOTION));
+            Arrays.asList(NorthQBindingConstants.THING_TYPE_QPLUG, NorthQBindingConstants.THING_TYPE_QMOTION,
+                    NorthQBindingConstants.THING_TYPE_QSTICK));
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
@@ -45,6 +46,11 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
     @Override
     protected @Nullable ThingHandler createHandler(Thing thing) {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
+
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QSTICK)) {
+            System.out.println("Qstick is turned on, applying thing IDs");
+            System.out.println(thing);
+        }
 
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPLUG)) {
             return new NorthQPlugHandler(thing);
