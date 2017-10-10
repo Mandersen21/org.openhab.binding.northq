@@ -8,12 +8,11 @@
  */
 package org.openhab.binding.northq.internal;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import static org.openhab.binding.northq.NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.smarthome.core.thing.Bridge;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
@@ -22,6 +21,7 @@ import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQPlugHandler;
+import org.openhab.binding.northq.handler.NorthQStickHandler;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -34,9 +34,7 @@ import org.osgi.service.component.annotations.Component;
 @NonNullByDefault
 public class NorthQHandlerFactory extends BaseThingHandlerFactory {
 
-    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = new HashSet<ThingTypeUID>(
-            Arrays.asList(NorthQBindingConstants.THING_TYPE_QPLUG, NorthQBindingConstants.THING_TYPE_QMOTION,
-                    NorthQBindingConstants.THING_TYPE_QSTICK));
+    // All supported Thing types
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
@@ -48,8 +46,7 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
 
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QSTICK)) {
-            System.out.println("Qstick is turned on, applying thing IDs");
-            System.out.println(thing);
+            return new NorthQStickHandler((Bridge) thing);
         }
 
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPLUG)) {

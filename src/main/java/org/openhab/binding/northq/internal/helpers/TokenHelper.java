@@ -34,6 +34,7 @@ public class TokenHelper {
             try {
                 user = services.postLogin("dtu3", "dtu3");
                 TOKEN = user.token;
+                System.out.println("Saving token in config");
             } catch (Exception e) {
                 e.printStackTrace();
             }

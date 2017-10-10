@@ -4,5 +4,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="lib" path="lib/NorthQServicesStandAlonePackage.jar"/>
+	<classpathentry kind="lib" path="lib/guava-23.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

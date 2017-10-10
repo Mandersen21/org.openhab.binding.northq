@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The {@link NorthQPlugHandler} is responsible for handling commands, which are
+ * The {@link NorthQMotionHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
  * @author DTU_02162_group03 - Initial contribution

@@ -8,8 +8,12 @@
  */
 package org.openhab.binding.northq;
 
+import java.util.Set;
+
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * The {@link NorthQBindingConstants} class defines common constants, which are
@@ -26,6 +30,9 @@ public class NorthQBindingConstants {
     public static final ThingTypeUID THING_TYPE_QSTICK = new ThingTypeUID(BINDING_ID, "qStick");
     public static final ThingTypeUID THING_TYPE_QPLUG = new ThingTypeUID(BINDING_ID, "qPlug");
     public static final ThingTypeUID THING_TYPE_QMOTION = new ThingTypeUID(BINDING_ID, "qMotion");
+
+    public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(THING_TYPE_QPLUG,
+            THING_TYPE_QMOTION, THING_TYPE_QSTICK);
 
     // Channel IDs
     public static final String CHANNEL_QSTICK = "channelstick";
