@@ -20,7 +20,6 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
-import org.openhab.binding.northq.internal.helpers.TokenHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,6 @@ import services.NorthqServices;
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
-    private TokenHelper tokenHelper;
     private NorthqServices services;
     private NorthQConfig config;
 
@@ -45,7 +43,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
     public NorthQPlugHandler(Thing thing) {
         super(thing);
-        tokenHelper = new TokenHelper();
         services = new NorthqServices();
         config = new NorthQConfig();
     }

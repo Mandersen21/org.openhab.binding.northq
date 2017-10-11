@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017 openHAB.org</copyright>
     <item>
-      <title>File: 19,
+      <title>File: 18,
              Errors: 0,
              Warnings: 0,
              Infos: 22
@@ -147,7 +147,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQStickHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQStickHandler.java</a>
                 </td>
                 <td>
-                  3
+                  4
                 </td>
                 <td>
                   0
@@ -176,20 +176,6 @@ under the License.
                 </td>
                 <td>
                   0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.helpers.TokenHelper.java">src/main/java/org/openhab/binding/northq/internal/helpers/TokenHelper.java</a>
-                </td>
-                <td>
-                  1
                 </td>
                 <td>
                   0
