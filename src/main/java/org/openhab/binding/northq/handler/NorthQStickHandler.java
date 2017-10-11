@@ -50,15 +50,15 @@ public class NorthQStickHandler extends BaseBridgeHandler {
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get("username").toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get("password").toString());
         NorthNetwork network = null;
-        try {
-            network = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD());
-            NorthQConfig.NETWORK = network;
-        } catch (Exception e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+        // try {
+        // network = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD());
+        // NorthQConfig.NETWORK = network;
+        // } catch (Exception e1) {
+        // // TODO Auto-generated catch block
+        // e1.printStackTrace();
+        // }
 
-        System.out.println("North network setup: " + network.getGateways().get(0).getGatewayId());
+        // System.out.println("North network setup: " + network.getGateways().get(0).getGatewayId());
         updateStatus(ThingStatus.ONLINE);
     }
 

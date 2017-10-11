@@ -11,6 +11,8 @@ package org.openhab.binding.northq.handler;
 import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QPLUG;
 
 import java.util.ArrayList;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -41,10 +43,33 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
+    // Add to declarations
+    private ScheduledFuture<?> pollingJob;
+
+    // stuff in whereever i guess
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                try {
+                    System.out.println("Polling run");
+                } catch (Exception e) {
+                    // catch block
+                    e.printStackTrace();
+                }
+            } catch (Throwable t) {
+                logger.error("An unexpected error occurred: {}", t.getMessage(), t);
+            }
+        }
+    };
+
     public NorthQPlugHandler(Thing thing) {
         super(thing);
         services = new NorthqServices();
         config = new NorthQConfig();
+
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
     @SuppressWarnings("unlikely-arg-type")
@@ -82,6 +107,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
+
+        System.out.println("Initialized: " + pollingJob);
     }
 
     public @Nullable Qplug getPlug() {

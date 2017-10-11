@@ -7,7 +7,11 @@
     <bridge-type id="qStick">
         <label>Q stick bridge</label>
         <description>Q stick bridge for northq binding</description>
-
+        
+        <channels>
+            <channel id="qStickScanning" typeId="scanning" />
+        </channels>
+        
         <config-description>
             <parameter name="gateway_id" type="text" required="true">
                 <label>Gateway ID</label>
@@ -23,4 +27,10 @@
             </parameter>
         </config-description>
     </bridge-type>
+    
+    <channel-type id="scanning">
+        <item-type>Switch</item-type>
+        <label>Start scanning</label>
+        <description>Scan NorthQ Binding</description>
+    </channel-type>
 </thing:thing-descriptions>
