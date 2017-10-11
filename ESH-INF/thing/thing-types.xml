@@ -15,6 +15,7 @@
 
 		<channels>
 			<channel id="channelplug" typeId="plug-channel" />
+			<channel id="channelplugevent" typeId="plugEventTrigger" />
 		</channels>
 	</thing-type>
 
@@ -23,6 +24,12 @@
 		<label>NorthQ plug</label>
 		<description>QPlug channel for NorthQ Binding</description>
 	</channel-type>
+	
+	<channel-type id="plugEventTrigger">
+        <kind>trigger</kind>
+        <label>q plug event trigger</label>
+        <description>Triggered to get current status of q plug</description>
+    </channel-type>
 
 	<!-- qmotion thing -->
 	<thing-type id="qMotion">

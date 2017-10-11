@@ -38,4 +38,7 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_QSTICK = "channelstick";
     public static final String CHANNEL_QPLUG = "channelplug";
     public static final String CHANNEL_QMOTION = "channelmotion";
+
+    // Event Channel IDs
+    public static final String CHANNEL_QPLUG_STATUS = "channelplugevent";
 }

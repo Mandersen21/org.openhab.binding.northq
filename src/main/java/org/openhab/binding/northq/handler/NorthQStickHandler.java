@@ -64,6 +64,7 @@ public class NorthQStickHandler extends BaseBridgeHandler {
 
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
+        // Start discovery
 
     }
 }

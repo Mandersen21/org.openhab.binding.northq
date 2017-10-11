@@ -41,7 +41,6 @@
    <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>
       <message tool="checkstyle" line="47" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
       <message tool="checkstyle" line="57" message="Comment matches to-do format '(TODO)|(FIXME)'." priority="3" rule="TodoCommentCheck" category="style"/>
-      <message tool="checkstyle" line="67" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
    </file>
    <file name="org.openhab.binding.northq.internal.common.NorthQConfig.java">
       <message tool="checkstyle" line="22" message="Name 'NETWORK' must match pattern '^[a-z][a-zA-Z0-9]*$'." priority="3" rule="StaticVariableNameCheck" category="style"/>

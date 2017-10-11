@@ -13,6 +13,7 @@ import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QPLUG;
 import java.util.ArrayList;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
@@ -55,31 +56,16 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
 
+            Qplug qPlug = getPlug();
+
             // Configurations
             String gateway_id = NorthQConfig.getGATEWAY_ID();
             String username = NorthQConfig.getUSERNAME();
-            String password = NorthQConfig.getPASSWORD();
-            Qplug qPlug = null;
-
-            ArrayList<model.Thing> things = NorthQConfig.NETWORK.getGateways().get(0).getThings();
-            for (int i = 0; i < things.size(); i++) {
-                if (things.get(i) instanceof model.Qplug) {
-                    qPlug = (Qplug) things.get(i);
-                }
-            }
-
-            System.out.println("Token in config " + NorthQConfig.getTOKEN());
-            System.out.println("Dan token: " + NorthQConfig.NETWORK.getToken());
-
-            // Get token from helper
-            // tokenHelper.getToken(username, password);
-            // String token = NorthQConfig.getTOKEN();
 
             if (command.toString().equals("ON")) {
                 // Plug should be turned on
                 try {
-                    services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getUserId(),
-                            NorthQConfig.GATEWAY_ID);
+                    services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
                 } catch (Exception e) {
                     // TODO: Add more exceptions
                     updateStatus(ThingStatus.OFFLINE);
@@ -87,8 +73,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
             } else {
                 // Plug should be turned off
                 try {
-                    services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getUserId(),
-                            NorthQConfig.GATEWAY_ID);
+                    services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
                 } catch (Exception e) {
                     // TODO: Add more exceptions
                     updateStatus(ThingStatus.OFFLINE);
@@ -100,5 +85,17 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
+    }
+
+    public @Nullable Qplug getPlug() {
+        Qplug qPlug = null;
+
+        ArrayList<model.Thing> things = NorthQConfig.NETWORK.getGateways().get(0).getThings();
+        for (int i = 0; i < things.size(); i++) {
+            if (things.get(i) instanceof model.Qplug) {
+                return qPlug = (Qplug) things.get(i);
+            }
+        }
+        return qPlug;
     }
 }

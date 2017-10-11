@@ -34,8 +34,6 @@ import org.osgi.service.component.annotations.Component;
 @NonNullByDefault
 public class NorthQHandlerFactory extends BaseThingHandlerFactory {
 
-    // All supported Thing types
-
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
         return SUPPORTED_THING_TYPES_UIDS.contains(thingTypeUID);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.8.1" timestamp="2017-10-10T10:51:34.305">
+<pmd version="5.8.1" timestamp="2017-10-10T11:51:07.271">
 <file name="C:\Users\Mikkel\Documents\Programmering\Openhab\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
 <violation beginline="43" endline="43" begincolumn="13" endcolumn="28" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.print is used
