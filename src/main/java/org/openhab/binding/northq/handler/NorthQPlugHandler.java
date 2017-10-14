@@ -75,30 +75,47 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
-
+        // Recived command
+        System.out.println("Debug In handleCommand");
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
+            System.out.println("Debug In handleCommand in Channel Qplug");
 
             Qplug qPlug = getPlug();
+            System.out.println(qPlug.getNodeID());
 
+            System.out.println("UID" + super.getThing().getUID());
             // Configurations
             String gateway_id = NorthQConfig.getGATEWAY_ID();
-            String username = NorthQConfig.getUSERNAME();
+            String username = NorthQConfig.NETWORK.getUserId();
+
+            System.out.println("gateway:" + gateway_id);
+            System.out.println("username" + username);
+            System.out.println("config networktoken; " + NorthQConfig.NETWORK.getToken());
+            try {
+                System.out.println("current token:" + services.postLogin(username, username).token);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
 
             if (command.toString().equals("ON")) {
+                System.out.println("Debug In handleCommand turn on");
+
                 // Plug should be turned on
                 try {
-                    services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
+                    boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
+                    System.out.println("Success " + res);
                 } catch (Exception e) {
-                    // TODO: Add more exceptions
-                    updateStatus(ThingStatus.OFFLINE);
+                    e.printStackTrace();
+                    // updateStatus(ThingStatus.OFFLINE);
                 }
             } else {
-                // Plug should be turned off
+                System.out.println("Debug In handleCommand turn off");
                 try {
-                    services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
+                    boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
+                    System.out.println("Success " + res);
                 } catch (Exception e) {
-                    // TODO: Add more exceptions
-                    updateStatus(ThingStatus.OFFLINE);
+                    e.printStackTrace();
+                    // updateStatus(ThingStatus.OFFLINE);
                 }
             }
         }
