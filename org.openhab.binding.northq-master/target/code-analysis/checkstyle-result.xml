@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.1">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\.classpath">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\about.html">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\build.properties">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\ESH-INF\binding\binding.xml">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\ESH-INF\i18n\northq_xx_XX.properties">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\ESH-INF\thing\bridge.xml">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\ESH-INF\thing\thing-types.xml">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\META-INF\MANIFEST.MF">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\OSGI-INF\.gitignore">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\OSGI-INF\org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService.xml">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\OSGI-INF\org.openhab.binding.northq.internal.NorthQHandlerFactory.xml">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\pom.xml">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\README.md">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="52" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="54" column="20" severity="info" message="Name &apos;gateway_id&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+<error line="79" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="88" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="88" column="20" severity="info" message="Name &apos;gateway_id&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\handler\NorthQStickHandler.java">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="47" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="57" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="68" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\internal\common\NorthQConfig.java">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="22" column="32" severity="info" message="Name &apos;NETWORK&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="25" column="26" severity="info" message="Name &apos;TOKEN&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="26" column="26" severity="info" message="Name &apos;USERNAME&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="27" column="26" severity="info" message="Name &apos;PASSWORD&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="30" column="26" severity="info" message="Name &apos;GATEWAY_ID&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="31" column="26" severity="info" message="Name &apos;PLUG_ID&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
+<error line="57" column="26" severity="info" message="Name &apos;getGATEWAY_ID&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheck"/>
+<error line="61" column="24" severity="info" message="Name &apos;setGATEWAY_ID&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\internal\discovery\NorthQDiscoveryService.java">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="55" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="100" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\internal\FreeboxDataListener.java">
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\internal\NorthQHandlerFactory.java">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq-master\src\main\java\org\openhab\binding\northq\NorthQBindingConstants.java">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+</checkstyle>
