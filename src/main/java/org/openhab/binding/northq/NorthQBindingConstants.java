@@ -24,7 +24,7 @@ import com.google.common.collect.ImmutableSet;
 @NonNullByDefault
 public class NorthQBindingConstants {
 
-    private static final String BINDING_ID = "northq";
+    public static final String BINDING_ID = "northq";
 
     // Thing Type UIDs
     public static final ThingTypeUID THING_TYPE_QSTICK = new ThingTypeUID(BINDING_ID, "qStick");

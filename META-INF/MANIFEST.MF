@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
- lib/NorthQServicesStandAlonePackage.jar,
- lib/guava-23.0.jar
+ lib/guava-23.0.jar,
+ lib/NorthQServicesStandAlone.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: NorthQ Binding
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -15,6 +15,7 @@ Export-Package:
 Import-Package: 
  org.eclipse.jdt.annotation;resolution:=optional,
  org.eclipse.smarthome.config.core,
+ org.eclipse.smarthome.config.discovery,
  org.eclipse.smarthome.core.library.types,
  org.eclipse.smarthome.core.thing,
  org.eclipse.smarthome.core.thing.binding,

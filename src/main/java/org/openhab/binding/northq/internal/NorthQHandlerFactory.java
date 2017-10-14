@@ -22,6 +22,7 @@ import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQPlugHandler;
 import org.openhab.binding.northq.handler.NorthQStickHandler;
+import org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -40,11 +41,15 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
     }
 
     @Override
-    protected @Nullable ThingHandler createHandler(Thing thing) {
+    public @Nullable ThingHandler createHandler(Thing thing) {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
+        System.out.println("Is Thing null: " + thing);
 
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QSTICK)) {
-            return new NorthQStickHandler((Bridge) thing);
+            NorthQStickHandler handler = new NorthQStickHandler((Bridge) thing); // Is null? or thing is nothing atleast
+            registerDiscoveryService(handler);
+            System.out.println("Handler added");
+            return handler;
         }
 
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPLUG)) {
@@ -57,4 +62,10 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
 
         return null;
     }
+
+    private void registerDiscoveryService(NorthQStickHandler bridgeHandler) {
+        NorthQDiscoveryService discoveryService = new NorthQDiscoveryService(bridgeHandler);
+        discoveryService.startScan();
+    }
+
 }
