@@ -30,6 +30,12 @@
       <message tool="checkstyle" line="0" message="The jar file lib/NorthQServicesStandAlonePackage.jar is present in the lib folder but is not present in the build properties" priority="1" rule="BuildPropertiesExternalLibrariesCheck" category="style"/>
    </file>
 
+   <file name=".binding.northq\.classpath">
+      <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>
+   </file>
+
+
+
    <file name=".binding.northq\ESH-INF\i18n\northq_xx_XX.properties">
       <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>
    </file>

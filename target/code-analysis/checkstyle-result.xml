@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.1">
 <file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\.classpath">
+<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 </file>
 <file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\about.html">
 </file>
 <file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\build.properties">
-<error line="0" severity="error" message="The jar file lib/NorthQServicesStandAlonePackage.jar is present in the lib folder but is not present in the build properties" source="org.openhab.tools.analysis.checkstyle.BuildPropertiesExternalLibrariesCheck"/>
 </file>
 <file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\binding\binding.xml">
 </file>
@@ -17,7 +17,6 @@
 <file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\thing\thing-types.xml">
 </file>
 <file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\META-INF\MANIFEST.MF">
-<error line="0" severity="error" message="The jar file lib/NorthQServicesStandAlonePackage.jar is present in the lib folder but is not present in the MANIFEST.MF file" source="org.openhab.tools.analysis.checkstyle.ManifestExternalLibrariesCheck"/>
 </file>
 <file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\.gitignore">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
