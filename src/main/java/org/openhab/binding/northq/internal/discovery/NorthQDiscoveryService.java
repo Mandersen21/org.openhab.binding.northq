@@ -8,8 +8,11 @@
  */
 package org.openhab.binding.northq.internal.discovery;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.smarthome.config.discovery.AbstractDiscoveryService;
 import org.eclipse.smarthome.config.discovery.DiscoveryResult;
@@ -17,11 +20,20 @@ import org.eclipse.smarthome.config.discovery.DiscoveryResultBuilder;
 import org.eclipse.smarthome.config.discovery.DiscoveryService;
 import org.eclipse.smarthome.core.thing.ThingUID;
 import org.openhab.binding.northq.NorthQBindingConstants;
-import org.openhab.binding.northq.handler.NorthQStickHandler;
+import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.FreeboxDataListener;
+import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import model.NGateway;
+import model.NorthNetwork;
+import model.Qmotion;
+import model.Qplug;
+import model.Qthermostat;
+import model.Thing;
+import services.NorthqServices;
 
 /**
  * The {@link NorthQDiscoveryService} is responsible for creating things and thing
@@ -32,10 +44,34 @@ import org.slf4j.LoggerFactory;
 @Component(service = DiscoveryService.class, immediate = true, configurationPid = "discovery.northq")
 public class NorthQDiscoveryService extends AbstractDiscoveryService implements FreeboxDataListener {
 
-    private NorthQStickHandler bridgeHandler;
+    private NorthQNetworkHandler bridgeHandler;
 
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQDiscoveryService.class);
+
+    private ScheduledFuture<?> pollingJob;
+
+    // stuff in whereever i guess
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                try {
+                    System.out.println("Polling run");
+                    NorthqServices services = new NorthqServices();
+
+                    NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                } catch (Exception e) {
+                    // catch block
+
+                    e.printStackTrace();
+                }
+            } catch (Throwable t) {
+                logger.error("An unexpected error occurred: {}", t.getMessage(), t);
+            }
+        }
+    };
 
     /**
      * creates a discovery service with background discovery (enabled)
@@ -48,7 +84,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
         System.out.println("DEBUG2 - in DiscoveryService");
     }
 
-    public NorthQDiscoveryService(NorthQStickHandler bridge) {
+    public NorthQDiscoveryService(NorthQNetworkHandler bridge) {
         super(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS, 0, true);
         this.bridgeHandler = bridge;
         System.out.println("DEBUG2 - in DiscoveryService");
@@ -63,12 +99,21 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     protected void startBackgroundDiscovery() {
         logger.debug("Start WeMo device background discovery");
         System.out.println("DEBUG2 - starting background discovery service");
+        if (pollingJob == null || pollingJob.isCancelled()) {
+            pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+        }
+
     }
 
     @Override
     protected void stopBackgroundDiscovery() {
         logger.debug("Stop WeMo device background discovery");
         System.out.println("DEBUG2 - stopping background discovery service");
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
+            pollingJob = null;
+        }
+
     }
 
     @Override
@@ -77,6 +122,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
         onDataFetched();
         System.out.println("DEBUG2 - Scan completed thing added");
     }
+
     @Override
     public void onDataFetched() {
         NorthNetwork n = NorthQConfig.NETWORK;
@@ -91,18 +137,20 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                         String thingID = thing.getNodeID();
                         ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
                         Map<String, Object> properties = new HashMap<>(1);
-                        properties.put(thingID, "Mybinding");
+                        properties.put("thingID", thingID);
                         DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel(thingID).withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
+                                .withLabel(((Qplug) thing).getBs().name)
+                                .withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
                         thingDiscovered(dr);
                     } else if (thing instanceof Qmotion) {
                         System.out.println("Discovered thing type Q motion");
                         String thingID = thing.getNodeID();
                         ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
                         Map<String, Object> properties = new HashMap<>(1);
-                        properties.put(thingID, "Mybinding");
+                        properties.put("thingID", thingID);
                         DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel(thingID).withThingType(NorthQBindingConstants.THING_TYPE_QMOTION).build();
+                                .withLabel(((Qmotion) thing).getBs().name)
+                                .withThingType(NorthQBindingConstants.THING_TYPE_QMOTION).build();
                         thingDiscovered(dr);
                     } else if (thing instanceof Qthermostat) {
                         System.out.println("Discovered thing type Q thermostat");

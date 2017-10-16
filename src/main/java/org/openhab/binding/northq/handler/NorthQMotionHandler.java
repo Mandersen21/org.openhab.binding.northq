@@ -35,7 +35,6 @@ import services.NorthqServices;
 public class NorthQMotionHandler extends BaseThingHandler {
 
     private NorthqServices services;
-    private NorthQConfig config;
 
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
@@ -43,7 +42,6 @@ public class NorthQMotionHandler extends BaseThingHandler {
     public NorthQMotionHandler(Thing thing) {
         super(thing);
         services = new NorthqServices();
-        config = new NorthQConfig();
     }
 
     @Override
@@ -51,7 +49,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
         if (channelUID.getId().equals(CHANNEL_QMOTION)) {
 
             // Configurations
-            String gateway_id = NorthQConfig.getGATEWAY_ID();
+            String gateway_id = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
             String username = NorthQConfig.getUSERNAME();
             String password = NorthQConfig.getPASSWORD();
             Qmotion qMotion = null;
@@ -73,8 +71,8 @@ public class NorthQMotionHandler extends BaseThingHandler {
             if (command.toString().equals("ON")) {
                 // Plug should be turned on
                 try {
-                    services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(),
-                            NorthQConfig.GATEWAY_ID, qMotion);
+                    services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gateway_id,
+                            qMotion);
                 } catch (Exception e) {
                     // TODO: Add more exceptions
                     updateStatus(ThingStatus.OFFLINE);
@@ -82,8 +80,8 @@ public class NorthQMotionHandler extends BaseThingHandler {
             } else {
                 // Plug should be turned off
                 try {
-                    services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(),
-                            NorthQConfig.GATEWAY_ID, qMotion);
+                    services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gateway_id,
+                            qMotion);
                 } catch (Exception e) {
                     // TODO: Add more exceptions
                     updateStatus(ThingStatus.OFFLINE);

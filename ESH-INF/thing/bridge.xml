@@ -3,16 +3,12 @@
     xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
     xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
 
-    <!-- q stick bridge -->
-    <bridge-type id="qStick">
-        <label>Q stick bridge</label>
-        <description>Q stick bridge for northq binding</description>
+    <!-- network bridge -->
+    <bridge-type id="northqnetwork">
+        <label>NorthQ Network</label>
+        <description>Bridge for NorthQ Network binding</description>
 
         <config-description>
-            <parameter name="gateway_id" type="text" required="true">
-                <label>Gateway ID</label>
-                <description>The q stick gateway ID</description>
-            </parameter>
             <parameter name="username" type="text" required="true">
                 <label>Username to be used</label>
                 <description>Specifies the username that is working with the q stick.</description>

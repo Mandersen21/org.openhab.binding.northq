@@ -22,31 +22,30 @@ import model.NorthNetwork;
 import services.NorthqServices;
 
 /**
- * The {@link NorthQStickHandler} is responsible for handling commands, which are
+ * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
  * @author DTU_02162_group03 - Initial contribution
  */
 @NonNullByDefault
-public class NorthQStickHandler extends BaseBridgeHandler {
+public class NorthQNetworkHandler extends BaseBridgeHandler {
 
     private NorthQConfig config;
     private NorthqServices services;
 
-    public NorthQStickHandler(Bridge bridge) {
+    public NorthQNetworkHandler(Bridge bridge) {
         super(bridge);
         config = new NorthQConfig();
         services = new NorthqServices();
     }
 
     @SuppressWarnings("null")
-    private final Logger logger = LoggerFactory.getLogger(NorthQStickHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(NorthQNetworkHandler.class);
 
     @Override
     public void initialize() {
 
         System.out.print("North q stick is online");
-        NorthQConfig.setGATEWAY_ID(getThing().getConfiguration().get("gateway_id").toString());
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get("username").toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get("password").toString());
         NorthNetwork network = null;
@@ -60,6 +59,7 @@ public class NorthQStickHandler extends BaseBridgeHandler {
 
         System.out.println("North network setup: " + network.getGateways().get(0).getGatewayId());
         updateStatus(ThingStatus.ONLINE);
+        
     }
 
     @Override
