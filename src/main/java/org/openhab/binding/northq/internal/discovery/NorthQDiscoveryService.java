@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 import org.eclipse.smarthome.config.discovery.AbstractDiscoveryService;
 import org.eclipse.smarthome.config.discovery.DiscoveryResult;
@@ -33,7 +32,6 @@ import model.Qmotion;
 import model.Qplug;
 import model.Qthermostat;
 import model.Thing;
-import services.NorthqServices;
 
 /**
  * The {@link NorthQDiscoveryService} is responsible for creating things and thing
@@ -58,10 +56,9 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
         public void run() {
             try {
                 try {
-                    System.out.println("Polling run");
-                    NorthqServices services = new NorthqServices();
 
-                    NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                    System.out.println("Polling discovery");
+
                 } catch (Exception e) {
                     // catch block
 
@@ -99,8 +96,9 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     protected void startBackgroundDiscovery() {
         logger.debug("Start WeMo device background discovery");
         System.out.println("DEBUG2 - starting background discovery service");
+
         if (pollingJob == null || pollingJob.isCancelled()) {
-            pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+            // pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
         }
 
     }

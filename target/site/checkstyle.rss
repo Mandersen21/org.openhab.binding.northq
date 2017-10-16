@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017 openHAB.org</copyright>
     <item>
-      <title>File: 22,
+      <title>File: 23,
              Errors: 0,
              Warnings: 0,
-             Infos: 31
+             Infos: 42
       </title>
             <link>${project.url}/checkstyle.html</link>
       <description>
@@ -158,6 +158,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.common.ReadWriteLock.java">src/main/java/org/openhab/binding/northq/internal/common/ReadWriteLock.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#README.md">README.md</a>
                 </td>
                 <td>
@@ -231,7 +245,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQPlugHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQPlugHandler.java</a>
                 </td>
                 <td>
-                  4
+                  6
                 </td>
                 <td>
                   0
@@ -273,7 +287,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService.java">src/main/java/org/openhab/binding/northq/internal/discovery/NorthQDiscoveryService.java</a>
                 </td>
                 <td>
-                  4
+                  6
                 </td>
                 <td>
                   0
@@ -343,7 +357,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQMotionHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQMotionHandler.java</a>
                 </td>
                 <td>
-                  5
+                  10
                 </td>
                 <td>
                   0
