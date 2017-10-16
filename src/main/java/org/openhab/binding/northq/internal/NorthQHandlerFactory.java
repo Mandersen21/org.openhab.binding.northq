@@ -20,8 +20,8 @@ import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
+import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.handler.NorthQPlugHandler;
-import org.openhab.binding.northq.handler.NorthQStickHandler;
 import org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService;
 import org.osgi.service.component.annotations.Component;
 
@@ -45,8 +45,9 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
         System.out.println("Is Thing null: " + thing);
 
-        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QSTICK)) {
-            NorthQStickHandler handler = new NorthQStickHandler((Bridge) thing); // Is null? or thing is nothing atleast
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_NETWORK)) {
+            NorthQNetworkHandler handler = new NorthQNetworkHandler((Bridge) thing); // Is null? or thing is nothing
+                                                                                     // atleast
             registerDiscoveryService(handler);
             System.out.println("Handler added");
             return handler;
@@ -63,7 +64,7 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         return null;
     }
 
-    private void registerDiscoveryService(NorthQStickHandler bridgeHandler) {
+    private void registerDiscoveryService(NorthQNetworkHandler bridgeHandler) {
         NorthQDiscoveryService discoveryService = new NorthQDiscoveryService(bridgeHandler);
         discoveryService.startScan();
     }

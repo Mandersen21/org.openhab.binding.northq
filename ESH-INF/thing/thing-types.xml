@@ -7,7 +7,7 @@
 	<thing-type id="qPlug">
 
 		<supported-bridge-type-refs>
-			<bridge-type-ref id="qStick" />
+			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
 		<label>NorthQ Plug</label>
@@ -35,7 +35,7 @@
 	<thing-type id="qMotion">
 
 		<supported-bridge-type-refs>
-			<bridge-type-ref id="qStick" />
+			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
 		<label>NorthQ Motion</label>

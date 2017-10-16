@@ -25,6 +25,7 @@ import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import model.NGateway;
 import model.Qplug;
 import services.NorthqServices;
 
@@ -38,7 +39,6 @@ import services.NorthqServices;
 public class NorthQPlugHandler extends BaseThingHandler {
 
     private NorthqServices services;
-    private NorthQConfig config;
 
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
@@ -54,8 +54,12 @@ public class NorthQPlugHandler extends BaseThingHandler {
             try {
                 try {
                     System.out.println("Polling run");
+
+                    String nodeId = getThing().getProperties().get("thingID");
+
                 } catch (Exception e) {
                     // catch block
+
                     e.printStackTrace();
                 }
             } catch (Throwable t) {
@@ -67,7 +71,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
     public NorthQPlugHandler(Thing thing) {
         super(thing);
         services = new NorthqServices();
-        config = new NorthQConfig();
 
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
@@ -80,12 +83,21 @@ public class NorthQPlugHandler extends BaseThingHandler {
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
             System.out.println("Debug In handleCommand in Channel Qplug");
 
-            Qplug qPlug = getPlug();
+            String nodeId = getThing().getProperties().get("thingID");
+            Qplug qPlug = getPlug(nodeId);
+
+            if (qPlug == null) {
+                updateStatus(ThingStatus.OFFLINE);
+                return;
+            } else {
+                updateStatus(ThingStatus.ONLINE);
+            }
+
             System.out.println(qPlug.getNodeID());
 
             System.out.println("UID" + super.getThing().getUID());
             // Configurations
-            String gateway_id = NorthQConfig.getGATEWAY_ID();
+            String gateway_id = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
             String username = NorthQConfig.NETWORK.getUserId();
 
             System.out.println("gateway:" + gateway_id);
@@ -128,15 +140,20 @@ public class NorthQPlugHandler extends BaseThingHandler {
         System.out.println("Initialized: " + pollingJob);
     }
 
-    public @Nullable Qplug getPlug() {
-        Qplug qPlug = null;
+    public @Nullable Qplug getPlug(String nodeID) {
 
-        ArrayList<model.Thing> things = NorthQConfig.NETWORK.getGateways().get(0).getThings();
-        for (int i = 0; i < things.size(); i++) {
-            if (things.get(i) instanceof model.Qplug) {
-                return qPlug = (Qplug) things.get(i);
+        ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
+        for (NGateway gw : gateways) {
+
+            ArrayList<model.Thing> things = gw.getThings();
+            for (int i = 0; i < things.size(); i++) {
+
+                if (things.get(i) instanceof model.Qplug && nodeID.equals(things.get(i).getNodeID())) {
+                    return (Qplug) things.get(i);
+                }
             }
         }
-        return qPlug;
+
+        return null;
     }
 }
