@@ -16,12 +16,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
+import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +45,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
+    boolean currentStatus;
+
     // Add to declarations
     private ScheduledFuture<?> pollingJob;
 
@@ -53,9 +57,31 @@ public class NorthQPlugHandler extends BaseThingHandler {
         public void run() {
             try {
                 try {
-                    System.out.println("Polling run");
+                    System.out.println("Polling qplug");
+
+                    try {
+                        ReadWriteLock.getInstance().lockWrite();
+                        NorthqServices services = new NorthqServices();
+                        NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        ReadWriteLock.getInstance().unlockWrite();
+                    }
 
                     String nodeId = getThing().getProperties().get("thingID");
+                    Qplug qplug = getPlug(nodeId);
+                    // qplug.getStatus()
+                    if (qplug.getStatus() != currentStatus) {
+                        System.out.println("status changed polling");
+                        System.out.println("currentStatus: " + currentStatus);
+                        System.out.println("qplug.getStatus()" + qplug.getStatus());
+                        updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                        currentStatus = qplug.getStatus();
+
+                    }
+                    // updateState("channelplug", OnOffType.OFF);
+                    // triggerChannel("channelplug", "OFF");
 
                 } catch (Exception e) {
                     // catch block
@@ -71,8 +97,9 @@ public class NorthQPlugHandler extends BaseThingHandler {
     public NorthQPlugHandler(Thing thing) {
         super(thing);
         services = new NorthqServices();
+        currentStatus = false;
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 2, TimeUnit.SECONDS);
 
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
     @SuppressWarnings("unlikely-arg-type")
@@ -110,24 +137,33 @@ public class NorthQPlugHandler extends BaseThingHandler {
             }
 
             if (command.toString().equals("ON")) {
+                currentStatus = true;
                 System.out.println("Debug In handleCommand turn on");
 
                 // Plug should be turned on
+
                 try {
+                    ReadWriteLock.getInstance().lockRead();
                     boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
                     System.out.println("Success " + res);
                 } catch (Exception e) {
                     e.printStackTrace();
                     // updateStatus(ThingStatus.OFFLINE);
+                } finally {
+                    ReadWriteLock.getInstance().unlockRead();
                 }
             } else {
+                currentStatus = false;
                 System.out.println("Debug In handleCommand turn off");
                 try {
+                    ReadWriteLock.getInstance().lockRead();
                     boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
                     System.out.println("Success " + res);
                 } catch (Exception e) {
                     e.printStackTrace();
                     // updateStatus(ThingStatus.OFFLINE);
+                } finally {
+                    ReadWriteLock.getInstance().unlockRead();
                 }
             }
         }
@@ -149,7 +185,9 @@ public class NorthQPlugHandler extends BaseThingHandler {
             for (int i = 0; i < things.size(); i++) {
 
                 if (things.get(i) instanceof model.Qplug && nodeID.equals(things.get(i).getNodeID())) {
-                    return (Qplug) things.get(i);
+                    Qplug plug = (Qplug) things.get(i);
+
+                    return plug;
                 }
             }
         }
