@@ -27,7 +27,6 @@ public class NorthQConfig {
     public static String PASSWORD = "";
 
     // Gateway
-    public static String GATEWAY_ID = "";
     public static String PLUG_ID = "";
 
     public static String getTOKEN() {
@@ -52,13 +51,5 @@ public class NorthQConfig {
 
     public static void setPASSWORD(String pASSWORD) {
         PASSWORD = pASSWORD;
-    }
-
-    public static String getGATEWAY_ID() {
-        return GATEWAY_ID;
-    }
-
-    public static void setGATEWAY_ID(String gATEWAY_ID) {
-        GATEWAY_ID = gATEWAY_ID;
     }
 }

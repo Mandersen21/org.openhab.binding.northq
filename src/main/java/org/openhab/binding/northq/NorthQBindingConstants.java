@@ -27,12 +27,12 @@ public class NorthQBindingConstants {
     public static final String BINDING_ID = "northq";
 
     // Thing Type UIDs
-    public static final ThingTypeUID THING_TYPE_QSTICK = new ThingTypeUID(BINDING_ID, "qStick");
+    public static final ThingTypeUID THING_TYPE_NETWORK = new ThingTypeUID(BINDING_ID, "northqnetwork");
     public static final ThingTypeUID THING_TYPE_QPLUG = new ThingTypeUID(BINDING_ID, "qPlug");
     public static final ThingTypeUID THING_TYPE_QMOTION = new ThingTypeUID(BINDING_ID, "qMotion");
 
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(THING_TYPE_QPLUG,
-            THING_TYPE_QMOTION, THING_TYPE_QSTICK);
+            THING_TYPE_QMOTION, THING_TYPE_NETWORK);
 
     // Channel IDs
     public static final String CHANNEL_QSTICK = "channelstick";
