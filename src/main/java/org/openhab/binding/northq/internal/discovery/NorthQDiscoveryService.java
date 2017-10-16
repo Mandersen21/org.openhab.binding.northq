@@ -77,26 +77,39 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
         onDataFetched();
         System.out.println("DEBUG2 - Scan completed thing added");
     }
-
     @Override
     public void onDataFetched() {
-        String hackID = "node2";
-        // System.out.println("bridge = " + bridgeHandler == null);
-        // System.out.println("Bridge thing = " + (bridgeHandler.getThing()) == null);
-        // System.out.println("Bridge thingUID = " + (bridgeHandler.getThing().getUID()) == null);
-
-        // ThingUID bridgeUID = bridgeHandler.getThing().getUID(); // ??? has nullpointer exception but why is it never
-        // ThingTypeUID thingTypeUID = new ThingTypeUID(NorthQBindingConstants.BINDING_ID, hackID);
-
-        // System.out.println(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS.contains(NorthQBindingConstants.THING_TYPE_QPLUG));
-        System.out.println("in if block thing created");
-        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, hackID);
-        Map<String, Object> properties = new HashMap<>(1);
-        properties.put(hackID, "Mybinding");
-        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties).withLabel(hackID)
-                .withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
-        thingDiscovered(dr);
-        System.out.println("thing should be discovered");
+        NorthNetwork n = NorthQConfig.NETWORK;
+        if (n != null) {
+            ArrayList<NGateway> g = n.getGateways();
+            for (int i = 0; i < g.size(); i++) {
+                ArrayList<Thing> things = g.get(i).getThings();
+                for (int j = 0; j < things.size(); j++) {
+                    Thing thing = things.get(j);
+                    if (thing instanceof Qplug) {
+                        System.out.println("Discovered thing type Q plug");
+                        String thingID = thing.getNodeID();
+                        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
+                        Map<String, Object> properties = new HashMap<>(1);
+                        properties.put(thingID, "Mybinding");
+                        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                                .withLabel(thingID).withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
+                        thingDiscovered(dr);
+                    } else if (thing instanceof Qmotion) {
+                        System.out.println("Discovered thing type Q motion");
+                        String thingID = thing.getNodeID();
+                        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
+                        Map<String, Object> properties = new HashMap<>(1);
+                        properties.put(thingID, "Mybinding");
+                        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                                .withLabel(thingID).withThingType(NorthQBindingConstants.THING_TYPE_QMOTION).build();
+                        thingDiscovered(dr);
+                    } else if (thing instanceof Qthermostat) {
+                        System.out.println("Discovered thing type Q thermostat");
+                    }
+                }
+            }
+        }
 
     }
 
