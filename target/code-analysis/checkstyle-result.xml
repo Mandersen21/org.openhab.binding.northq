@@ -1,91 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.1">
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\.classpath">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\.classpath">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\about.html">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\about.html">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\build.properties">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\build.properties">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\binding\binding.xml">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\binding\binding.xml">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\i18n\northq_xx_XX.properties">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\i18n\northq_xx_XX.properties">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\thing\bridge.xml">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\thing\bridge.xml">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\thing\thing-types.xml">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\ESH-INF\thing\thing-types.xml">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\META-INF\MANIFEST.MF">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\META-INF\MANIFEST.MF">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\.gitignore">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\.gitignore">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService.xml">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService.xml">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\org.openhab.binding.northq.internal.NorthQHandlerFactory.xml">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\OSGI-INF\org.openhab.binding.northq.internal.NorthQHandlerFactory.xml">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\pom.xml">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\pom.xml">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\README.md">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\README.md">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQHandler.java">
-<error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQHandler.java">
 <error line="26" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 <error line="31" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 <error line="32" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
-<error line="91" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="103" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="107" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="129" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="130" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
-<error line="130" column="20" severity="info" message="Name &apos;gateway_id&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
-<error line="148" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
-<error line="154" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="159" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
-<error line="178" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
+<error line="79" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="88" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="116" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="117" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="117" column="20" severity="info" message="Name &apos;gateway_id&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+<error line="168" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQNetworkHandler.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQNetworkHandler.java">
 <error line="47" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 <error line="56" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 <error line="62" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 <error line="68" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
-<error line="81" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="85" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="102" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="127" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
-<error line="127" column="20" severity="info" message="Name &apos;gateway_id&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
-<error line="180" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
+<error line="72" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="74" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="91" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="118" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="187" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\common\NorthQConfig.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\common\NorthQConfig.java">
 <error line="22" column="32" severity="info" message="Name &apos;NETWORK&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
 <error line="25" column="26" severity="info" message="Name &apos;TOKEN&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
 <error line="26" column="26" severity="info" message="Name &apos;USERNAME&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
 <error line="27" column="26" severity="info" message="Name &apos;PASSWORD&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
 <error line="30" column="26" severity="info" message="Name &apos;PLUG_ID&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\common\ReadWriteLock.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\common\ReadWriteLock.java">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 <error line="25" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\discovery\NorthQDiscoveryService.java">
-<error line="59" severity="info" message="Remove empty line after opening brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="61" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="88" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
-<error line="103" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="114" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
-<error line="159" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\discovery\NorthQDiscoveryService.java">
+<error line="77" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="88" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="143" severity="info" message="Remove empty line before closing brace" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\FreeboxDataListener.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\FreeboxDataListener.java">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\NorthQHandlerFactory.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\NorthQHandlerFactory.java">
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\NorthQBindingConstants.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\NorthQBindingConstants.java">
 </file>
 </checkstyle>

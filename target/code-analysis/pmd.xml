@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.8.1" timestamp="2017-10-16T16:38:15.886">
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
-<violation beginline="64" endline="64" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<pmd version="5.8.1" timestamp="2017-10-17T11:36:25.412">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQMotionHandler.java">
+<violation beginline="64" endline="64" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="71" endline="71" begincolumn="25" endcolumn="43" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
-Avoid printStackTrace(); use a logger call instead.
-</violation>
-<violation beginline="79" endline="79" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="81" endline="81" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="95" endline="95" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="83" endline="83" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="96" endline="96" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="121" endline="121" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="98" endline="98" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="111" endline="111" begincolumn="21" endcolumn="39" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
-Avoid printStackTrace(); use a logger call instead.
-</violation>
-<violation beginline="113" endline="113" begincolumn="22" endcolumn="30" rule="AvoidCatchingThrowable" ruleset="Strict Exceptions" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/strictexception.html#AvoidCatchingThrowable" priority="2">
-A catch statement should never catch throwable since it includes errors.
-</violation>
-<violation beginline="134" endline="134" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="135" endline="135" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="122" endline="122" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQMotionHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQNetworkHandler.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQNetworkHandler.java">
 <violation beginline="48" endline="48" begincolumn="9" endcolumn="24" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQNetworkHandler" method="initialize" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.print is used
 </violation>
@@ -43,78 +28,48 @@ Avoid printStackTrace(); use a logger call instead.
 System.out.println is used
 </violation>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
-<violation beginline="60" endline="60" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\handler\NorthQPlugHandler.java">
+<violation beginline="59" endline="59" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="67" endline="67" begincolumn="25" endcolumn="43" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
+<violation beginline="67" endline="67" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.println is used
+</violation>
+<violation beginline="68" endline="68" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.println is used
+</violation>
+<violation beginline="69" endline="69" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.println is used
+</violation>
+<violation beginline="103" endline="103" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.println is used
+</violation>
+<violation beginline="105" endline="105" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.println is used
+</violation>
+<violation beginline="137" endline="137" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="turnPlugOff" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.println is used
+</violation>
+<violation beginline="141" endline="141" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="turnPlugOff" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.println is used
+</violation>
+<violation beginline="143" endline="143" begincolumn="13" endcolumn="31" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="turnPlugOff" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
 Avoid printStackTrace(); use a logger call instead.
 </violation>
-<violation beginline="76" endline="76" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="157" endline="157" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="turnPlugOn" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="77" endline="77" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="161" endline="161" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="turnPlugOn" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="78" endline="78" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="89" endline="89" begincolumn="21" endcolumn="39" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
+<violation beginline="163" endline="163" begincolumn="13" endcolumn="31" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="turnPlugOn" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
 Avoid printStackTrace(); use a logger call instead.
 </violation>
-<violation beginline="91" endline="91" begincolumn="22" endcolumn="30" rule="AvoidCatchingThrowable" ruleset="Strict Exceptions" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/strictexception.html#AvoidCatchingThrowable" priority="2">
-A catch statement should never catch throwable since it includes errors.
-</violation>
-<violation beginline="109" endline="109" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="111" endline="111" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="123" endline="123" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="125" endline="125" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="130" endline="130" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="131" endline="131" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="132" endline="132" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="134" endline="134" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="136" endline="136" begincolumn="17" endcolumn="36" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
-Avoid printStackTrace(); use a logger call instead.
-</violation>
-<violation beginline="141" endline="141" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="148" endline="148" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="150" endline="150" begincolumn="21" endcolumn="39" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
-Avoid printStackTrace(); use a logger call instead.
-</violation>
-<violation beginline="157" endline="157" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="161" endline="161" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="163" endline="163" begincolumn="21" endcolumn="39" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="handleCommand" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
-Avoid printStackTrace(); use a logger call instead.
-</violation>
-<violation beginline="176" endline="176" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="initialize" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="179" endline="179" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.handler" class="NorthQPlugHandler" method="initialize" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\NorthQHandlerFactory.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\NorthQHandlerFactory.java">
 <violation beginline="46" endline="46" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal" class="NorthQHandlerFactory" method="createHandler" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
@@ -122,49 +77,43 @@ System.out.println is used
 System.out.println is used
 </violation>
 </file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\common\ReadWriteLock.java">
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\common\ReadWriteLock.java">
 <violation beginline="29" endline="31" begincolumn="9" endcolumn="9" rule="NonThreadSafeSingleton" ruleset="Design" package="org.openhab.binding.northq.internal.common" class="ReadWriteLock" method="getInstance" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/design.html#NonThreadSafeSingleton" priority="3">
 Singleton is not thread safe
 </violation>
-</file>
-<file name="C:\Users\Nicol\eclipse\java-oxygen\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\discovery\NorthQDiscoveryService.java">
-<violation beginline="60" endline="60" begincolumn="21" endcolumn="38" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
-System.out.println is used
-</violation>
-<violation beginline="65" endline="65" begincolumn="21" endcolumn="39" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
+<violation beginline="41" endline="41" begincolumn="17" endcolumn="35" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.internal.common" class="ReadWriteLock" method="lockRead" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
 Avoid printStackTrace(); use a logger call instead.
 </violation>
-<violation beginline="67" endline="67" begincolumn="22" endcolumn="30" rule="AvoidCatchingThrowable" ruleset="Strict Exceptions" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="run" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/strictexception.html#AvoidCatchingThrowable" priority="2">
-A catch statement should never catch throwable since it includes errors.
+<violation beginline="59" endline="59" begincolumn="17" endcolumn="35" rule="AvoidPrintStackTrace" ruleset="Java Logging" package="org.openhab.binding.northq.internal.common" class="ReadWriteLock" method="lockWrite" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" priority="3">
+Avoid printStackTrace(); use a logger call instead.
 </violation>
-<violation beginline="81" endline="81" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="NorthQDiscoveryService" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+</file>
+<file name="C:\Users\danma\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java\org\openhab\binding\northq\internal\discovery\NorthQDiscoveryService.java">
+<violation beginline="54" endline="54" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="NorthQDiscoveryService" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="87" endline="87" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="NorthQDiscoveryService" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="63" endline="63" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="NorthQDiscoveryService" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="98" endline="98" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="startBackgroundDiscovery" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="72" endline="72" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="startBackgroundDiscovery" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="100" endline="102" begincolumn="61" endcolumn="9" rule="EmptyIfStmt" ruleset="Empty Code" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="startBackgroundDiscovery" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/empty.html#EmptyIfStmt" priority="3">
-Avoid empty if statements
-</violation>
-<violation beginline="109" endline="109" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="stopBackgroundDiscovery" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="83" endline="83" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="stopBackgroundDiscovery" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="119" endline="119" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="startScan" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="98" endline="98" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="startScan" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="121" endline="121" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="startScan" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="100" endline="100" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="startScan" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="134" endline="134" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="onDataFetched" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="118" endline="118" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="onDataFetched" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="144" endline="144" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="onDataFetched" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="128" endline="128" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="onDataFetched" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
-<violation beginline="154" endline="154" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="onDataFetched" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="138" endline="138" begincolumn="25" endcolumn="42" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.northq.internal.discovery" class="NorthQDiscoveryService" method="onDataFetched" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.println is used
 </violation>
 </file>

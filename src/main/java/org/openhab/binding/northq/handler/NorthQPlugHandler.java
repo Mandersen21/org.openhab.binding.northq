@@ -50,58 +50,52 @@ public class NorthQPlugHandler extends BaseThingHandler {
     // Add to declarations
     private ScheduledFuture<?> pollingJob;
 
-    // stuff in whereever i guess
     private Runnable pollingRunnable = new Runnable() {
 
         @Override
         public void run() {
             try {
-                try {
-                    System.out.println("Polling qplug");
+                ReadWriteLock.getInstance().lockWrite();
+                System.out.println("Polling qplug");
 
-                    try {
-                        ReadWriteLock.getInstance().lockWrite();
-                        NorthqServices services = new NorthqServices();
-                        NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        ReadWriteLock.getInstance().unlockWrite();
-                    }
+                NorthqServices services = new NorthqServices();
+                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
 
-                    String nodeId = getThing().getProperties().get("thingID");
-                    Qplug qplug = getPlug(nodeId);
-                    // qplug.getStatus()
-                    if (qplug.getStatus() != currentStatus) {
-                        System.out.println("status changed polling");
-                        System.out.println("currentStatus: " + currentStatus);
-                        System.out.println("qplug.getStatus()" + qplug.getStatus());
-                        updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                        currentStatus = qplug.getStatus();
+                String nodeId = getThing().getProperties().get("thingID");
+                Qplug qplug = getPlug(nodeId);
+                if (qplug != null && qplug.getStatus() != currentStatus) {
+                    System.out.println("status changed polling");
+                    System.out.println("currentStatus: " + currentStatus);
+                    System.out.println("qplug.getStatus()" + qplug.getStatus());
+                    updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                    currentStatus = qplug.getStatus();
 
-                    }
-                    // updateState("channelplug", OnOffType.OFF);
-                    // triggerChannel("channelplug", "OFF");
-
-                } catch (Exception e) {
-                    // catch block
-
-                    e.printStackTrace();
                 }
-            } catch (Throwable t) {
-                logger.error("An unexpected error occurred: {}", t.getMessage(), t);
+
+            } catch (Exception e) {
+                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+            } finally {
+                ReadWriteLock.getInstance().unlockWrite();
             }
         }
     };
 
+    /**
+     * Constructor
+     */
     public NorthQPlugHandler(Thing thing) {
         super(thing);
         services = new NorthqServices();
         currentStatus = false;
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 2, TimeUnit.SECONDS);
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
 
     }
 
+    /**
+     * Abstract method overwritten
+     * Requires: a channelId and a command
+     * Returns: Updates the state of the device
+     */
     @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
@@ -120,55 +114,64 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 updateStatus(ThingStatus.ONLINE);
             }
 
-            System.out.println(qPlug.getNodeID());
-
-            System.out.println("UID" + super.getThing().getUID());
             // Configurations
-            String gateway_id = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
-            String username = NorthQConfig.NETWORK.getUserId();
-
-            System.out.println("gateway:" + gateway_id);
-            System.out.println("username" + username);
-            System.out.println("config networktoken; " + NorthQConfig.NETWORK.getToken());
-            try {
-                System.out.println("current token:" + services.postLogin(username, username).token);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
+            String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+            String userID = NorthQConfig.NETWORK.getUserId();
 
             if (command.toString().equals("ON")) {
-                currentStatus = true;
-                System.out.println("Debug In handleCommand turn on");
-
-                // Plug should be turned on
-
-                try {
-                    ReadWriteLock.getInstance().lockRead();
-                    boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
-                    System.out.println("Success " + res);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // updateStatus(ThingStatus.OFFLINE);
-                } finally {
-                    ReadWriteLock.getInstance().unlockRead();
-                }
+                turnPlugOn(qPlug, gatewayID, userID);
             } else {
-                currentStatus = false;
-                System.out.println("Debug In handleCommand turn off");
-                try {
-                    ReadWriteLock.getInstance().lockRead();
-                    boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), username, gateway_id);
-                    System.out.println("Success " + res);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // updateStatus(ThingStatus.OFFLINE);
-                } finally {
-                    ReadWriteLock.getInstance().unlockRead();
-                }
+                turnPlugOff(qPlug, gatewayID, userID);
             }
+        }
+        pollingRunnable.run();
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires: qplug, gatewayId and the userID
+     * Returns: Turns the physical device on
+     */
+    private void turnPlugOff(Qplug qPlug, String gateway_id, String userID) {
+        currentStatus = false;
+        System.out.println("Debug In handleCommand turn off");
+        try {
+            ReadWriteLock.getInstance().lockRead();
+            boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gateway_id);
+            System.out.println("Success " + res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            updateStatus(ThingStatus.OFFLINE);
+        } finally {
+            ReadWriteLock.getInstance().unlockRead();
         }
     }
 
+    /**
+     * Abstract method overwritten
+     * Requires: qplug, gatewayId and the userID
+     * Returns: Turns the physical device on
+     */
+    private void turnPlugOn(Qplug qPlug, String gateway_id, String userID) {
+        currentStatus = true;
+        System.out.println("Debug In handleCommand turn on");
+        try {
+            ReadWriteLock.getInstance().lockRead();
+            boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gateway_id);
+            System.out.println("Success " + res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            updateStatus(ThingStatus.OFFLINE);
+        } finally {
+            ReadWriteLock.getInstance().unlockRead();
+        }
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initialization method
+     */
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
@@ -176,6 +179,10 @@ public class NorthQPlugHandler extends BaseThingHandler {
         System.out.println("Initialized: " + pollingJob);
     }
 
+    /**
+     * Requires: A nodeID
+     * Returns: Fetches the plug given the ID
+     */
     public @Nullable Qplug getPlug(String nodeID) {
 
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();

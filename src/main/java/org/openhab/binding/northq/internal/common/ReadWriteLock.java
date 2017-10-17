@@ -9,7 +9,7 @@
 package org.openhab.binding.northq.internal.common;
 
 /**
- * The {@link ReadWriteLock} its a lock.
+ * The {@link ReadWriteLock} is a lock:
  *
  * @author DTU_02162_group03 - Initial contribution
  */
@@ -33,9 +33,13 @@ public class ReadWriteLock {
         return instance;
     }
 
-    public synchronized void lockRead() throws InterruptedException {
+    public synchronized void lockRead() {
         while (writers > 0 || writeRequests > 0) {
-            wait();
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         readers++;
     }
@@ -45,17 +49,21 @@ public class ReadWriteLock {
         notifyAll();
     }
 
-    public synchronized void lockWrite() throws InterruptedException {
+    public synchronized void lockWrite() {
         writeRequests++;
 
         while (readers > 0 || writers > 0) {
-            wait();
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         writeRequests--;
         writers++;
     }
 
-    public synchronized void unlockWrite() throws InterruptedException {
+    public synchronized void unlockWrite() {
         writers--;
         notifyAll();
     }
