@@ -11,7 +11,6 @@ package org.openhab.binding.northq.internal.discovery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
 
 import org.eclipse.smarthome.config.discovery.AbstractDiscoveryService;
 import org.eclipse.smarthome.config.discovery.DiscoveryResult;
@@ -35,9 +34,9 @@ import model.Thing;
 
 /**
  * The {@link NorthQDiscoveryService} is responsible for creating things and thing
- * handlers.
+ * handlers, auto discoverable by framework (openhab).
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan - Initial contribution
  */
 @Component(service = DiscoveryService.class, immediate = true, configurationPid = "discovery.northq")
 public class NorthQDiscoveryService extends AbstractDiscoveryService implements FreeboxDataListener {
@@ -47,59 +46,34 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQDiscoveryService.class);
 
-    private ScheduledFuture<?> pollingJob;
-
-    // stuff in whereever i guess
-    private Runnable pollingRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            try {
-                try {
-
-                    System.out.println("Polling discovery");
-
-                } catch (Exception e) {
-                    // catch block
-
-                    e.printStackTrace();
-                }
-            } catch (Throwable t) {
-                logger.error("An unexpected error occurred: {}", t.getMessage(), t);
-            }
-        }
-    };
-
     /**
-     * creates a discovery service with background discovery (enabled)
-     *
-     * @param timeout
-     * @throws IllegalArgumentException
+     * Constructor
      */
     public NorthQDiscoveryService() {
         super(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS, 0, true);
         System.out.println("DEBUG2 - in DiscoveryService");
     }
 
+    /**
+     * Constructor
+     */
     public NorthQDiscoveryService(NorthQNetworkHandler bridge) {
         super(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS, 0, true);
         this.bridgeHandler = bridge;
         System.out.println("DEBUG2 - in DiscoveryService");
-        // TODO Auto-generated constructor stub
     }
 
     /**
      * this function is called to start background discovery
-     *
      */
     @Override
     protected void startBackgroundDiscovery() {
         logger.debug("Start WeMo device background discovery");
         System.out.println("DEBUG2 - starting background discovery service");
 
-        if (pollingJob == null || pollingJob.isCancelled()) {
-            // pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
-        }
+        // if (pollingJob == null || pollingJob.isCancelled()) {
+        // // pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+        // }
 
     }
 
@@ -107,13 +81,18 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     protected void stopBackgroundDiscovery() {
         logger.debug("Stop WeMo device background discovery");
         System.out.println("DEBUG2 - stopping background discovery service");
-        if (pollingJob != null && !pollingJob.isCancelled()) {
-            pollingJob.cancel(true);
-            pollingJob = null;
-        }
+        // if (pollingJob != null && !pollingJob.isCancelled()) {
+        // pollingJob.cancel(true);
+        // pollingJob = null;
+        // }
 
     }
 
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Informs framework of any discovered things
+     */
     @Override
     public void startScan() {
         System.out.println("DEBUG2 - starting scan");
@@ -121,6 +100,11 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
         System.out.println("DEBUG2 - Scan completed thing added");
     }
 
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Discovers all things related to the northQ network
+     */
     @Override
     public void onDataFetched() {
         NorthNetwork n = NorthQConfig.NETWORK;

@@ -28,7 +28,7 @@ under the License.
       <title>File: 23,
              Errors: 0,
              Warnings: 0,
-             Infos: 42
+             Infos: 33
       </title>
             <link>${project.url}/checkstyle.html</link>
       <description>
@@ -217,7 +217,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQHandler.java</a>
                 </td>
                 <td>
-                  4
+                  3
                 </td>
                 <td>
                   0
@@ -245,7 +245,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQPlugHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQPlugHandler.java</a>
                 </td>
                 <td>
-                  6
+                  5
                 </td>
                 <td>
                   0
@@ -287,7 +287,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService.java">src/main/java/org/openhab/binding/northq/internal/discovery/NorthQDiscoveryService.java</a>
                 </td>
                 <td>
-                  6
+                  3
                 </td>
                 <td>
                   0
@@ -357,7 +357,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQMotionHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQMotionHandler.java</a>
                 </td>
                 <td>
-                  10
+                  6
                 </td>
                 <td>
                   0
