@@ -19,7 +19,7 @@ import org.eclipse.smarthome.config.discovery.DiscoveryService;
 import org.eclipse.smarthome.core.thing.ThingUID;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
-import org.openhab.binding.northq.internal.FreeboxDataListener;
+import org.openhab.binding.northq.internal.NorthqDataListener;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ import model.Thing;
  * @author Dan - Initial contribution
  */
 @Component(service = DiscoveryService.class, immediate = true, configurationPid = "discovery.northq")
-public class NorthQDiscoveryService extends AbstractDiscoveryService implements FreeboxDataListener {
+public class NorthQDiscoveryService extends AbstractDiscoveryService implements NorthqDataListener {
 
     private NorthQNetworkHandler bridgeHandler;
 
