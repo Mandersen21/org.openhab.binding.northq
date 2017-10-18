@@ -64,7 +64,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 String nodeId = getThing().getProperties().get("thingID");
                 Qplug qplug = getPlug(nodeId);
                 if (qplug != null && qplug.getStatus() != currentStatus) {
-                    System.out.println("status changed polling");
                     System.out.println("currentStatus: " + currentStatus);
                     System.out.println("qplug.getStatus()" + qplug.getStatus());
                     updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
@@ -99,7 +98,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
-        // Recived command
         System.out.println("Debug In handleCommand");
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
             System.out.println("Debug In handleCommand in Channel Qplug");
@@ -132,12 +130,12 @@ public class NorthQPlugHandler extends BaseThingHandler {
      * Requires: qplug, gatewayId and the userID
      * Returns: Turns the physical device on
      */
-    private void turnPlugOff(Qplug qPlug, String gateway_id, String userID) {
+    private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) {
         currentStatus = false;
         System.out.println("Debug In handleCommand turn off");
         try {
             ReadWriteLock.getInstance().lockRead();
-            boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gateway_id);
+            boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
             System.out.println("Success " + res);
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,12 +150,12 @@ public class NorthQPlugHandler extends BaseThingHandler {
      * Requires: qplug, gatewayId and the userID
      * Returns: Turns the physical device on
      */
-    private void turnPlugOn(Qplug qPlug, String gateway_id, String userID) {
+    private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) {
         currentStatus = true;
         System.out.println("Debug In handleCommand turn on");
         try {
             ReadWriteLock.getInstance().lockRead();
-            boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gateway_id);
+            boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
             System.out.println("Success " + res);
         } catch (Exception e) {
             e.printStackTrace();

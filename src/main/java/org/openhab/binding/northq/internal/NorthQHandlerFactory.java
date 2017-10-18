@@ -43,20 +43,19 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
     @Override
     public @Nullable ThingHandler createHandler(Thing thing) {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
-        System.out.println("Is Thing null: " + thing);
 
+        // Setup discovery
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_NETWORK)) {
-            NorthQNetworkHandler handler = new NorthQNetworkHandler((Bridge) thing); // Is null? or thing is nothing
-                                                                                     // atleast
+            NorthQNetworkHandler handler = new NorthQNetworkHandler((Bridge) thing);
             registerDiscoveryService(handler);
             System.out.println("Handler added");
             return handler;
         }
-
+        // New plug
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPLUG)) {
             return new NorthQPlugHandler(thing);
         }
-
+        // New motion
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QMOTION)) {
             return new NorthQMotionHandler(thing);
         }

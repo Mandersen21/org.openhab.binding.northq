@@ -12,6 +12,8 @@ package org.openhab.binding.northq.internal.common;
  * The {@link ReadWriteLock} is a lock:
  *
  * @author DTU_02162_group03 - Initial contribution
+ *         This class is used as a coordinator for the different processes (threads) ensuring the value over NorthQ
+ *         network is not overwritten badly
  */
 public class ReadWriteLock {
 

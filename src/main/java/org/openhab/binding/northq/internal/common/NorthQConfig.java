@@ -22,20 +22,8 @@ public class NorthQConfig {
     public static NorthNetwork NETWORK = null;
 
     // Authentication
-    public static String TOKEN = "";
     public static String USERNAME = "";
     public static String PASSWORD = "";
-
-    // Gateway
-    public static String PLUG_ID = "";
-
-    public static String getTOKEN() {
-        return TOKEN;
-    }
-
-    public static void setTOKEN(String tOKEN) {
-        TOKEN = tOKEN;
-    }
 
     public static String getUSERNAME() {
         return USERNAME;

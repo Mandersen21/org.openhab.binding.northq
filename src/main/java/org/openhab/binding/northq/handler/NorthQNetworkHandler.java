@@ -33,6 +33,9 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     private NorthQConfig config;
     private NorthqServices services;
 
+    /**
+     * Constructor
+     */
     public NorthQNetworkHandler(Bridge bridge) {
         super(bridge);
         config = new NorthQConfig();
@@ -42,9 +45,13 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQNetworkHandler.class);
 
+    /**
+     * Initializer
+     * Requires:
+     * Returns: Sets up a northQ network, storing user and password information
+     */
     @Override
     public void initialize() {
-
         System.out.print("North q stick is online");
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get("username").toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get("password").toString());
@@ -53,18 +60,21 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
             network = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD());
             NorthQConfig.NETWORK = network;
         } catch (Exception e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
         System.out.println("North network setup: " + network.getGateways().get(0).getGatewayId());
         updateStatus(ThingStatus.ONLINE);
-        
+
     }
 
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns:
+     */
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
-        // Start discovery
 
     }
 }

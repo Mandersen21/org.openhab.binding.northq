@@ -113,18 +113,15 @@ public class NorthQMotionHandler extends BaseThingHandler {
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(CHANNEL_QMOTION)) {
 
-            String gateway_id = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+            String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
             String nodeId = getThing().getProperties().get("thingID");
             Qmotion qMotion = getQmotion(nodeId);
-
-            System.out.println("Token in config " + NorthQConfig.getTOKEN());
-            System.out.println("Dan token: " + NorthQConfig.NETWORK.getToken());
 
             if (command.toString().equals("ON")) {
                 // Plug should be turned on
                 try {
                     ReadWriteLock.getInstance().lockRead();
-                    services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gateway_id,
+                    services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = true;
                 } catch (Exception e) {
@@ -136,7 +133,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 // Plug should be turned off
                 try {
                     ReadWriteLock.getInstance().lockRead();
-                    services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gateway_id,
+                    services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = false;
                 } catch (Exception e) {
