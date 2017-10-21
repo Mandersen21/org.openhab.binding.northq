@@ -234,6 +234,7 @@
       <message tool="checkstyle" line="115" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
       <message tool="checkstyle" line="116" message="Comment matches to-do format '(TODO)|(FIXME)'." priority="3" rule="TodoCommentCheck" category="style"/>
       <message tool="checkstyle" line="167" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
+   <message tool="checkstyle" line="164" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
    </file>
    <file name=".binding.northq\.classpath">
       <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>
@@ -265,12 +266,16 @@
    <message tool="checkstyle" line="47" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
       <message tool="checkstyle" line="56" message="Comment matches to-do format '(TODO)|(FIXME)'." priority="3" rule="TodoCommentCheck" category="style"/>
       <message tool="checkstyle" line="62" message="Remove empty line before closing brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
-      <message tool="checkstyle" line="68" message="Remove empty line before closing brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
+      <message tool="pmd" line="55" message="&#xA;System.out.print is used&#xA;" priority="3" rule="SystemPrintln" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" category="java logging"/>
+      <message tool="pmd" line="63" message="&#xA;Avoid printStackTrace(); use a logger call instead.&#xA;" priority="3" rule="AvoidPrintStackTrace" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" category="java logging"/>
+      <message tool="pmd" line="66" message="&#xA;System.out.println is used&#xA;" priority="3" rule="SystemPrintln" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" category="java logging"/>
+   <message tool="checkstyle" line="68" message="Remove empty line before closing brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
    <message tool="pmd" line="52" message="&#xA;System.out.print is used&#xA;" priority="3" rule="SystemPrintln" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" category="java logging"/>
       <message tool="pmd" line="60" message="&#xA;Avoid printStackTrace(); use a logger call instead.&#xA;" priority="3" rule="AvoidPrintStackTrace" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" category="java logging"/>
       <message tool="pmd" line="63" message="&#xA;System.out.println is used&#xA;" priority="3" rule="SystemPrintln" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" category="java logging"/>
    <message tool="checkstyle" line="65" message="Remove empty line before closing brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
       <message tool="checkstyle" line="75" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
+   <message tool="checkstyle" line="78" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
    </file>
    <file name="org.openhab.binding.northq.handler.NorthQPlugHandler.java">
       <message tool="checkstyle" line="53" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
@@ -460,11 +465,15 @@
    <message tool="pmd" line="29" message="&#xA;Singleton is not thread safe&#xA;" priority="3" rule="NonThreadSafeSingleton" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/design.html#NonThreadSafeSingleton" category="design"/>
    <message tool="pmd" line="41" message="&#xA;Avoid printStackTrace(); use a logger call instead.&#xA;" priority="3" rule="AvoidPrintStackTrace" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" category="java logging"/>
       <message tool="pmd" line="59" message="&#xA;Avoid printStackTrace(); use a logger call instead.&#xA;" priority="3" rule="AvoidPrintStackTrace" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" category="java logging"/>
+   <message tool="pmd" line="31" message="&#xA;Singleton is not thread safe&#xA;" priority="3" rule="NonThreadSafeSingleton" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/design.html#NonThreadSafeSingleton" category="design"/>
+      <message tool="pmd" line="43" message="&#xA;Avoid printStackTrace(); use a logger call instead.&#xA;" priority="3" rule="AvoidPrintStackTrace" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" category="java logging"/>
+      <message tool="pmd" line="61" message="&#xA;Avoid printStackTrace(); use a logger call instead.&#xA;" priority="3" rule="AvoidPrintStackTrace" rule_url="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace" category="java logging"/>
    <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>
       <message tool="checkstyle" line="1" message="Line does not match expected header line of '^/\*\*$'." priority="1" rule="RegexpHeaderCheck" category="style"/>
       <message tool="checkstyle" line="3" message="An author tag is missing" priority="1" rule="AuthorTagCheck" category="style"/>
       <message tool="checkstyle" line="12" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
    <message tool="checkstyle" line="25" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
+   <message tool="checkstyle" line="27" message="Remove empty line after opening brace" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
    </file>
    <file name="org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService.java">
       <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>
