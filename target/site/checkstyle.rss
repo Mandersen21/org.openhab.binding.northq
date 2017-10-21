@@ -28,7 +28,7 @@ under the License.
       <title>File: 22,
              Errors: 0,
              Warnings: 0,
-             Infos: 25
+             Infos: 24
       </title>
             <link>${project.url}/checkstyle.html</link>
       <description>
@@ -63,7 +63,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#.classpath">.classpath</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
