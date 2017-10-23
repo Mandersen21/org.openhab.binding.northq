@@ -66,27 +66,25 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     /**
      * this function is called to start background discovery
      */
-    @Override
-    protected void startBackgroundDiscovery() {
-        logger.debug("Start WeMo device background discovery");
-        System.out.println("DEBUG2 - starting background discovery service");
+    // @Override
+    // protected void startBackgroundDiscovery() {
+    // logger.debug("Start NorthQ device background discovery");
+    // System.out.println("DEBUG2 - starting background discovery service");
+    //
+    // if (pollingJob == null || pollingJob.isCancelled()) {
+    // pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+    // }
+    // }
 
-        // if (pollingJob == null || pollingJob.isCancelled()) {
-        // // pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
-        // }
-
-    }
-
-    @Override
-    protected void stopBackgroundDiscovery() {
-        logger.debug("Stop WeMo device background discovery");
-        System.out.println("DEBUG2 - stopping background discovery service");
-        // if (pollingJob != null && !pollingJob.isCancelled()) {
-        // pollingJob.cancel(true);
-        // pollingJob = null;
-        // }
-
-    }
+    // @Override
+    // protected void stopBackgroundDiscovery() {
+    // logger.debug("Stop WeMo device background discovery");
+    // System.out.println("DEBUG2 - stopping background discovery service");
+    // if (pollingJob != null && !pollingJob.isCancelled()) {
+    // pollingJob.cancel(true);
+    // pollingJob = null;
+    // }
+    // }
 
     /**
      * Abstract method overwritten

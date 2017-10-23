@@ -68,9 +68,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
                     System.out.println("qplug.getStatus()" + qplug.getStatus());
                     updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
                     currentStatus = qplug.getStatus();
-
                 }
-
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {
@@ -87,7 +85,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
         services = new NorthqServices();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
-
     }
 
     /**
@@ -98,9 +95,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
-        System.out.println("Debug In handleCommand");
+
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
-            System.out.println("Debug In handleCommand in Channel Qplug");
 
             String nodeId = getThing().getProperties().get("thingID");
             Qplug qPlug = getPlug(nodeId);
@@ -122,6 +118,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 turnPlugOff(qPlug, gatewayID, userID);
             }
         }
+
+        // Start polling job
         pollingRunnable.run();
     }
 
@@ -131,12 +129,11 @@ public class NorthQPlugHandler extends BaseThingHandler {
      * Returns: Turns the physical device on
      */
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) {
-        currentStatus = false;
-        System.out.println("Debug In handleCommand turn off");
         try {
             ReadWriteLock.getInstance().lockRead();
             boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
             System.out.println("Success " + res);
+            currentStatus = false;
         } catch (Exception e) {
             e.printStackTrace();
             updateStatus(ThingStatus.OFFLINE);
@@ -151,12 +148,11 @@ public class NorthQPlugHandler extends BaseThingHandler {
      * Returns: Turns the physical device on
      */
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) {
-        currentStatus = true;
-        System.out.println("Debug In handleCommand turn on");
         try {
             ReadWriteLock.getInstance().lockRead();
             boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
             System.out.println("Success " + res);
+            currentStatus = true;
         } catch (Exception e) {
             e.printStackTrace();
             updateStatus(ThingStatus.OFFLINE);
@@ -173,7 +169,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
-
         System.out.println("Initialized: " + pollingJob);
     }
 
@@ -182,21 +177,16 @@ public class NorthQPlugHandler extends BaseThingHandler {
      * Returns: Fetches the plug given the ID
      */
     public @Nullable Qplug getPlug(String nodeID) {
-
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
         for (NGateway gw : gateways) {
-
             ArrayList<model.Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {
-
                 if (things.get(i) instanceof model.Qplug && nodeID.equals(things.get(i).getNodeID())) {
                     Qplug plug = (Qplug) things.get(i);
-
                     return plug;
                 }
             }
         }
-
         return null;
     }
 }

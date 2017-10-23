@@ -11,8 +11,8 @@
    <body>
       <h2>Report
          					 
-         					(2017-10-18+02:00;
-         					 10:48:58.634+02:00)
+         					(2017-10-21+02:00;
+         					 15:55:00.59+02:00)
          				
       </h2>
       <h3>Summary Messages</h3>
@@ -32,7 +32,7 @@
             <td>pmd</td>
             <td align="left">3</td>
             <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/design.html#NonThreadSafeSingleton">NonThreadSafeSingleton</a></td>
-            <td align="center">2</td>
+            <td align="center">3</td>
          </tr>
          <tr>
             <td colspan="5">empty code</td>
@@ -52,14 +52,14 @@
             <td>pmd</td>
             <td align="left">3</td>
             <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln">SystemPrintln</a></td>
-            <td align="center">180</td>
+            <td align="center">182</td>
          </tr>
          <tr class="alternate">
             <td></td>
             <td>pmd</td>
             <td align="left">3</td>
             <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace">AvoidPrintStackTrace</a></td>
-            <td align="center">46</td>
+            <td align="center">49</td>
          </tr>
          <tr>
             <td colspan="5">strict exceptions</td>
@@ -121,7 +121,7 @@
             <td>checkstyle</td>
             <td align="left">3</td>
             <td>NoEmptyLineSeparatorCheck</td>
-            <td align="center">95</td>
+            <td align="center">98</td>
          </tr>
          <tr class="alternate">
             <td></td>
@@ -146,7 +146,7 @@
          </tr>
          <tr class="dark">
             <td colspan="4"></td>
-            <td align="center">449</td>
+            <td align="center">458</td>
          </tr>
       </table>
       <p></p>
@@ -483,10 +483,10 @@
                <div class="p2">8</div>
             </td>
             <td align="center">
-               <div class="p3">160</div>
+               <div class="p3">161</div>
             </td>
             <td align="center">
-               <div class="p3">168</div>
+               <div class="p3">169</div>
             </td>
          </tr>
          <tr class="alternate">
@@ -498,10 +498,10 @@
                <div class="p2">0</div>
             </td>
             <td align="center">
-               <div class="p3">12</div>
+               <div class="p3">16</div>
             </td>
             <td align="center">
-               <div class="p3">12</div>
+               <div class="p3">16</div>
             </td>
          </tr>
          <tr class="alternate">
@@ -573,10 +573,10 @@
                <div class="p2">0</div>
             </td>
             <td align="center">
-               <div class="p3">7</div>
+               <div class="p3">11</div>
             </td>
             <td align="center">
-               <div class="p3">9</div>
+               <div class="p3">13</div>
             </td>
          </tr>
          <tr class="alternate">
@@ -603,10 +603,10 @@
                <div class="p2">16</div>
             </td>
             <td align="center">
-               <div class="p3">429</div>
+               <div class="p3">438</div>
             </td>
             <td align="center">
-               <div class="p3">449</div>
+               <div class="p3">458</div>
             </td>
          </tr>
       </table>
@@ -2625,6 +2625,14 @@
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line after opening brace</td>
          </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>164</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
       </table><br><table width="90%" border="0" class="details">
          <th align="left" colspan="6"><a name="org.openhab.binding.northq.handler.NorthQNetworkHandler.java">org.openhab.binding.northq.handler.NorthQNetworkHandler.java</a></th>
          <tr>
@@ -2693,6 +2701,39 @@
             <td>Remove empty line before closing brace</td>
          </tr>
          <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>55</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.print is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>63</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>66</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
             <td>checkstyle</td>
             <td>3</td>
             <td>68</td>
@@ -2745,6 +2786,14 @@
             <td>checkstyle</td>
             <td>3</td>
             <td>75</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>78</td>
             <td>style</td>
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line after opening brace</td>
@@ -4628,6 +4677,39 @@
             </td>
          </tr>
          <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>31</td>
+            <td>design</td>
+            <td>NonThreadSafeSingleton</td>
+            <td>
+               Singleton is not thread safe
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>43</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>61</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
             <td>checkstyle</td>
             <td>3</td>
             <td>0</td>
@@ -4647,6 +4729,14 @@
             <td>checkstyle</td>
             <td>3</td>
             <td>25</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>27</td>
             <td>style</td>
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line after opening brace</td>
