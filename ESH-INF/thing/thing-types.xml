@@ -27,7 +27,7 @@
 	
 	<channel-type id="plugEventTrigger">
         <kind>trigger</kind>
-        <label>q plug event trigger</label>
+        <label>QPlug event trigger</label>
         <description>Triggered to get current status of q plug</description>
     </channel-type>
 

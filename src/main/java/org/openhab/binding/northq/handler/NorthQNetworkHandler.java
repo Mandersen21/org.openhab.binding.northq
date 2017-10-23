@@ -59,13 +59,11 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         try {
             network = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD());
             NorthQConfig.NETWORK = network;
+            System.out.println("North network setup: " + network.getGateways().get(0).getGatewayId());
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-
-        System.out.println("North network setup: " + network.getGateways().get(0).getGatewayId());
         updateStatus(ThingStatus.ONLINE);
-
     }
 
     /**
