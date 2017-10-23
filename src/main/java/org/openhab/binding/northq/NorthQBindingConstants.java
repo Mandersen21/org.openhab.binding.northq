@@ -30,15 +30,17 @@ public class NorthQBindingConstants {
     public static final ThingTypeUID THING_TYPE_NETWORK = new ThingTypeUID(BINDING_ID, "northqnetwork");
     public static final ThingTypeUID THING_TYPE_QPLUG = new ThingTypeUID(BINDING_ID, "qPlug");
     public static final ThingTypeUID THING_TYPE_QMOTION = new ThingTypeUID(BINDING_ID, "qMotion");
+    public static final ThingTypeUID THING_TYPE_QPHONE = new ThingTypeUID(BINDING_ID, "qPhone");
 
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(THING_TYPE_QPLUG,
-            THING_TYPE_QMOTION, THING_TYPE_NETWORK);
+            THING_TYPE_QMOTION, THING_TYPE_NETWORK, THING_TYPE_QPHONE);
 
     // Channel IDs
     public static final String CHANNEL_QSTICK = "channelstick";
     public static final String CHANNEL_QPLUG = "channelplug";
     public static final String CHANNEL_QMOTION = "channelmotion";
     public static final String CHANNEL_QMOTION_NOTIFICATION = "channelnotification";
+    public static final String CHANNEL_QPHONE = "channelgps";
 
     // Event Channel IDs
     public static final String CHANNEL_QSTICK_SCAN = "qStickScanning";

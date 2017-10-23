@@ -10,6 +10,7 @@ package org.openhab.binding.northq.handler;
 
 import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QPLUG;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -63,6 +64,27 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
                 String nodeId = getThing().getProperties().get("thingID");
                 Qplug qplug = getPlug(nodeId);
+
+                // Configurations
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+                String userID = NorthQConfig.NETWORK.getUserId();
+                System.out.println("Turn off plug automatically" + qplug != null && !NorthQConfig.ISHOME);
+
+                if (qplug != null && !NorthQConfig.ISHOME) {
+                    System.out.println("Is home changed");
+                    try {
+                        boolean res = services.turnOffPlug(qplug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
+                        System.out.println("Success " + res);
+                        currentStatus = false;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        updateStatus(ThingStatus.OFFLINE);
+                    }
+                    updateState("channelplug", OnOffType.OFF);
+                    currentStatus = false;
+
+                }
+
                 if (qplug != null && qplug.getStatus() != currentStatus) {
                     System.out.println("currentStatus: " + currentStatus);
                     System.out.println("qplug.getStatus()" + qplug.getStatus());
@@ -97,28 +119,33 @@ public class NorthQPlugHandler extends BaseThingHandler {
     public void handleCommand(ChannelUID channelUID, Command command) {
 
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
+            try {
+                ReadWriteLock.getInstance().lockRead();
+                String nodeId = getThing().getProperties().get("thingID");
+                Qplug qPlug = getPlug(nodeId);
 
-            String nodeId = getThing().getProperties().get("thingID");
-            Qplug qPlug = getPlug(nodeId);
+                if (qPlug == null) {
+                    updateStatus(ThingStatus.OFFLINE);
+                    return;
+                } else {
+                    updateStatus(ThingStatus.ONLINE);
+                }
 
-            if (qPlug == null) {
-                updateStatus(ThingStatus.OFFLINE);
-                return;
-            } else {
-                updateStatus(ThingStatus.ONLINE);
-            }
+                // Configurations
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+                String userID = NorthQConfig.NETWORK.getUserId();
 
-            // Configurations
-            String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
-            String userID = NorthQConfig.NETWORK.getUserId();
-
-            if (command.toString().equals("ON")) {
-                turnPlugOn(qPlug, gatewayID, userID);
-            } else {
-                turnPlugOff(qPlug, gatewayID, userID);
+                if (command.toString().equals("ON")) {
+                    turnPlugOn(qPlug, gatewayID, userID);
+                } else {
+                    turnPlugOff(qPlug, gatewayID, userID);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                ReadWriteLock.getInstance().unlockRead();
             }
         }
-
         // Start polling job
         pollingRunnable.run();
     }
@@ -127,38 +154,29 @@ public class NorthQPlugHandler extends BaseThingHandler {
      * Abstract method overwritten
      * Requires: qplug, gatewayId and the userID
      * Returns: Turns the physical device on
+     *
+     * @throws Exception
+     * @throws IOException
      */
-    private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) {
-        try {
-            ReadWriteLock.getInstance().lockRead();
-            boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-            System.out.println("Success " + res);
-            currentStatus = false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            updateStatus(ThingStatus.OFFLINE);
-        } finally {
-            ReadWriteLock.getInstance().unlockRead();
-        }
+    private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
+        boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
+        System.out.println("Success " + res);
+        currentStatus = false;
+
     }
 
     /**
      * Abstract method overwritten
      * Requires: qplug, gatewayId and the userID
      * Returns: Turns the physical device on
+     * 
+     * @throws Exception
+     * @throws IOException
      */
-    private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) {
-        try {
-            ReadWriteLock.getInstance().lockRead();
-            boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-            System.out.println("Success " + res);
-            currentStatus = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            updateStatus(ThingStatus.OFFLINE);
-        } finally {
-            ReadWriteLock.getInstance().unlockRead();
-        }
+    private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
+        boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
+        System.out.println("Success " + res);
+        currentStatus = true;
     }
 
     /**
