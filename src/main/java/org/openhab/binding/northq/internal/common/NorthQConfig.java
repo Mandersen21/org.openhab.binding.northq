@@ -24,6 +24,15 @@ public class NorthQConfig {
     // Authentication
     public static String USERNAME = "";
     public static String PASSWORD = "";
+    public static boolean ISHOME = true;
+
+    public static boolean isISHOME() {
+        return ISHOME;
+    }
+
+    public static void setISHOME(boolean iSHOME) {
+        ISHOME = iSHOME;
+    }
 
     public static String getUSERNAME() {
         return USERNAME;

@@ -67,4 +67,26 @@
        </state>
 	</channel-type>
 
+
+    <!-- qPhone thing -->
+    <thing-type id="qPhone">
+
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="northqnetwork" />
+        </supported-bridge-type-refs>
+
+        <label>qPhone location service</label>
+        <description>Qphone can automatically shut off devices when leaving the house</description>
+        
+        <channels>
+            <channel id="channelgps" typeId="gps-channel" />
+        </channels>
+    </thing-type>
+
+    <channel-type id="gps-channel">
+        <item-type>Switch</item-type>
+        <label>NorthQ motion</label>
+        <description>QMotion channel for NorthQ Binding</description>
+    </channel-type>
+    
 </thing:thing-descriptions>

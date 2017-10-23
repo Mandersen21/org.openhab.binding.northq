@@ -11,8 +11,8 @@
    <body>
       <h2>Report
          					 
-         					(2017-10-21+02:00;
-         					 15:55:00.59+02:00)
+         					(2017-10-23+02:00;
+         					 15:20:54.824+02:00)
          				
       </h2>
       <h3>Summary Messages</h3>
@@ -25,7 +25,24 @@
             <th align="left">count</th>
          </tr>
          <tr>
+            <td colspan="5">correctness</td>
+         </tr>
+         <tr class="alternate">
+            <td></td>
+            <td>findbugs</td>
+            <td align="left">1</td>
+            <td> <a href="http://findbugs.sourceforge.net/bugDescriptions.html#EC_UNRELATED_TYPES">Call to equals() comparing different types (EC)</a></td>
+            <td align="center">2</td>
+         </tr>
+         <tr>
             <td colspan="5">design</td>
+         </tr>
+         <tr class="alternate">
+            <td></td>
+            <td>pmd</td>
+            <td align="left">3</td>
+            <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/design.html#SimplifyBooleanExpressions">SimplifyBooleanExpressions</a></td>
+            <td align="center">2</td>
          </tr>
          <tr class="alternate">
             <td></td>
@@ -42,7 +59,7 @@
             <td>pmd</td>
             <td align="left">3</td>
             <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/empty.html#EmptyIfStmt">EmptyIfStmt</a></td>
-            <td align="center">1</td>
+            <td align="center">4</td>
          </tr>
          <tr>
             <td colspan="5">java logging</td>
@@ -52,14 +69,14 @@
             <td>pmd</td>
             <td align="left">3</td>
             <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln">SystemPrintln</a></td>
-            <td align="center">182</td>
+            <td align="center">216</td>
          </tr>
          <tr class="alternate">
             <td></td>
             <td>pmd</td>
             <td align="left">3</td>
             <td> <a href="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace">AvoidPrintStackTrace</a></td>
-            <td align="center">49</td>
+            <td align="center">58</td>
          </tr>
          <tr>
             <td colspan="5">strict exceptions</td>
@@ -114,14 +131,14 @@
             <td>checkstyle</td>
             <td align="left">3</td>
             <td>TodoCommentCheck</td>
-            <td align="center">46</td>
+            <td align="center">49</td>
          </tr>
          <tr class="alternate">
             <td></td>
             <td>checkstyle</td>
             <td align="left">3</td>
             <td>NoEmptyLineSeparatorCheck</td>
-            <td align="center">98</td>
+            <td align="center">124</td>
          </tr>
          <tr class="alternate">
             <td></td>
@@ -135,7 +152,7 @@
             <td>checkstyle</td>
             <td align="left">3</td>
             <td>StaticVariableNameCheck</td>
-            <td align="center">9</td>
+            <td align="center">10</td>
          </tr>
          <tr class="alternate">
             <td></td>
@@ -146,7 +163,7 @@
          </tr>
          <tr class="dark">
             <td colspan="4"></td>
-            <td align="center">458</td>
+            <td align="center">538</td>
          </tr>
       </table>
       <p></p>
@@ -505,6 +522,36 @@
             </td>
          </tr>
          <tr class="alternate">
+            <td><a href="#org.openhab.binding.northq.handler.NorthQPhoneHandler$1.java" title="org.openhab.binding.northq.handler.NorthQPhoneHandler$1.java">org.openhab.binding.northq.handler.NorthQPhoneHandler$1.java</a></td>
+            <td align="center">
+               <div class="p1">2</div>
+            </td>
+            <td align="center">
+               <div class="p2">0</div>
+            </td>
+            <td align="center">
+               <div class="p3">0</div>
+            </td>
+            <td align="center">
+               <div class="p3">2</div>
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td><a href="#org.openhab.binding.northq.handler.NorthQPhoneHandler.java" title="org.openhab.binding.northq.handler.NorthQPhoneHandler.java">org.openhab.binding.northq.handler.NorthQPhoneHandler.java</a></td>
+            <td align="center">
+               <div class="p1">0</div>
+            </td>
+            <td align="center">
+               <div class="p2">0</div>
+            </td>
+            <td align="center">
+               <div class="p3">37</div>
+            </td>
+            <td align="center">
+               <div class="p3">37</div>
+            </td>
+         </tr>
+         <tr class="alternate">
             <td><a href="#org.openhab.binding.northq.handler.NorthQPlugHandler.java" title="org.openhab.binding.northq.handler.NorthQPlugHandler.java">org.openhab.binding.northq.handler.NorthQPlugHandler.java</a></td>
             <td align="center">
                <div class="p1">0</div>
@@ -513,10 +560,10 @@
                <div class="p2">6</div>
             </td>
             <td align="center">
-               <div class="p3">145</div>
+               <div class="p3">177</div>
             </td>
             <td align="center">
-               <div class="p3">151</div>
+               <div class="p3">183</div>
             </td>
          </tr>
          <tr class="alternate">
@@ -532,6 +579,21 @@
             </td>
             <td align="center">
                <div class="p3">7</div>
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td><a href="#org.openhab.binding.northq.handler.NorthQphoneHandler.java" title="org.openhab.binding.northq.handler.NorthQphoneHandler.java">org.openhab.binding.northq.handler.NorthQphoneHandler.java</a></td>
+            <td align="center">
+               <div class="p1">0</div>
+            </td>
+            <td align="center">
+               <div class="p2">0</div>
+            </td>
+            <td align="center">
+               <div class="p3">4</div>
+            </td>
+            <td align="center">
+               <div class="p3">4</div>
             </td>
          </tr>
          <tr class="alternate">
@@ -558,10 +620,10 @@
                <div class="p2">0</div>
             </td>
             <td align="center">
-               <div class="p3">12</div>
+               <div class="p3">13</div>
             </td>
             <td align="center">
-               <div class="p3">12</div>
+               <div class="p3">13</div>
             </td>
          </tr>
          <tr class="alternate">
@@ -588,25 +650,25 @@
                <div class="p2">2</div>
             </td>
             <td align="center">
-               <div class="p3">54</div>
+               <div class="p3">58</div>
             </td>
             <td align="center">
-               <div class="p3">56</div>
+               <div class="p3">60</div>
             </td>
          </tr>
          <tr class="dark">
             <td></td>
             <td align="center">
-               <div class="p1">4</div>
+               <div class="p1">6</div>
             </td>
             <td align="center">
                <div class="p2">16</div>
             </td>
             <td align="center">
-               <div class="p3">438</div>
+               <div class="p3">516</div>
             </td>
             <td align="center">
-               <div class="p3">458</div>
+               <div class="p3">538</div>
             </td>
          </tr>
       </table>
@@ -2799,6 +2861,407 @@
             <td>Remove empty line after opening brace</td>
          </tr>
       </table><br><table width="90%" border="0" class="details">
+         <th align="left" colspan="6"><a name="org.openhab.binding.northq.handler.NorthQPhoneHandler$1.java">org.openhab.binding.northq.handler.NorthQPhoneHandler$1.java</a></th>
+         <tr>
+            <th align="left" width="80pt">tool</th>
+            <th align="left" width="50pt">priority</th>
+            <th align="left" width="30pt">line</th>
+            <th align="left" width="80pt">category</th>
+            <th align="left" width="380pt">rule</th>
+            <th align="left">message</th>
+         </tr>
+         <tr class="alternate">
+            <td>findbugs</td>
+            <td>1</td>
+            <td>67</td>
+            <td>correctness</td>
+            <td>Call to equals() comparing different types (EC)</td>
+            <td>Call to javax.ws.rs.core.Response.equals(String) in org.openhab.binding.northq.handler.NorthQPhoneHandler$1.run()</td>
+         </tr>
+         <tr class="alternate">
+            <td>findbugs</td>
+            <td>1</td>
+            <td>72</td>
+            <td>correctness</td>
+            <td>Call to equals() comparing different types (EC)</td>
+            <td>Call to javax.ws.rs.core.Response.equals(String) in org.openhab.binding.northq.handler.NorthQPhoneHandler$1.run()</td>
+         </tr>
+      </table><br><table width="90%" border="0" class="details">
+         <th align="left" colspan="6"><a name="org.openhab.binding.northq.handler.NorthQPhoneHandler.java">org.openhab.binding.northq.handler.NorthQPhoneHandler.java</a></th>
+         <tr>
+            <th align="left" width="80pt">tool</th>
+            <th align="left" width="50pt">priority</th>
+            <th align="left" width="30pt">line</th>
+            <th align="left" width="80pt">category</th>
+            <th align="left" width="380pt">rule</th>
+            <th align="left">message</th>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>62</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>63</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>67</td>
+            <td>design</td>
+            <td>SimplifyBooleanExpressions</td>
+            <td>
+               Avoid unnecessary comparisons in boolean expressions
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>72</td>
+            <td>design</td>
+            <td>SimplifyBooleanExpressions</td>
+            <td>
+               Avoid unnecessary comparisons in boolean expressions
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>78</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>102</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>64</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>65</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>69</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>70</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>75</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>80</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>84</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>109</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>126</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>70</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>74</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>76</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>80</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>107</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>112</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>70</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>75</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>79</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>103</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>127</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>104</td>
+            <td>empty code</td>
+            <td>EmptyIfStmt</td>
+            <td>
+               Avoid empty if statements
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>106</td>
+            <td>empty code</td>
+            <td>EmptyIfStmt</td>
+            <td>
+               Avoid empty if statements
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>120</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>71</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>77</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>81</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>108</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>113</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>105</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>107</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>86</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+      </table><br><table width="90%" border="0" class="details">
          <th align="left" colspan="6"><a name="org.openhab.binding.northq.handler.NorthQPlugHandler.java">org.openhab.binding.northq.handler.NorthQPlugHandler.java</a></th>
          <tr>
             <th align="left" width="80pt">tool</th>
@@ -2950,6 +3413,50 @@
          <tr class="alternate">
             <td>pmd</td>
             <td>3</td>
+            <td>60</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>71</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>72</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>80</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
             <td>81</td>
             <td>java logging</td>
             <td>SystemPrintln</td>
@@ -3050,6 +3557,39 @@
             <td>pmd</td>
             <td>3</td>
             <td>82</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>73</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>75</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>83</td>
             <td>java logging</td>
             <td>SystemPrintln</td>
             <td>
@@ -3976,6 +4516,28 @@
          <tr class="alternate">
             <td>pmd</td>
             <td>3</td>
+            <td>135</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>138</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
             <td>154</td>
             <td>java logging</td>
             <td>SystemPrintln</td>
@@ -3999,6 +4561,44 @@
             <td>style</td>
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>157</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>172</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>98</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>100</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
          </tr>
          <tr class="alternate">
             <td>checkstyle</td>
@@ -4352,6 +4952,185 @@
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line after opening brace</td>
          </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>151</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>167</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>170</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>185</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>151</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>154</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>170</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>173</td>
+            <td>java logging</td>
+            <td>AvoidPrintStackTrace</td>
+            <td>
+               Avoid printStackTrace(); use a logger call instead.
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>188</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>58</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>69</td>
+            <td>style</td>
+            <td>TodoCommentCheck</td>
+            <td>Comment matches to-do format '(TODO)|(FIXME)'.</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>76</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>111</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>113</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>125</td>
+            <td>style</td>
+            <td>TodoCommentCheck</td>
+            <td>Comment matches to-do format '(TODO)|(FIXME)'.</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>79</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>114</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>116</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>128</td>
+            <td>style</td>
+            <td>TodoCommentCheck</td>
+            <td>Comment matches to-do format '(TODO)|(FIXME)'.</td>
+         </tr>
       </table><br><table width="90%" border="0" class="details">
          <th align="left" colspan="6"><a name="org.openhab.binding.northq.handler.NorthQStickHandler.java">org.openhab.binding.northq.handler.NorthQStickHandler.java</a></th>
          <tr>
@@ -4426,6 +5205,54 @@
             <td>style</td>
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line before closing brace</td>
+         </tr>
+      </table><br><table width="90%" border="0" class="details">
+         <th align="left" colspan="6"><a name="org.openhab.binding.northq.handler.NorthQphoneHandler.java">org.openhab.binding.northq.handler.NorthQphoneHandler.java</a></th>
+         <tr>
+            <th align="left" width="80pt">tool</th>
+            <th align="left" width="50pt">priority</th>
+            <th align="left" width="30pt">line</th>
+            <th align="left" width="80pt">category</th>
+            <th align="left" width="380pt">rule</th>
+            <th align="left">message</th>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>74</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>76</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line after opening brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>75</td>
+            <td>empty code</td>
+            <td>EmptyIfStmt</td>
+            <td>
+               Avoid empty if statements
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>89</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
          </tr>
       </table><br><table width="90%" border="0" class="details">
          <th align="left" colspan="6"><a name="org.openhab.binding.northq.internal.NorthQHandlerFactory.java">org.openhab.binding.northq.internal.NorthQHandlerFactory.java</a></th>
@@ -4605,6 +5432,14 @@
             <td>style</td>
             <td>StaticVariableNameCheck</td>
             <td>Name 'PASSWORD' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>27</td>
+            <td>style</td>
+            <td>StaticVariableNameCheck</td>
+            <td>Name 'ISHOME' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
          </tr>
       </table><br><table width="90%" border="0" class="details">
          <th align="left" colspan="6"><a name="org.openhab.binding.northq.internal.common.ReadWriteLock.java">org.openhab.binding.northq.internal.common.ReadWriteLock.java</a></th>
@@ -4954,6 +5789,17 @@
          <tr class="alternate">
             <td>pmd</td>
             <td>3</td>
+            <td>96</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
             <td>98</td>
             <td>java logging</td>
             <td>SystemPrintln</td>
@@ -5010,6 +5856,28 @@
             <td>pmd</td>
             <td>3</td>
             <td>123</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>116</td>
+            <td>java logging</td>
+            <td>SystemPrintln</td>
+            <td>
+               System.out.println is used
+               
+            </td>
+         </tr>
+         <tr class="alternate">
+            <td>pmd</td>
+            <td>3</td>
+            <td>126</td>
             <td>java logging</td>
             <td>SystemPrintln</td>
             <td>
@@ -5227,6 +6095,14 @@
             <td>checkstyle</td>
             <td>3</td>
             <td>143</td>
+            <td>style</td>
+            <td>NoEmptyLineSeparatorCheck</td>
+            <td>Remove empty line before closing brace</td>
+         </tr>
+         <tr class="alternate">
+            <td>checkstyle</td>
+            <td>3</td>
+            <td>141</td>
             <td>style</td>
             <td>NoEmptyLineSeparatorCheck</td>
             <td>Remove empty line before closing brace</td>

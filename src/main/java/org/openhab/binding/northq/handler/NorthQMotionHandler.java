@@ -112,36 +112,30 @@ public class NorthQMotionHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(CHANNEL_QMOTION)) {
+            try {
+                ReadWriteLock.getInstance().lockRead();
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+                String nodeId = getThing().getProperties().get("thingID");
+                Qmotion qMotion = getQmotion(nodeId);
 
-            String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
-            String nodeId = getThing().getProperties().get("thingID");
-            Qmotion qMotion = getQmotion(nodeId);
-
-            if (command.toString().equals("ON")) {
-                // Plug should be turned on
-                try {
-                    ReadWriteLock.getInstance().lockRead();
+                if (command.toString().equals("ON")) {
+                    // Plug should be turned on
                     services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = true;
-                } catch (Exception e) {
-                    updateStatus(ThingStatus.OFFLINE);
-                } finally {
-                    ReadWriteLock.getInstance().unlockRead();
-                }
-            } else {
-                // Plug should be turned off
-                try {
-                    ReadWriteLock.getInstance().lockRead();
+
+                } else {
+                    // Plug should be turned off
                     services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = false;
-                } catch (Exception e) {
-                    updateStatus(ThingStatus.OFFLINE);
-                } finally {
-                    ReadWriteLock.getInstance().unlockRead();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                ReadWriteLock.getInstance().unlockRead();
             }
+
         }
         pollingRunnable.run();
     }
