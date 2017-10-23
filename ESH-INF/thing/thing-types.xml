@@ -85,8 +85,8 @@
 
     <channel-type id="gps-channel">
         <item-type>Switch</item-type>
-        <label>NorthQ motion</label>
-        <description>QMotion channel for NorthQ Binding</description>
+        <label>NorthQ phone</label>
+        <description>NorthQ phone channel for NorthQ Binding</description>
     </channel-type>
     
 </thing:thing-descriptions>
