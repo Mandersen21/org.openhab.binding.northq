@@ -87,6 +87,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     /**
      * Constructor
      */
+    @SuppressWarnings("null")
     public NorthQPhoneHandler(Thing thing) {
         super(thing);
         status = false;
@@ -99,7 +100,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
      * Requires: a channelId and a command
      * Returns: Updates the state of the device
      */
-    @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_QPHONE)) {
@@ -117,7 +117,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     /**
      * Abstract method overwritten
      * Requires:
-     * Returns: Initialization method
+     * Returns: Initialisation method
      */
     @Override
     public void initialize() {

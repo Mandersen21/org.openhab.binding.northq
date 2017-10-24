@@ -21,8 +21,8 @@ import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
-import org.openhab.binding.northq.handler.NorthQPlugHandler;
 import org.openhab.binding.northq.handler.NorthQPhoneHandler;
+import org.openhab.binding.northq.handler.NorthQPlugHandler;
 import org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService;
 import org.osgi.service.component.annotations.Component;
 
@@ -49,7 +49,6 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_NETWORK)) {
             NorthQNetworkHandler handler = new NorthQNetworkHandler((Bridge) thing);
             registerDiscoveryService(handler);
-            System.out.println("Handler added");
             return handler;
         }
         // New plug
@@ -64,7 +63,6 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPHONE)) {
             return new NorthQPhoneHandler(thing);
         }
-
         return null;
     }
 

@@ -30,7 +30,6 @@ import services.NorthqServices;
 @NonNullByDefault
 public class NorthQNetworkHandler extends BaseBridgeHandler {
 
-    private NorthQConfig config;
     private NorthqServices services;
 
     /**
@@ -38,7 +37,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
      */
     public NorthQNetworkHandler(Bridge bridge) {
         super(bridge);
-        config = new NorthQConfig();
+        new NorthQConfig();
         services = new NorthqServices();
     }
 
@@ -46,24 +45,27 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     private final Logger logger = LoggerFactory.getLogger(NorthQNetworkHandler.class);
 
     /**
-     * Initializer
+     * Initialiser
      * Requires:
      * Returns: Sets up a northQ network, storing user and password information
      */
     @Override
     public void initialize() {
-        System.out.print("North q stick is online");
+
+        // Get parameters from configuration
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get("username").toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get("password").toString());
+
         NorthNetwork network = null;
         try {
             network = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD());
             NorthQConfig.NETWORK = network;
-            System.out.println("North network setup: " + network.getGateways().get(0).getGatewayId());
+            updateStatus(ThingStatus.ONLINE);
+            logger.info("Q-stick is online");
         } catch (Exception e1) {
-            e1.printStackTrace();
+            updateStatus(ThingStatus.OFFLINE);
+            logger.info("Q-stick does not work correct");
         }
-        updateStatus(ThingStatus.ONLINE);
     }
 
     /**
