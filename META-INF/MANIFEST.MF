@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/guava-23.0.jar,
- lib/LibariesStandAlone.jar
+ lib/StandAlone.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: NorthQ Binding
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
