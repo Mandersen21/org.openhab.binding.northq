@@ -55,14 +55,14 @@ public class NorthQMotionHandler extends BaseThingHandler {
         @Override
         public void run() {
             try {
-                ReadWriteLock.getInstance().lockWrite();
+                ReadWriteLock.getInstance().lockRead();
 
                 String nodeId = getThing().getProperties().get("thingID");
                 Qmotion qMotion = getQmotion(nodeId);
                 System.out.println("Polling qmotion -- ID: " + nodeId);
 
-                NorthqServices services = new NorthqServices();
-                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                // NorthqServices services = new NorthqServices();
+                // NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
 
                 boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
                         NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
@@ -88,7 +88,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {
-                ReadWriteLock.getInstance().unlockWrite();
+                ReadWriteLock.getInstance().unlockRead();
             }
         }
     };
@@ -112,7 +112,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(CHANNEL_QMOTION)) {
             try {
-                ReadWriteLock.getInstance().lockRead();
+                ReadWriteLock.getInstance().lockWrite();
                 String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
                 String nodeId = getThing().getProperties().get("thingID");
                 Qmotion qMotion = getQmotion(nodeId);
@@ -122,21 +122,23 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = true;
+                    qMotion.getBs().armed = 1;
 
-                } else {
+                } else if (command.toString().equals("OFF")) {
                     // Plug should be turned off
                     services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = false;
+                    qMotion.getBs().armed = 0;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                ReadWriteLock.getInstance().unlockRead();
+                ReadWriteLock.getInstance().unlockWrite();
             }
 
         }
-        pollingRunnable.run();
+        // pollingRunnable.run();
     }
 
     /**
