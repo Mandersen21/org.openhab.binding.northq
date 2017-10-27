@@ -1,2 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<BugCollection version='3.1.0-RC3' threshold='high' effort='min'><Error></Error><Project><SrcDir>C:\Users\Philip\Openhab\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\main\java</SrcDir><SrcDir>C:\Users\Philip\Openhab\git\openhab2-addons\addons\binding\org.openhab.binding.northq\target\generated-sources\annotations</SrcDir><SrcDir>C:\Users\Philip\Openhab\git\openhab2-addons\addons\binding\org.openhab.binding.northq\src\test\java</SrcDir></Project></BugCollection>
