@@ -119,9 +119,8 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
      */
     @Override
     public void startScan() {
-        System.out.println("DEBUG2 - starting scan");
+        System.out.println("Discovery - starting scan");
         onDataFetched();
-        System.out.println("DEBUG2 - Scan completed thing added");
     }
 
     /**
@@ -171,6 +170,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                     }
                 }
             }
+            System.out.println("Discovery - Scan completed thing added");
         }
     }
 }
