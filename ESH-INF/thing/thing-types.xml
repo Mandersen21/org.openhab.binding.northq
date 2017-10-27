@@ -89,4 +89,26 @@
         <description>NorthQ phone channel for NorthQ Binding</description>
     </channel-type>
     
+
+<!-- qThermostat thing -->
+    <thing-type id="qThermostat">
+
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="northqnetwork" />
+        </supported-bridge-type-refs>
+
+        <label>Danfoss thermostat</label>
+        <description>Danfoss thermostat thing for NorthQ Binding</description>
+
+        <channels>
+            <channel id="channelthermostat" typeId="thermostat-channel" />
+        </channels>
+    </thing-type>
+
+    <channel-type id="thermostat-channel">
+        <item-type>Number</item-type>
+        <label>Danfoss thermostat</label>
+        <description>Danfoss thermostat channel for NorthQ Binding</description>
+    </channel-type>
+
 </thing:thing-descriptions>
