@@ -15,11 +15,10 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseBridgeHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
+import org.openhab.binding.northq.internal.model.NorthNetwork;
+import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import model.NorthNetwork;
-import services.NorthqServices;
 
 /**
  * The {@link NorthQNetworkHandler} is responsible for handling commands, which are

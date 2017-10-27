@@ -21,16 +21,15 @@ import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.NorthqDataListener;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
+import org.openhab.binding.northq.internal.model.NGateway;
+import org.openhab.binding.northq.internal.model.NorthNetwork;
+import org.openhab.binding.northq.internal.model.Qmotion;
+import org.openhab.binding.northq.internal.model.Qplug;
+import org.openhab.binding.northq.internal.model.Qthermostat;
+import org.openhab.binding.northq.internal.model.Thing;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import model.NGateway;
-import model.NorthNetwork;
-import model.Qmotion;
-import model.Qplug;
-import model.Qthermostat;
-import model.Thing;
 
 /**
  * The {@link NorthQDiscoveryService} is responsible for creating things and thing
