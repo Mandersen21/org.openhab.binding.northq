@@ -50,7 +50,6 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
      */
     public NorthQDiscoveryService() {
         super(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS, 0, true);
-        System.out.println("DEBUG2 - in DiscoveryService");
     }
 
     /**
@@ -59,7 +58,6 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     public NorthQDiscoveryService(NorthQNetworkHandler bridge) {
         super(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS, 0, true);
         this.bridgeHandler = bridge;
-        System.out.println("DEBUG2 - in DiscoveryService");
     }
 
     /**
@@ -92,9 +90,8 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
      */
     @Override
     public void startScan() {
-        System.out.println("DEBUG2 - starting scan");
+        System.out.println("Discovery - starting scan");
         onDataFetched();
-        System.out.println("DEBUG2 - Scan completed thing added");
     }
 
     /**
@@ -144,6 +141,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                     }
                 }
             }
+            System.out.println("Disvoery - Scan completed things added");
         }
 
     }
