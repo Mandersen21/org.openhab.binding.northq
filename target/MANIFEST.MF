@@ -3,9 +3,8 @@ Bundle-SymbolicName: org.openhab.binding.northq;singleton:=true
 Export-Package: org.openhab.binding.northq,org.openhab.binding.northq.
  handler
 Bundle-Name: NorthQ Binding
-Bundle-Version: 2.2.0.201710231320
-Bundle-ClassPath: .,lib/guava-23.0.jar,lib/NorthQServicesStandAlone.ja
- r
+Bundle-Version: 2.2.0.201710270905
+Bundle-ClassPath: .,lib/guava-23.0.jar,lib/StandAlone.jar
 Bundle-ActivationPolicy: lazy
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

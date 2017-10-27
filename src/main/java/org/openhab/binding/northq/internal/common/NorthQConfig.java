@@ -8,7 +8,7 @@
  */
 package org.openhab.binding.northq.internal.common;
 
-import model.NorthNetwork;
+import org.openhab.binding.northq.internal.model.NorthNetwork;
 
 /**
  * The {@link NorthQConfig} is responsible for keeping config variables to use in the binding.

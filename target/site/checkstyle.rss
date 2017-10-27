@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017 openHAB.org</copyright>
     <item>
-      <title>File: 23,
+      <title>File: 50,
              Errors: 0,
-             Warnings: 0,
-             Infos: 27
+             Warnings: 1,
+             Infos: 46
       </title>
             <link>${project.url}/checkstyle.html</link>
       <description>
@@ -46,7 +46,49 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#about.html">about.html</a>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.Qmotion.java">src/main/java/org/openhab/binding/northq/internal/model/Qmotion.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQThermostatHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQThermostatHandler.java</a>
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.GatewayStatus.java">src/main/java/org/openhab/binding/northq/internal/model/json/GatewayStatus.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.OverrideObject.java">src/main/java/org/openhab/binding/northq/internal/model/json/OverrideObject.java</a>
                 </td>
                 <td>
                   0
@@ -74,6 +116,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.Detail.java">src/main/java/org/openhab/binding/northq/internal/model/json/Detail.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.common.NorthQConfig.java">src/main/java/org/openhab/binding/northq/internal/common/NorthQConfig.java</a>
                 </td>
                 <td>
@@ -88,10 +144,10 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQNetworkHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQNetworkHandler.java</a>
+                  <a href="${project.url}/checkstyle.html#build.properties">build.properties</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -102,10 +158,136 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQPhoneHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQPhoneHandler.java</a>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.Qplug.java">src/main/java/org/openhab/binding/northq/internal/model/Qplug.java</a>
                 </td>
                 <td>
-                  2
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#ESH-INF.i18n.northq_xx_XX.properties">ESH-INF/i18n/northq_xx_XX.properties</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.services.NetworkUtils.java">src/main/java/org/openhab/binding/northq/internal/services/NetworkUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.Notification.java">src/main/java/org/openhab/binding/northq/internal/model/json/Notification.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.Thing.java">src/main/java/org/openhab/binding/northq/internal/model/Thing.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#META-INF.MANIFEST.MF">META-INF/MANIFEST.MF</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.Sensor.java">src/main/java/org/openhab/binding/northq/internal/model/json/Sensor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.House.java">src/main/java/org/openhab/binding/northq/internal/model/json/House.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.UserNotification.java">src/main/java/org/openhab/binding/northq/internal/model/json/UserNotification.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.User.java">src/main/java/org/openhab/binding/northq/internal/model/json/User.java</a>
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -120,6 +302,132 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#README.md">README.md</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.Gateway.java">src/main/java/org/openhab/binding/northq/internal/model/json/Gateway.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.IThing.java">src/main/java/org/openhab/binding/northq/internal/model/IThing.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.BinarySwitch.java">src/main/java/org/openhab/binding/northq/internal/model/json/BinarySwitch.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.Destination.java">src/main/java/org/openhab/binding/northq/internal/model/json/Destination.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.NorthQBindingConstants.java">src/main/java/org/openhab/binding/northq/NorthQBindingConstants.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#ESH-INF.thing.thing-types.xml">ESH-INF/thing/thing-types.xml</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.Qthermostat.java">src/main/java/org/openhab/binding/northq/internal/model/Qthermostat.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.services.NorthqServices.java">src/main/java/org/openhab/binding/northq/internal/services/NorthqServices.java</a>
+                </td>
+                <td>
+                  6
                 </td>
                 <td>
                   0
@@ -186,7 +494,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.NorthqDataListener.java">src/main/java/org/openhab/binding/northq/internal/NorthqDataListener.java</a>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.VersionV2Model.java">src/main/java/org/openhab/binding/northq/internal/model/json/VersionV2Model.java</a>
                 </td>
                 <td>
                   0
@@ -200,7 +508,133 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#README.md">README.md</a>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQPlugHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQPlugHandler.java</a>
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.BinarySensor.java">src/main/java/org/openhab/binding/northq/internal/model/json/BinarySensor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.NorthNetwork.java">src/main/java/org/openhab/binding/northq/internal/model/NorthNetwork.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#about.html">about.html</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.services.CredentialsService.java">src/main/java/org/openhab/binding/northq/internal/services/CredentialsService.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.UserNotificationHolder.java">src/main/java/org/openhab/binding/northq/internal/model/json/UserNotificationHolder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.Vacation.java">src/main/java/org/openhab/binding/northq/internal/model/json/Vacation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQNetworkHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQNetworkHandler.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQPhoneHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQPhoneHandler.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.NorthqDataListener.java">src/main/java/org/openhab/binding/northq/internal/NorthqDataListener.java</a>
                 </td>
                 <td>
                   0
@@ -228,38 +662,10 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#build.properties">build.properties</a>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.json.Thermostat.java">src/main/java/org/openhab/binding/northq/internal/model/json/Thermostat.java</a>
                 </td>
                 <td>
                   0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#ESH-INF.i18n.northq_xx_XX.properties">ESH-INF/i18n/northq_xx_XX.properties</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQPlugHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQPlugHandler.java</a>
-                </td>
-                <td>
-                  6
                 </td>
                 <td>
                   0
@@ -298,7 +704,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.NorthQBindingConstants.java">src/main/java/org/openhab/binding/northq/NorthQBindingConstants.java</a>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.internal.model.NGateway.java">src/main/java/org/openhab/binding/northq/internal/model/NGateway.java</a>
                 </td>
                 <td>
                   0
@@ -326,38 +732,10 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#ESH-INF.thing.thing-types.xml">ESH-INF/thing/thing-types.xml</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#META-INF.MANIFEST.MF">META-INF/MANIFEST.MF</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.northq.handler.NorthQMotionHandler.java">src/main/java/org/openhab/binding/northq/handler/NorthQMotionHandler.java</a>
                 </td>
                 <td>
-                  5
+                  6
                 </td>
                 <td>
                   0

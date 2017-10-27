@@ -17,18 +17,17 @@ import java.util.concurrent.TimeUnit;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.core.thing.ChannelUID;
-import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
+import org.openhab.binding.northq.internal.model.NGateway;
+import org.openhab.binding.northq.internal.model.Qthermostat;
+import org.openhab.binding.northq.internal.model.Thing;
+import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import model.NGateway;
-import model.Qthermostat;
-import services.NorthqServices;
 
 /**
  * The {@link NorthQThermostatHandler} is responsible for handling commands, which are
@@ -78,7 +77,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     /**
      * Constructor
      */
-    public NorthQThermostatHandler(Thing thing) {
+    public NorthQThermostatHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
         services = new NorthqServices();
         currentStatus = false;
@@ -148,9 +147,9 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     public @Nullable Qthermostat getThermostat(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
         for (NGateway gw : gateways) {
-            ArrayList<model.Thing> things = gw.getThings();
+            ArrayList<Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {
-                if (things.get(i) instanceof model.Qthermostat && nodeID.equals(things.get(i).getNodeID())) {
+                if (things.get(i) instanceof Qthermostat && nodeID.equals(things.get(i).getNodeID())) {
                     Qthermostat thermostat = (Qthermostat) things.get(i);
                     return thermostat;
                 }

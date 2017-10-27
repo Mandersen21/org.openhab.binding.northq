@@ -19,19 +19,18 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.library.types.StringType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
-import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
+import org.openhab.binding.northq.internal.model.NGateway;
+import org.openhab.binding.northq.internal.model.Qmotion;
+import org.openhab.binding.northq.internal.model.Thing;
+import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import model.NGateway;
-import model.Qmotion;
-import services.NorthqServices;
 
 /**
  * The {@link NorthQMotionHandler} is responsible for handling commands, which are
@@ -97,7 +96,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     /**
      * Constructor
      */
-    public NorthQMotionHandler(Thing thing) {
+    public NorthQMotionHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
         services = new NorthqServices();
         currentStatus = false;
@@ -159,10 +158,10 @@ public class NorthQMotionHandler extends BaseThingHandler {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
         for (NGateway gw : gateways) {
 
-            ArrayList<model.Thing> things = gw.getThings();
+            ArrayList<Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {
 
-                if (things.get(i) instanceof model.Qmotion && nodeID.equals(things.get(i).getNodeID())) {
+                if (things.get(i) instanceof Qmotion && nodeID.equals(things.get(i).getNodeID())) {
                     Qmotion qmotion = (Qmotion) things.get(i);
 
                     return qmotion;
