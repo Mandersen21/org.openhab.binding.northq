@@ -55,11 +55,11 @@ public class NorthQPlugHandler extends BaseThingHandler {
         @Override
         public void run() {
             try {
-                ReadWriteLock.getInstance().lockWrite();
+                ReadWriteLock.getInstance().lockRead();
                 System.out.println("Polling qplug");
 
-                NorthqServices services = new NorthqServices();
-                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                // NorthqServices services = new NorthqServices();
+                // NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
 
                 String nodeId = getThing().getProperties().get("thingID");
                 Qplug qplug = getPlug(nodeId);
@@ -93,7 +93,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {
-                ReadWriteLock.getInstance().unlockWrite();
+                ReadWriteLock.getInstance().unlockRead();
             }
         }
     };
@@ -119,7 +119,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
         if (channelUID.getId().equals(CHANNEL_QPLUG)) {
             try {
-                ReadWriteLock.getInstance().lockRead();
+                ReadWriteLock.getInstance().lockWrite();
                 String nodeId = getThing().getProperties().get("thingID");
                 Qplug qPlug = getPlug(nodeId);
 
@@ -136,17 +136,18 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
                 if (command.toString().equals("ON")) {
                     turnPlugOn(qPlug, gatewayID, userID);
-                } else {
+
+                } else if (command.toString().equals("OFF")) {
                     turnPlugOff(qPlug, gatewayID, userID);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                ReadWriteLock.getInstance().unlockRead();
+                ReadWriteLock.getInstance().unlockWrite();
             }
         }
         // Start polling job
-        pollingRunnable.run();
+        // pollingRunnable.run();
     }
 
     /**
@@ -161,7 +162,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
         boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
         System.out.println("Success " + res);
         currentStatus = false;
-
+        qPlug.getBs().pos = 0;
     }
 
     /**
@@ -176,6 +177,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
         boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
         System.out.println("Success " + res);
         currentStatus = true;
+        qPlug.getBs().pos = 1;
     }
 
     /**

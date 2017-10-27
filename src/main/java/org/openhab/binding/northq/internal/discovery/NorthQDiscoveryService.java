@@ -11,6 +11,8 @@ package org.openhab.binding.northq.internal.discovery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.smarthome.config.discovery.AbstractDiscoveryService;
 import org.eclipse.smarthome.config.discovery.DiscoveryResult;
@@ -21,12 +23,14 @@ import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.NorthqDataListener;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
+import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 import org.openhab.binding.northq.internal.model.Qmotion;
 import org.openhab.binding.northq.internal.model.Qplug;
 import org.openhab.binding.northq.internal.model.Qthermostat;
 import org.openhab.binding.northq.internal.model.Thing;
+import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +46,28 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
 
     private NorthQNetworkHandler bridgeHandler;
 
+    // Add to declarations
+    private ScheduledFuture<?> pollingJob;
+
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                ReadWriteLock.getInstance().lockWrite();
+                NorthqServices services = new NorthqServices();
+                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                System.out.println("Network fetched");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                ReadWriteLock.getInstance().unlockWrite();
+
+            }
+
+        }
+    };
+
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQDiscoveryService.class);
 
@@ -50,6 +76,9 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
      */
     public NorthQDiscoveryService() {
         super(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS, 0, true);
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+
+        System.out.println("DEBUG2 - in DiscoveryService");
     }
 
     /**
@@ -58,30 +87,30 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     public NorthQDiscoveryService(NorthQNetworkHandler bridge) {
         super(NorthQBindingConstants.SUPPORTED_THING_TYPES_UIDS, 0, true);
         this.bridgeHandler = bridge;
+        System.out.println("DEBUG2 - in DiscoveryService");
     }
 
     /**
      * this function is called to start background discovery
      */
-    // @Override
-    // protected void startBackgroundDiscovery() {
-    // logger.debug("Start NorthQ device background discovery");
-    // System.out.println("DEBUG2 - starting background discovery service");
-    //
-    // if (pollingJob == null || pollingJob.isCancelled()) {
-    // pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
-    // }
-    // }
+    @Override
+    protected void startBackgroundDiscovery() {
+        logger.debug("Start NorthQ device background discovery");
+        System.out.println("DEBUG2 - starting background discovery service");
+        if (pollingJob == null || pollingJob.isCancelled()) {
+            pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+        }
+    }
 
-    // @Override
-    // protected void stopBackgroundDiscovery() {
-    // logger.debug("Stop WeMo device background discovery");
-    // System.out.println("DEBUG2 - stopping background discovery service");
-    // if (pollingJob != null && !pollingJob.isCancelled()) {
-    // pollingJob.cancel(true);
-    // pollingJob = null;
-    // }
-    // }
+    @Override
+    protected void stopBackgroundDiscovery() {
+        logger.debug("Stop WeMo device background discovery");
+        System.out.println("DEBUG2 - stopping background discovery service");
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
+            pollingJob = null;
+        }
+    }
 
     /**
      * Abstract method overwritten
@@ -90,8 +119,9 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
      */
     @Override
     public void startScan() {
-        System.out.println("Discovery - starting scan");
+        System.out.println("DEBUG2 - starting scan");
         onDataFetched();
+        System.out.println("DEBUG2 - Scan completed thing added");
     }
 
     /**
@@ -135,15 +165,12 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                         Map<String, Object> properties = new HashMap<>(1);
                         properties.put("thingID", thingID);
                         DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
+                                .withLabel(((Qthermostat) thing).getTher().serial)
                                 .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
                         thingDiscovered(dr);
                     }
                 }
             }
-            System.out.println("Disvoery - Scan completed things added");
         }
-
     }
-
 }
