@@ -134,6 +134,14 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                         thingDiscovered(dr);
                     } else if (thing instanceof Qthermostat) {
                         System.out.println("Discovered thing type Q thermostat");
+                        String thingID = thing.getNodeID();
+                        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
+                        Map<String, Object> properties = new HashMap<>(1);
+                        properties.put("thingID", thingID);
+                        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                                .withLabel(((Qthermostat) thing).getTher().serial)
+                                .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
+                        thingDiscovered(dr);
                     }
                 }
             }

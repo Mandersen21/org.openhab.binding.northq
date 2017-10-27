@@ -23,6 +23,7 @@ import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.handler.NorthQPhoneHandler;
 import org.openhab.binding.northq.handler.NorthQPlugHandler;
+import org.openhab.binding.northq.handler.NorthQThermostatHandler;
 import org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService;
 import org.osgi.service.component.annotations.Component;
 
@@ -62,6 +63,10 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         // New phone
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QPHONE)) {
             return new NorthQPhoneHandler(thing);
+        }
+        // New thermostat
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT)) {
+            return new NorthQThermostatHandler(thing);
         }
         return null;
     }
