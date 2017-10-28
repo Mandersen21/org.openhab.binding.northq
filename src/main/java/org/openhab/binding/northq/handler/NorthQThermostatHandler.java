@@ -38,47 +38,16 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQThermostatHandler extends BaseThingHandler {
 
-    private NorthqServices services;
-
-    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQThermostatHandler.class);
 
-    boolean currentStatus;
+    private NorthqServices services;
+    private boolean currentStatus;
 
-    // Add to declarations
     private ScheduledFuture<?> pollingJob;
 
-    private Runnable pollingRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            try {
-                ReadWriteLock.getInstance().lockWrite();
-                System.out.println("Polling qthermostat");
-
-                NorthqServices services = new NorthqServices();
-                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qthermostat qthermostat = getThermostat(nodeId);
-
-                // Configurations
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
-                String userID = NorthQConfig.NETWORK.getUserId();
-
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockWrite();
-            }
-        }
-    };
-
-    /**
-     * Constructor
-     */
     public NorthQThermostatHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
+
         services = new NorthqServices();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
@@ -86,10 +55,19 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
     /**
      * Abstract method overwritten
+     * Requires:
+     * Returns: Initialisation method
+     */
+    @Override
+    public void initialize() {
+        updateStatus(ThingStatus.ONLINE);
+    }
+
+    /**
+     * Abstract method overwritten
      * Requires: a channelId and a command
      * Returns: Updates the state of the device
      */
-    @SuppressWarnings("unlikely-arg-type")
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
 
@@ -111,12 +89,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 String userID = NorthQConfig.NETWORK.getUserId();
 
                 if (command.toString() != null) {
-
                     String temperature = command.toString();
-
-                    // services.setTemperature(NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getUserId(),
-                    // gatewayID, temperature, qThermostat);
-
                 }
 
             } catch (Exception e) {
@@ -125,25 +98,34 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 ReadWriteLock.getInstance().unlockRead();
             }
         }
-        // Start polling job
-        pollingRunnable.run();
     }
 
-    /**
-     * Abstract method overwritten
-     * Requires:
-     * Returns: Initialization method
-     */
-    @Override
-    public void initialize() {
-        updateStatus(ThingStatus.ONLINE);
-        System.out.println("Initialized: " + pollingJob);
-    }
+    private Runnable pollingRunnable = new Runnable() {
 
-    /**
-     * Requires: A nodeID
-     * Returns: Fetches the thermostat given the ID
-     */
+        @Override
+        public void run() {
+            try {
+                ReadWriteLock.getInstance().lockWrite();
+                System.out.println("Polling data for thermostat");
+
+                NorthqServices services = new NorthqServices();
+                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+
+                String nodeId = getThing().getProperties().get("thingID");
+                Qthermostat qthermostat = getThermostat(nodeId);
+
+                // Configurations
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+                String userID = NorthQConfig.NETWORK.getUserId();
+
+            } catch (Exception e) {
+                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+            } finally {
+                ReadWriteLock.getInstance().unlockWrite();
+            }
+        }
+    };
+
     public @Nullable Qthermostat getThermostat(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
         for (NGateway gw : gateways) {
