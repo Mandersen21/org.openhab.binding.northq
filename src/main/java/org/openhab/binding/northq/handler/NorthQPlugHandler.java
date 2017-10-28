@@ -116,13 +116,13 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 // Configurations
                 String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.NETWORK.getUserId();
-                System.out.println("Turn off plug automatically" + qplug != null && !NorthQConfig.ISHOME);
+                // System.out.println("Turn off plug automatically" + qplug != null && !NorthQConfig.ISHOME);
 
                 if (qplug != null && !NorthQConfig.ISHOME) {
-                    System.out.println("Is home changed");
+                    // System.out.println("Is home changed");
                     try {
                         boolean res = services.turnOffPlug(qplug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-                        System.out.println("Success " + res);
+                        // System.out.println("Success " + res);
                         currentStatus = false;
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -134,8 +134,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 }
 
                 if (qplug != null && qplug.getStatus() != currentStatus) {
-                    System.out.println("currentStatus: " + currentStatus);
-                    System.out.println("qplug.getStatus()" + qplug.getStatus());
+                    // System.out.println("currentStatus: " + currentStatus);
+                    // System.out.println("qplug.getStatus()" + qplug.getStatus());
                     updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
                     currentStatus = qplug.getStatus();
                 }
