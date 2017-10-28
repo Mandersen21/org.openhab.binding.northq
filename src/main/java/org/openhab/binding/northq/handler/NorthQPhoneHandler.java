@@ -36,62 +36,29 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQPhoneHandler extends BaseThingHandler {
 
-    private NorthqServices services;
-
-    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPhoneHandler.class);
 
-    // boolean status:
+    private NorthqServices services;
     private boolean status;
 
-    // Add to declarations
     private ScheduledFuture<?> pollingJob;
 
-    private Runnable pollingRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            System.out.println("Polling Qphone");
-            Form form = new Form();
-            form.param("getGPS", NorthQConfig.USERNAME);
-            NetworkUtils nu = new NetworkUtils();
-            try {
-                if (status) {
-                    Response res = nu.getHttpPostResponse("http://95.85.57.71:8080/NorthqGpsService/gps", form);
-                    String result = String.valueOf(res.readEntity(String.class).charAt(0));
-                    res.close();
-
-                    // If a new update comes in and the ishome is to be switched
-                    // If not home
-                    System.out.println("away is set: " + result.equals("0"));
-                    System.out.println("away is set: " + result.equals("1"));
-                    if (status && result.equals("0") && NorthQConfig.ISHOME) {
-                        // turn off device
-                        NorthQConfig.setISHOME(false);
-                        System.out.println("Set config to: " + NorthQConfig.ISHOME);
-
-                    } // If home
-                    else if (status && result.equals("1") && !NorthQConfig.ISHOME) {
-                        NorthQConfig.setISHOME(true);
-                        System.out.println("Set config to: " + NorthQConfig.ISHOME);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-    };
-
-    /**
-     * Constructor
-     */
-    @SuppressWarnings("null")
     public NorthQPhoneHandler(Thing thing) {
         super(thing);
+
         status = false;
         services = new NorthqServices();
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initialisation method
+     */
+    @Override
+    public void initialize() {
+        updateStatus(ThingStatus.ONLINE);
     }
 
     /**
@@ -105,7 +72,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             System.out.println("In enable GPS services");
             if (command.toString().equals("ON")) {
                 status = true;
-                // NorthQConfig.setISHOME(true);
             } else if (command.toString().equals("OFF")) {
                 NorthQConfig.setISHOME(true);
                 status = false;
@@ -113,15 +79,43 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         }
     }
 
-    /**
-     * Abstract method overwritten
-     * Requires:
-     * Returns: Initialisation method
-     */
-    @Override
-    public void initialize() {
-        updateStatus(ThingStatus.ONLINE);
-        System.out.println("Initialized: " + pollingJob);
-    }
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            System.out.println("Polling data for phone");
+
+            Form form = new Form();
+            form.param("getGPS", NorthQConfig.USERNAME);
+            NetworkUtils nu = new NetworkUtils();
+
+            try {
+                if (status) {
+                    // TODO save url in config
+                    Response res = nu.getHttpPostResponse("http://95.85.57.71:8080/NorthqGpsService/gps", form);
+                    String result = String.valueOf(res.readEntity(String.class).charAt(0));
+                    res.close();
+
+                    // If a new update comes in and the ishome is to be switched
+                    // If not home
+                    System.out.println("away is set: " + result.equals("0"));
+                    System.out.println("away is set: " + result.equals("1"));
+
+                    if (status && result.equals("0") && NorthQConfig.ISHOME) {
+                        // turn off device
+                        NorthQConfig.setISHOME(false);
+                        System.out.println("Set config to: " + NorthQConfig.ISHOME);
+                    } // If home
+                    else if (status && result.equals("1") && !NorthQConfig.ISHOME) {
+                        NorthQConfig.setISHOME(true);
+                        System.out.println("Set config to: " + NorthQConfig.ISHOME);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
 
 }

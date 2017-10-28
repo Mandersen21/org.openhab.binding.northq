@@ -41,63 +41,17 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQMotionHandler extends BaseThingHandler {
 
+    private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
+
     private NorthqServices services;
     private boolean currentStatus;
     private boolean currentTriggered;
 
-    @SuppressWarnings("null")
-    private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
-
-    // Add to declarations
     private ScheduledFuture<?> pollingJob;
 
-    private Runnable pollingRunnable = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                ReadWriteLock.getInstance().lockRead();
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qmotion qMotion = getQmotion(nodeId);
-                System.out.println("Polling qmotion -- ID: " + nodeId);
-
-                // NorthqServices services = new NorthqServices();
-                // NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
-
-                boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
-                        NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
-                if (qMotion != null && qMotion.getStatus()) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
-                            StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
-
-                    currentTriggered = triggered;
-                } else {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
-                    currentTriggered = false;
-
-                }
-                System.out.println("currentStatus: " + currentStatus);
-                if (qMotion != null && qMotion.getStatus() != currentStatus) {
-                    System.out.println("status changed polling");
-
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
-                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                    currentStatus = qMotion.getStatus();
-
-                }
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockRead();
-            }
-        }
-    };
-
-    /**
-     * Constructor
-     */
     public NorthQMotionHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
+
         services = new NorthqServices();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
@@ -110,22 +64,21 @@ public class NorthQMotionHandler extends BaseThingHandler {
      */
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
+
         if (channelUID.getId().equals(CHANNEL_QMOTION)) {
             try {
                 ReadWriteLock.getInstance().lockWrite();
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
                 String nodeId = getThing().getProperties().get("thingID");
                 Qmotion qMotion = getQmotion(nodeId);
 
                 if (command.toString().equals("ON")) {
-                    // Plug should be turned on
                     services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = true;
                     qMotion.getBs().armed = 1;
 
                 } else if (command.toString().equals("OFF")) {
-                    // Plug should be turned off
                     services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
                             qMotion);
                     currentStatus = false;
@@ -136,41 +89,66 @@ public class NorthQMotionHandler extends BaseThingHandler {
             } finally {
                 ReadWriteLock.getInstance().unlockWrite();
             }
-
         }
-        // pollingRunnable.run();
     }
 
     /**
      * Abstract method overwritten
      * Requires:
-     * Returns: Initializer
+     * Returns: Initialiser
      */
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
     }
 
-    /**
-     * Requires: A nodeID
-     * Returns: Fetches the plug given the ID
-     */
-    public @Nullable Qmotion getQmotion(String nodeID) {
+    private Runnable pollingRunnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                ReadWriteLock.getInstance().lockRead();
+                System.out.println("Polling data for q motion");
 
+                String nodeId = getThing().getProperties().get("thingID");
+                Qmotion qMotion = getQmotion(nodeId);
+
+                boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
+                        NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
+
+                if (qMotion != null && qMotion.getStatus()) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
+                            StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
+
+                    currentTriggered = triggered;
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
+                    currentTriggered = false;
+                }
+
+                if (qMotion != null && qMotion.getStatus() != currentStatus) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
+                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                    currentStatus = qMotion.getStatus();
+                }
+            } catch (Exception e) {
+                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+            } finally {
+                ReadWriteLock.getInstance().unlockRead();
+            }
+        }
+    };
+
+    public @Nullable Qmotion getQmotion(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
         for (NGateway gw : gateways) {
-
             ArrayList<Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {
-
                 if (things.get(i) instanceof Qmotion && nodeID.equals(things.get(i).getNodeID())) {
                     Qmotion qmotion = (Qmotion) things.get(i);
-
                     return qmotion;
                 }
             }
         }
-
         return null;
     }
 }
