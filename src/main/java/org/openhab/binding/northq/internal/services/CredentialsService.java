@@ -35,7 +35,7 @@ public class CredentialsService {
             credentials.add(br.readLine());
             br.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Could not load credentials, create file.txt with username and password under C:\\");
+            System.out.println("Could not load credentials, create file.txt with username and password");
         } catch (Exception e) {
             System.out.println("Problem occurred with loading credentials");
         }
