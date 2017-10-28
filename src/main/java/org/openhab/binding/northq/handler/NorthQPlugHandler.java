@@ -40,15 +40,67 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
-    private NorthqServices services;
-
-    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
-    boolean currentStatus;
-
-    // Add to declarations
+    private NorthqServices services;
     private ScheduledFuture<?> pollingJob;
+    private boolean currentStatus;
+
+    public NorthQPlugHandler(org.eclipse.smarthome.core.thing.Thing thing) {
+        super(thing);
+
+        services = new NorthqServices();
+        currentStatus = false;
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initialisation method
+     */
+    @Override
+    public void initialize() {
+        updateStatus(ThingStatus.ONLINE);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires: a channelId and a command
+     * Returns: Updates the state of the device
+     */
+    @Override
+    public void handleCommand(ChannelUID channelUID, Command command) {
+
+        if (channelUID.getId().equals(CHANNEL_QPLUG)) {
+            try {
+                ReadWriteLock.getInstance().lockWrite();
+                String nodeId = getThing().getProperties().get("thingID");
+                Qplug qPlug = getPlug(nodeId);
+
+                if (qPlug == null) {
+                    updateStatus(ThingStatus.OFFLINE);
+                    return;
+                } else {
+                    updateStatus(ThingStatus.ONLINE);
+                }
+
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
+                String userID = NorthQConfig.NETWORK.getUserId();
+
+                // Check if plug should be turned on or off
+                if (command.toString().equals("ON")) {
+                    turnPlugOn(qPlug, gatewayID, userID);
+                } else if (command.toString().equals("OFF")) {
+                    turnPlugOff(qPlug, gatewayID, userID);
+                }
+            } catch (Exception e) {
+                updateStatus(ThingStatus.OFFLINE);
+            } finally {
+                ReadWriteLock.getInstance().unlockWrite();
+            }
+        }
+    }
 
     private Runnable pollingRunnable = new Runnable() {
 
@@ -56,16 +108,13 @@ public class NorthQPlugHandler extends BaseThingHandler {
         public void run() {
             try {
                 ReadWriteLock.getInstance().lockRead();
-                System.out.println("Polling qplug");
-
-                // NorthqServices services = new NorthqServices();
-                // NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                System.out.println("Polling data for plug");
 
                 String nodeId = getThing().getProperties().get("thingID");
                 Qplug qplug = getPlug(nodeId);
 
                 // Configurations
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.NETWORK.getUserId();
                 System.out.println("Turn off plug automatically" + qplug != null && !NorthQConfig.ISHOME);
 
@@ -98,103 +147,18 @@ public class NorthQPlugHandler extends BaseThingHandler {
         }
     };
 
-    /**
-     * Constructor
-     */
-    public NorthQPlugHandler(org.eclipse.smarthome.core.thing.Thing thing) {
-        super(thing);
-        services = new NorthqServices();
-        currentStatus = false;
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
-    }
-
-    /**
-     * Abstract method overwritten
-     * Requires: a channelId and a command
-     * Returns: Updates the state of the device
-     */
-    @SuppressWarnings("unlikely-arg-type")
-    @Override
-    public void handleCommand(ChannelUID channelUID, Command command) {
-
-        if (channelUID.getId().equals(CHANNEL_QPLUG)) {
-            try {
-                ReadWriteLock.getInstance().lockWrite();
-                String nodeId = getThing().getProperties().get("thingID");
-                Qplug qPlug = getPlug(nodeId);
-
-                if (qPlug == null) {
-                    updateStatus(ThingStatus.OFFLINE);
-                    return;
-                } else {
-                    updateStatus(ThingStatus.ONLINE);
-                }
-
-                // Configurations
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
-                String userID = NorthQConfig.NETWORK.getUserId();
-
-                if (command.toString().equals("ON")) {
-                    turnPlugOn(qPlug, gatewayID, userID);
-
-                } else if (command.toString().equals("OFF")) {
-                    turnPlugOff(qPlug, gatewayID, userID);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                ReadWriteLock.getInstance().unlockWrite();
-            }
-        }
-        // Start polling job
-        // pollingRunnable.run();
-    }
-
-    /**
-     * Abstract method overwritten
-     * Requires: qplug, gatewayId and the userID
-     * Returns: Turns the physical device on
-     *
-     * @throws Exception
-     * @throws IOException
-     */
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-        System.out.println("Success " + res);
         currentStatus = false;
         qPlug.getBs().pos = 0;
     }
 
-    /**
-     * Abstract method overwritten
-     * Requires: qplug, gatewayId and the userID
-     * Returns: Turns the physical device on
-     *
-     * @throws Exception
-     * @throws IOException
-     */
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-        System.out.println("Success " + res);
         currentStatus = true;
         qPlug.getBs().pos = 1;
     }
 
-    /**
-     * Abstract method overwritten
-     * Requires:
-     * Returns: Initialization method
-     */
-    @Override
-    public void initialize() {
-        updateStatus(ThingStatus.ONLINE);
-        System.out.println("Initialized: " + pollingJob);
-    }
-
-    /**
-     * Requires: A nodeID
-     * Returns: Fetches the plug given the ID
-     */
     public @Nullable Qplug getPlug(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
         for (NGateway gw : gateways) {

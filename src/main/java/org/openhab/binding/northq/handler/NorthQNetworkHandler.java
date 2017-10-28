@@ -41,12 +41,10 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     /**
      * Constructor
      */
-    @SuppressWarnings("null")
     public NorthQNetworkHandler(Bridge bridge) {
         super(bridge);
-        new NorthQConfig();
-        services = new NorthqServices();
 
+        services = new NorthqServices();
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 10, TimeUnit.SECONDS);
     }
 
