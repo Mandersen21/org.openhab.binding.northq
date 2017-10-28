@@ -21,7 +21,6 @@ public class NorthQConfig {
     // North network
     public static NorthNetwork NETWORK = null;
 
-    // Authentication
     public static String USERNAME = "";
     public static String PASSWORD = "";
     public static boolean ISHOME = true;
@@ -30,23 +29,23 @@ public class NorthQConfig {
         return ISHOME;
     }
 
-    public static void setISHOME(boolean iSHOME) {
-        ISHOME = iSHOME;
+    public static void setISHOME(boolean ishome) {
+        ISHOME = ishome;
     }
 
     public static String getUSERNAME() {
         return USERNAME;
     }
 
-    public static void setUSERNAME(String uSERNAME) {
-        USERNAME = uSERNAME;
+    public static void setUSERNAME(String username) {
+        USERNAME = username;
     }
 
     public static String getPASSWORD() {
         return PASSWORD;
     }
 
-    public static void setPASSWORD(String pASSWORD) {
-        PASSWORD = pASSWORD;
+    public static void setPASSWORD(String password) {
+        PASSWORD = password;
     }
 }

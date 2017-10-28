@@ -8,6 +8,9 @@
  */
 package org.openhab.binding.northq.handler;
 
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.thing.Bridge;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -15,6 +18,7 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseBridgeHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
+import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
@@ -29,19 +33,22 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQNetworkHandler extends BaseBridgeHandler {
 
+    private final Logger logger = LoggerFactory.getLogger(NorthQNetworkHandler.class);
+
+    private ScheduledFuture<?> pollingJob;
     private NorthqServices services;
 
     /**
      * Constructor
      */
+    @SuppressWarnings("null")
     public NorthQNetworkHandler(Bridge bridge) {
         super(bridge);
         new NorthQConfig();
         services = new NorthqServices();
-    }
 
-    @SuppressWarnings("null")
-    private final Logger logger = LoggerFactory.getLogger(NorthQNetworkHandler.class);
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 10, TimeUnit.SECONDS);
+    }
 
     /**
      * Initialiser
@@ -63,9 +70,29 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
             logger.info("Q-stick is online");
         } catch (Exception e1) {
             updateStatus(ThingStatus.OFFLINE);
-            logger.info("Q-stick does not work correct");
+            logger.info("Q-stick received an error in initialization");
         }
     }
+
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+
+            // Only run polling job with NETWORK is not null
+            if (NorthQConfig.NETWORK != null) {
+                try {
+                    ReadWriteLock.getInstance().lockWrite();
+                    NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                    System.out.println("Network fetched");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    ReadWriteLock.getInstance().unlockWrite();
+                }
+            }
+        }
+    };
 
     /**
      * Abstract method overwritten
