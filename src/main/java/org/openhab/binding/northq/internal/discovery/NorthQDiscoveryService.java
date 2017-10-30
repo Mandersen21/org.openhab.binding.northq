@@ -91,41 +91,58 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     @Override
     public void onDataFetched() {
         NorthNetwork n = NorthQConfig.NETWORK;
+
         if (n != null) {
             ArrayList<NGateway> g = n.getGateways();
+
             for (int i = 0; i < g.size(); i++) {
                 ArrayList<Thing> things = g.get(i).getThings();
+
                 for (int j = 0; j < things.size(); j++) {
                     Thing thing = things.get(j);
+
                     if (thing instanceof Qplug) {
                         System.out.println("Discovered thing type Q plug");
+
                         String thingID = thing.getNodeID();
                         ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
                         Map<String, Object> properties = new HashMap<>(1);
+
                         properties.put("thingID", thingID);
+
                         DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                                 .withLabel(((Qplug) thing).getBs().name)
                                 .withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
+
                         thingDiscovered(dr);
+
                     } else if (thing instanceof Qmotion) {
                         System.out.println("Discovered thing type Q motion");
+
                         String thingID = thing.getNodeID();
                         ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
                         Map<String, Object> properties = new HashMap<>(1);
+
                         properties.put("thingID", thingID);
+
                         DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                                 .withLabel(((Qmotion) thing).getBs().name)
                                 .withThingType(NorthQBindingConstants.THING_TYPE_QMOTION).build();
+
                         thingDiscovered(dr);
                     } else if (thing instanceof Qthermostat) {
                         System.out.println("Discovered thing type Q thermostat");
+
                         String thingID = thing.getNodeID();
                         ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
                         Map<String, Object> properties = new HashMap<>(1);
+
                         properties.put("thingID", thingID);
+
                         DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel(((Qthermostat) thing).getTher().serial)
+                                .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
                                 .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
+
                         thingDiscovered(dr);
                     }
                 }

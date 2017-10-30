@@ -65,4 +65,11 @@ public class Qmotion extends Thing implements IThing {
         }
         return 0;
     }
+
+    public int getBattery() {
+        if (bs != null) {
+            return bs.battery;
+        }
+        return 0;
+    }
 }
