@@ -19,6 +19,7 @@ import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.handler.MockNetworkHandler;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.handler.NorthQPhoneHandler;
@@ -67,6 +68,10 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         // New thermostat
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT)) {
             return new NorthQThermostatHandler(thing);
+        }
+        // New Mock thing
+        if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_MOCKNETWORK)) {
+            return new MockNetworkHandler(thing);
         }
         return null;
     }

@@ -32,9 +32,10 @@ public class NorthQBindingConstants {
     public static final ThingTypeUID THING_TYPE_QMOTION = new ThingTypeUID(BINDING_ID, "qMotion");
     public static final ThingTypeUID THING_TYPE_QPHONE = new ThingTypeUID(BINDING_ID, "qPhone");
     public static final ThingTypeUID THING_TYPE_QTHERMOSTAT = new ThingTypeUID(BINDING_ID, "qThermostat");
+    public static final ThingTypeUID THING_TYPE_MOCKNETWORK = new ThingTypeUID(BINDING_ID, "mocknetwork");
 
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(THING_TYPE_QPLUG,
-            THING_TYPE_QMOTION, THING_TYPE_NETWORK, THING_TYPE_QPHONE, THING_TYPE_QTHERMOSTAT);
+            THING_TYPE_QMOTION, THING_TYPE_NETWORK, THING_TYPE_QPHONE, THING_TYPE_QTHERMOSTAT, THING_TYPE_MOCKNETWORK);
 
     // Channel IDs
     public static final String CHANNEL_QSTICK = "channelstick";
@@ -49,6 +50,7 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_QPHONE = "channelgps";
     public static final String CHANNEL_QTHERMOSTAT = "channelthermostat";
     public static final String CHANNEL_QTHERMOSTAT_BATTERY = "channelthermostatbattery";
+    public static final String CHANNEL_MOCKNETWORK = "channelmock";
 
     // Event Channel IDs
     public static final String CHANNEL_QSTICK_SCAN = "qStickScanning";

@@ -8,6 +8,7 @@
  */
 package org.openhab.binding.northq.internal.common;
 
+import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 
 /**
@@ -24,6 +25,11 @@ public class NorthQConfig {
     public static String USERNAME = "";
     public static String PASSWORD = "";
     public static boolean ISHOME = true;
+
+    public static boolean MOCK = false;
+    public static NorthQMockNetwork MOCK_NETWORK;
+
+    // TODO: clean this, so we do not die
 
     public static boolean isISHOME() {
         return ISHOME;

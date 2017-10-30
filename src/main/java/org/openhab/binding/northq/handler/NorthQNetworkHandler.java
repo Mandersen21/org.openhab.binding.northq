@@ -19,6 +19,7 @@ import org.eclipse.smarthome.core.thing.binding.BaseBridgeHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
+import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
@@ -77,11 +78,23 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         @Override
         public void run() {
 
+            // if we are not running on Mock network
+
             // Only run polling job with NETWORK is not null
             if (NorthQConfig.NETWORK != null) {
                 try {
                     ReadWriteLock.getInstance().lockWrite();
-                    NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                    System.out.println("are we testing !?!?!?!?! " + NorthQConfig.MOCK);
+                    if (!NorthQConfig.MOCK) {
+                        NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                    } else {
+                        if (NorthQConfig.MOCK_NETWORK == null) {
+                            NorthQConfig.MOCK_NETWORK = new NorthQMockNetwork();
+                        }
+                        NorthQConfig.NETWORK = NorthQConfig.MOCK_NETWORK.getNetwork();
+                        System.out.println("Test data has overwritten config");
+                    }
+
                     System.out.println("Network fetched");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -89,6 +102,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                     ReadWriteLock.getInstance().unlockWrite();
                 }
             }
+
         }
     };
 
