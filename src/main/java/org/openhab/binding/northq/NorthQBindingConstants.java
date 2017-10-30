@@ -42,10 +42,16 @@ public class NorthQBindingConstants {
     // Channel IDs
     public static final String CHANNEL_QSTICK = "channelstick";
     public static final String CHANNEL_QPLUG = "channelplug";
+    public static final String CHANNEL_QPLUGPOWER = "channelplugpower";
     public static final String CHANNEL_QMOTION = "channelmotion";
+    public static final String CHANNEL_QMOTION_TEMP = "channelmotiontemp";
+    public static final String CHANNEL_QMOTION_LIGHT = "channelmotionlight";
+    public static final String CHANNEL_QMOTION_HUMIDITY = "channelmotionhumidity";
     public static final String CHANNEL_QMOTION_NOTIFICATION = "channelnotification";
+    public static final String CHANNEL_QMOTION_BATTERY = "channelbattery";
     public static final String CHANNEL_QPHONE = "channelgps";
     public static final String CHANNEL_QTHERMOSTAT = "channelthermostat";
+    public static final String CHANNEL_QTHERMOSTAT_BATTERY = "channelthermostatbattery";
 
     // Event Channel IDs
     public static final String CHANNEL_QSTICK_SCAN = "qStickScanning";
