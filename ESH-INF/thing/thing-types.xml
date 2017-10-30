@@ -16,6 +16,7 @@
 		<channels>
 			<channel id="channelplug" typeId="plug-channel" />
 			<channel id="channelplugevent" typeId="plugEventTrigger" />
+			<channel id="channelplugpower" typeId="plugPower" />
 		</channels>
 	</thing-type>
 
@@ -29,6 +30,12 @@
         <kind>trigger</kind>
         <label>QPlug event trigger</label>
         <description>Triggered to get current status of q plug</description>
+    </channel-type>
+    
+    <channel-type id="plugPower">
+        <item-type>Number</item-type>
+        <label>Power Consumption</label>
+        <description>Power consumption of QPlug</description>
     </channel-type>
 
 	<!-- qmotion thing -->
@@ -44,12 +51,16 @@
 		<channels>
 			<channel id="channelmotion" typeId="motion-channel" />
 			<channel id="channelnotification" typeId="motion-notification-channel"></channel>
+			<channel id="channeltemperature" typeId="motion-temperature-channel"></channel>
+			<channel id="channellight" typeId="motion-light-channel"></channel>
+			<channel id="channelhumidity" typeId="motion-humidity-channel"></channel>
+			<channel id="channelbattery" typeId="motion-battery-channel"></channel>
 		</channels>
 	</thing-type>
 
 	<channel-type id="motion-channel">
 		<item-type>Switch</item-type>
-		<label>NorthQ motion</label>
+		<label>Arm/Disarm Motion Sensor</label>
 		<description>QMotion channel for NorthQ Binding</description>
 	</channel-type>
 	
@@ -67,6 +78,29 @@
        </state>
 	</channel-type>
 
+    <channel-type id="motion-temperature-channel">
+        <item-type>Number</item-type>
+        <label>Temperature</label>
+        <description>QMotion channel for temperature</description>
+    </channel-type>
+    
+    <channel-type id="motion-light-channel">
+        <item-type>Number</item-type>
+        <label>Light Intensity</label>
+        <description>QMotion channel for light</description>
+    </channel-type>
+    
+    <channel-type id="motion-humidity-channel">
+        <item-type>Number</item-type>
+        <label>Humidity</label>
+        <description>QMotion channel for humidity</description>
+    </channel-type>
+    
+     <channel-type id="motion-battery-channel">
+        <item-type>Number</item-type>
+        <label>Battery</label>
+        <description>QMotion channel for battery</description>
+    </channel-type>
 
     <!-- qPhone thing -->
     <thing-type id="qPhone">
@@ -102,13 +136,20 @@
 
         <channels>
             <channel id="channelthermostat" typeId="thermostat-channel" />
+            <channel id="channelthermostatbattery" typeId="thermostat-battery-channel" />
         </channels>
     </thing-type>
 
     <channel-type id="thermostat-channel">
         <item-type>Number</item-type>
-        <label>Danfoss thermostat</label>
-        <description>Danfoss thermostat channel for NorthQ Binding</description>
+        <label>Temperature</label>
+        <description>Danfoss thermostat channel for temperature</description>
+    </channel-type>
+    
+    <channel-type id="thermostat-channel">
+        <item-type>Number</item-type>
+        <label>Battery</label>
+        <description>Danfoss thermostat channel for battery</description>
     </channel-type>
 
 </thing:thing-descriptions>

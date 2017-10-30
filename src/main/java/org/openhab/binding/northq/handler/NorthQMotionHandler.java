@@ -130,6 +130,15 @@ public class NorthQMotionHandler extends BaseThingHandler {
                             qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
                     currentStatus = qMotion.getStatus();
                 }
+
+                if (qMotion != null) {
+                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_TEMP, String.valueOf(qMotion.getTmp()));
+                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT, String.valueOf(qMotion.getLight()));
+                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
+                            String.valueOf(qMotion.getHumidity()));
+                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
+                            String.valueOf(qMotion.getBattery() + "%"));
+                }
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {

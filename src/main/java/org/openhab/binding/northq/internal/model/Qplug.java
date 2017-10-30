@@ -39,6 +39,13 @@ public class Qplug extends Thing implements IThing {
         this.bs = bs;
     }
 
+    public float getPowerConsumption() {
+        if (bs != null) {
+            return bs.sensors.get(0).value;
+        }
+        return 0;
+    }
+
     @Override
     public String getNodeID() {
         return bs.node_id + "";

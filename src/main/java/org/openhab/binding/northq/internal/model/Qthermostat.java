@@ -43,4 +43,8 @@ public class Qthermostat extends Thing implements IThing {
 
     }
 
+    public int getBattery() {
+        return ther.battery;
+    }
+
 }

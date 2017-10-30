@@ -20,6 +20,7 @@ import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
+import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
@@ -117,6 +118,11 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 // Configurations
                 String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
                 String userID = NorthQConfig.NETWORK.getUserId();
+
+                if (qthermostat != null) {
+                    updateProperty(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
+                            String.valueOf(qthermostat.getBattery() + "%"));
+                }
 
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);

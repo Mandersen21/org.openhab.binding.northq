@@ -22,6 +22,7 @@ import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
+import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
@@ -131,6 +132,10 @@ public class NorthQPlugHandler extends BaseThingHandler {
                     updateState("channelplug", OnOffType.OFF);
                     currentStatus = false;
 
+                }
+                if (qplug != null) {
+                    updateProperty(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
+                            String.valueOf(qplug.getPowerConsumption()));
                 }
 
                 if (qplug != null && qplug.getStatus() != currentStatus) {
