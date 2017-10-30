@@ -41,7 +41,7 @@ public class Qplug extends Thing implements IThing {
 
     public float getPowerConsumption() {
         if (bs != null) {
-            return bs.sensors.get(0).value;
+            return bs.wattage;
         }
         return 0;
     }

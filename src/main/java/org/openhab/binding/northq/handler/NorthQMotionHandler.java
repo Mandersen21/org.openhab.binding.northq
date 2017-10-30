@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.library.types.StringType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -78,12 +79,14 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 }
 
                 if (qMotion != null) {
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_TEMP, String.valueOf(qMotion.getTmp()));
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT, String.valueOf(qMotion.getLight()));
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
-                            String.valueOf(qMotion.getHumidity()));
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
-                            String.valueOf(qMotion.getBattery() + "%"));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_TEMP,
+                            DecimalType.valueOf(String.valueOf(qMotion.getTmp())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT,
+                            DecimalType.valueOf(String.valueOf(qMotion.getLight())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
+                            DecimalType.valueOf(String.valueOf(qMotion.getHumidity())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
+                            DecimalType.valueOf(qMotion.getBattery() + ""));
                 }
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);

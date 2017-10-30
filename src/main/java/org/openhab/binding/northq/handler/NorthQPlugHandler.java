@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
@@ -79,8 +80,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
                     currentStatus = qplug.getStatus();
                 }
                 if (qplug != null) {
-                    updateProperty(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
-                            String.valueOf(qplug.getPowerConsumption()));
+                    updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
+                            DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
                 }
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);

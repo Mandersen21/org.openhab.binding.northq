@@ -36,6 +36,7 @@
         <item-type>Number</item-type>
         <label>Power Consumption</label>
         <description>Power consumption of QPlug</description>
+        <state pattern="%.1d W" readOnly="true" />
     </channel-type>
 
 	<!-- qmotion thing -->
@@ -82,24 +83,28 @@
         <item-type>Number</item-type>
         <label>Temperature</label>
         <description>QMotion channel for temperature</description>
+        <state pattern="%.1d °C" readOnly="true" />    
     </channel-type>
     
     <channel-type id="motion-light-channel">
         <item-type>Number</item-type>
         <label>Light Intensity</label>
         <description>QMotion channel for light</description>
+        <state pattern="%.1d percent" readOnly="true" />
     </channel-type>
     
     <channel-type id="motion-humidity-channel">
         <item-type>Number</item-type>
         <label>Humidity</label>
         <description>QMotion channel for humidity</description>
+        <state pattern="%.1d percent" readOnly="true" />
     </channel-type>
     
      <channel-type id="motion-battery-channel">
         <item-type>Number</item-type>
         <label>Battery</label>
         <description>QMotion channel for battery</description>
+        <state pattern="%.1d percent" readOnly="true" />
     </channel-type>
 
     <!-- qPhone thing -->
