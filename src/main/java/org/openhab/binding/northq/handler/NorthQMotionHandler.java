@@ -48,13 +48,61 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private boolean currentTriggered;
 
     private ScheduledFuture<?> pollingJob;
+    private Runnable pollingRunnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                ReadWriteLock.getInstance().lockRead();
+                System.out.println("Polling data for q motion");
 
+                String nodeId = getThing().getProperties().get("thingID");
+                Qmotion qMotion = getQmotion(nodeId);
+
+                boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
+                        NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
+
+                if (qMotion != null && qMotion.getStatus()) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
+                            StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
+
+                    currentTriggered = triggered;
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
+                    currentTriggered = false;
+                }
+
+                if (qMotion != null && qMotion.getStatus() != currentStatus) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
+                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                    currentStatus = qMotion.getStatus();
+                }
+            } catch (Exception e) {
+                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+            } finally {
+                ReadWriteLock.getInstance().unlockRead();
+            }
+        }
+    };
+
+    /**
+     * Constructor
+     */
     public NorthQMotionHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
         services = new NorthqServices();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initialiser
+     */
+    @Override
+    public void initialize() {
+        updateStatus(ThingStatus.ONLINE);
     }
 
     /**
@@ -95,48 +143,16 @@ public class NorthQMotionHandler extends BaseThingHandler {
     /**
      * Abstract method overwritten
      * Requires:
-     * Returns: Initialiser
+     * Returns: Scheduled jobs and removes thing
      */
     @Override
-    public void initialize() {
-        updateStatus(ThingStatus.ONLINE);
-    }
-
-    private Runnable pollingRunnable = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                ReadWriteLock.getInstance().lockRead();
-                System.out.println("Polling data for q motion");
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qmotion qMotion = getQmotion(nodeId);
-
-                boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
-                        NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
-
-                if (qMotion != null && qMotion.getStatus()) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
-                            StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
-
-                    currentTriggered = triggered;
-                } else {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
-                    currentTriggered = false;
-                }
-
-                if (qMotion != null && qMotion.getStatus() != currentStatus) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
-                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                    currentStatus = qMotion.getStatus();
-                }
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockRead();
-            }
+    public void handleRemoval() {
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
         }
-    };
+        // remove thing
+        updateStatus(ThingStatus.REMOVED);
+    }
 
     public @Nullable Qmotion getQmotion(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();

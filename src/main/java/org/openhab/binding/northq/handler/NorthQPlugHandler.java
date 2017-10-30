@@ -45,7 +45,49 @@ public class NorthQPlugHandler extends BaseThingHandler {
     private NorthqServices services;
     private ScheduledFuture<?> pollingJob;
     private boolean currentStatus;
+    private Runnable pollingRunnable = new Runnable() {
 
+        @Override
+        public void run() {
+            try {
+                ReadWriteLock.getInstance().lockRead();
+                System.out.println("Polling data for plug");
+
+                String nodeId = getThing().getProperties().get("thingID");
+                Qplug qplug = getPlug(nodeId);
+
+                // Configurations
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
+                String userID = NorthQConfig.NETWORK.getUserId();
+                if (qplug != null && !NorthQConfig.ISHOME) {
+                    try {
+                        boolean res = services.turnOffPlug(qplug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
+                        currentStatus = false;
+                        updateStatus(ThingStatus.ONLINE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        updateStatus(ThingStatus.OFFLINE);
+                    }
+                    updateState("channelplug", OnOffType.OFF);
+                    currentStatus = false;
+
+                }
+
+                if (qplug != null && qplug.getStatus() != currentStatus) {
+                    updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                    currentStatus = qplug.getStatus();
+                }
+            } catch (Exception e) {
+                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+            } finally {
+                ReadWriteLock.getInstance().unlockRead();
+            }
+        }
+    };
+
+    /**
+     * Constructor
+     */
     public NorthQPlugHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
@@ -102,61 +144,34 @@ public class NorthQPlugHandler extends BaseThingHandler {
         }
     }
 
-    private Runnable pollingRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            try {
-                ReadWriteLock.getInstance().lockRead();
-                System.out.println("Polling data for plug");
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qplug qplug = getPlug(nodeId);
-
-                // Configurations
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
-                String userID = NorthQConfig.NETWORK.getUserId();
-                // System.out.println("Turn off plug automatically" + qplug != null && !NorthQConfig.ISHOME);
-
-                if (qplug != null && !NorthQConfig.ISHOME) {
-                    // System.out.println("Is home changed");
-                    try {
-                        boolean res = services.turnOffPlug(qplug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-                        // System.out.println("Success " + res);
-                        currentStatus = false;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        updateStatus(ThingStatus.OFFLINE);
-                    }
-                    updateState("channelplug", OnOffType.OFF);
-                    currentStatus = false;
-
-                }
-
-                if (qplug != null && qplug.getStatus() != currentStatus) {
-                    // System.out.println("currentStatus: " + currentStatus);
-                    // System.out.println("qplug.getStatus()" + qplug.getStatus());
-                    updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                    currentStatus = qplug.getStatus();
-                }
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockRead();
-            }
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Scheduled jobs and removes thing
+     */
+    @Override
+    public void handleRemoval() {
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
         }
-    };
+        // remove thing
+        updateStatus(ThingStatus.REMOVED);
+    }
 
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-        currentStatus = false;
-        qPlug.getBs().pos = 0;
+        if (res) {
+            currentStatus = false;
+            qPlug.getBs().pos = 0;
+        }
     }
 
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
-        currentStatus = true;
-        qPlug.getBs().pos = 1;
+        if (res) {
+            currentStatus = true;
+            qPlug.getBs().pos = 1;
+        }
     }
 
     public @Nullable Qplug getPlug(String nodeID) {

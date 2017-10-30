@@ -37,6 +37,25 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
 
     private ScheduledFuture<?> pollingJob;
     private NorthqServices services;
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+
+            // Only run polling job with NETWORK is not null
+            if (NorthQConfig.NETWORK != null) {
+                try {
+                    ReadWriteLock.getInstance().lockWrite();
+                    NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                    System.out.println("Network fetched");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    ReadWriteLock.getInstance().unlockWrite();
+                }
+            }
+        }
+    };
 
     /**
      * Constructor
@@ -72,26 +91,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         }
     }
 
-    private Runnable pollingRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-
-            // Only run polling job with NETWORK is not null
-            if (NorthQConfig.NETWORK != null) {
-                try {
-                    ReadWriteLock.getInstance().lockWrite();
-                    NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
-                    System.out.println("Network fetched");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    ReadWriteLock.getInstance().unlockWrite();
-                }
-            }
-        }
-    };
-
     /**
      * Abstract method overwritten
      * Requires:
@@ -100,5 +99,19 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
 
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Scheduled jobs and removes thing
+     */
+    @Override
+    public void handleRemoval() {
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
+        }
+        // remove thing
+        updateStatus(ThingStatus.REMOVED);
     }
 }
