@@ -48,60 +48,6 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private boolean currentTriggered;
 
     private ScheduledFuture<?> pollingJob;
-
-    public NorthQMotionHandler(org.eclipse.smarthome.core.thing.Thing thing) {
-        super(thing);
-
-        services = new NorthqServices();
-        currentStatus = false;
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
-    }
-
-    /**
-     * Abstract method overwritten
-     * Requires: a channelId and a command
-     * Returns: Updates the state of the device
-     */
-    @Override
-    public void handleCommand(ChannelUID channelUID, Command command) {
-
-        if (channelUID.getId().equals(CHANNEL_QMOTION)) {
-            try {
-                ReadWriteLock.getInstance().lockWrite();
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
-                String nodeId = getThing().getProperties().get("thingID");
-                Qmotion qMotion = getQmotion(nodeId);
-
-                if (command.toString().equals("ON")) {
-                    services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
-                            qMotion);
-                    currentStatus = true;
-                    qMotion.getBs().armed = 1;
-
-                } else if (command.toString().equals("OFF")) {
-                    services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
-                            qMotion);
-                    currentStatus = false;
-                    qMotion.getBs().armed = 0;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                ReadWriteLock.getInstance().unlockWrite();
-            }
-        }
-    }
-
-    /**
-     * Abstract method overwritten
-     * Requires:
-     * Returns: Initialiser
-     */
-    @Override
-    public void initialize() {
-        updateStatus(ThingStatus.ONLINE);
-    }
-
     private Runnable pollingRunnable = new Runnable() {
         @Override
         public void run() {
@@ -146,6 +92,76 @@ public class NorthQMotionHandler extends BaseThingHandler {
             }
         }
     };
+
+    /**
+     * Constructor
+     */
+    public NorthQMotionHandler(org.eclipse.smarthome.core.thing.Thing thing) {
+        super(thing);
+
+        services = new NorthqServices();
+        currentStatus = false;
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initialiser
+     */
+    @Override
+    public void initialize() {
+        updateStatus(ThingStatus.ONLINE);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires: a channelId and a command
+     * Returns: Updates the state of the device
+     */
+    @Override
+    public void handleCommand(ChannelUID channelUID, Command command) {
+
+        if (channelUID.getId().equals(CHANNEL_QMOTION)) {
+            try {
+                ReadWriteLock.getInstance().lockWrite();
+                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
+                String nodeId = getThing().getProperties().get("thingID");
+                Qmotion qMotion = getQmotion(nodeId);
+
+                if (command.toString().equals("ON")) {
+                    services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
+                            qMotion);
+                    currentStatus = true;
+                    qMotion.getBs().armed = 1;
+
+                } else if (command.toString().equals("OFF")) {
+                    services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
+                            qMotion);
+                    currentStatus = false;
+                    qMotion.getBs().armed = 0;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                ReadWriteLock.getInstance().unlockWrite();
+            }
+        }
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Scheduled jobs and removes thing
+     */
+    @Override
+    public void handleRemoval() {
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
+        }
+        // remove thing
+        updateStatus(ThingStatus.REMOVED);
+    }
 
     public @Nullable Qmotion getQmotion(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();

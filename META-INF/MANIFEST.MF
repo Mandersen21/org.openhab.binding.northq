@@ -23,7 +23,6 @@ Import-Package:
  org.eclipse.smarthome.core.thing.binding.builder,
  org.eclipse.smarthome.core.thing.type,
  org.eclipse.smarthome.core.types,
- org.junit;version="4.11.0",
  org.openhab.binding.northq,
  org.openhab.binding.northq.handler,
  org.osgi.service.component.annotations;resolution:=optional,
