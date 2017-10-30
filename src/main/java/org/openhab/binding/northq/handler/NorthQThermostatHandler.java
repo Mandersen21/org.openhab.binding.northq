@@ -122,6 +122,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 if (qthermostat != null) {
                     updateProperty(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
                             String.valueOf(qthermostat.getBattery() + "%"));
+                    updateProperty(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                            String.valueOf(qthermostat.getTemp() + "\u00b0" + "C"));
                 }
 
             } catch (Exception e) {

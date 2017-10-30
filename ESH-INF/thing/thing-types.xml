@@ -141,13 +141,13 @@
     </thing-type>
 
     <channel-type id="thermostat-channel">
-        <item-type>Number</item-type>
+        <item-type>String</item-type>
         <label>Temperature</label>
         <description>Danfoss thermostat channel for temperature</description>
     </channel-type>
     
-    <channel-type id="thermostat-channel">
-        <item-type>Number</item-type>
+    <channel-type id="thermostat-battery-channel">
+        <item-type>String</item-type>
         <label>Battery</label>
         <description>Danfoss thermostat channel for battery</description>
     </channel-type>

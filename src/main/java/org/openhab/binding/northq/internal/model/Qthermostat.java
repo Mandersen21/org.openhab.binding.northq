@@ -32,6 +32,13 @@ public class Qthermostat extends Thing implements IThing {
         return ther;
     }
 
+    public float getTemp() {
+        if (ther != null) {
+            return ther.temperature;
+        }
+        return 0;
+    }
+
     public void setTher(Thermostat ther) {
         this.ther = ther;
     }
@@ -44,7 +51,10 @@ public class Qthermostat extends Thing implements IThing {
     }
 
     public int getBattery() {
-        return ther.battery;
+        if (ther != null) {
+            return ther.battery;
+        }
+        return 0;
     }
 
 }
