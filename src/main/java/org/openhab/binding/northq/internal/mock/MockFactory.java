@@ -63,6 +63,7 @@ public class MockFactory {
         // non-relevant data
         bs.pos = 0;
         bs.uploaded = System.currentTimeMillis() / 1000l;
+        bs.wattage = 0.0f;
 
         return new Qplug(bs);
 
@@ -83,18 +84,18 @@ public class MockFactory {
         bs.room = roomId;
 
         Sensor s1 = new Sensor();
-        s1.scale = 1;
+        s1.scale = 0;
         s1.type = 1;
         s1.value = 25.0f;
 
         Sensor s2 = new Sensor();
-        s2.scale = 2;
-        s2.type = 2;
+        s2.scale = 0;
+        s2.type = 3;
         s2.value = 45.0f;
 
         Sensor s3 = new Sensor();
-        s3.scale = 3;
-        s3.type = 3;
+        s3.scale = 0;
+        s3.type = 5;
         s3.value = 90.3f;
 
         ArrayList<Sensor> sensorList = new ArrayList();
