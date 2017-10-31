@@ -90,21 +90,21 @@
         <item-type>Number</item-type>
         <label>Light Intensity</label>
         <description>QMotion channel for light</description>
-        <state pattern="%.1d percent" readOnly="true" />
+        <state pattern="%.1d %%" readOnly="true" />
     </channel-type>
     
     <channel-type id="motion-humidity-channel">
         <item-type>Number</item-type>
         <label>Humidity</label>
         <description>QMotion channel for humidity</description>
-        <state pattern="%.1d percent" readOnly="true" />
+        <state pattern="%.1d %%" readOnly="true" />
     </channel-type>
     
      <channel-type id="motion-battery-channel">
         <item-type>Number</item-type>
         <label>Battery</label>
         <description>QMotion channel for battery</description>
-        <state pattern="%.1d percent" readOnly="true" />
+        <state pattern="%.1d %%" readOnly="true" />
     </channel-type>
 
 
@@ -147,15 +147,17 @@
     </thing-type>
 
     <channel-type id="thermostat-channel">
-        <item-type>String</item-type>
+        <item-type>Number</item-type>
         <label>Temperature</label>
         <description>Danfoss thermostat channel for temperature</description>
+        <state pattern="%.1d °C" />
     </channel-type>
     
     <channel-type id="thermostat-battery-channel">
-        <item-type>String</item-type>
+        <item-type>Number</item-type>
         <label>Battery</label>
         <description>Danfoss thermostat channel for battery</description>
+        <state pattern="%.1d %%" readOnly="true" />
     </channel-type>
     
     <!-- mock network on/off -->

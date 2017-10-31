@@ -211,7 +211,7 @@ public class NorthqServices {
         return false;
     }
 
-    public boolean setTemperatur(String token, String user, String gateway, String temperature, Qthermostat ther)
+    public boolean setTemperature(String token, String user, String gateway, String temperature, Qthermostat ther)
             throws IOException, Exception {
         Form form = new Form();
         form.param("user", user);

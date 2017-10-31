@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
@@ -64,10 +65,11 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 String userID = NorthQConfig.NETWORK.getUserId();
 
                 if (qthermostat != null) {
-                    updateProperty(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
-                            String.valueOf(qthermostat.getBattery() + "%"));
-                    updateProperty(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
-                            String.valueOf(qthermostat.getTemp() + "\u00b0" + "C"));
+                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+                    System.out.println("GetTemp Thermostat: " + qthermostat.getTemp());
+                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
+                            DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
                 }
 
             } catch (Exception e) {
@@ -126,6 +128,10 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
                 if (command.toString() != null) {
                     String temperature = command.toString();
+                    System.out.println("Temp: " + temperature);
+                    services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, temperature,
+                            qThermostat);
+                    qThermostat.getTher().temperature = Float.valueOf(temperature);
                 }
 
             } catch (Exception e) {

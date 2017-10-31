@@ -86,7 +86,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     updateState(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
                             DecimalType.valueOf(String.valueOf(qMotion.getHumidity())));
                     updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
-                            DecimalType.valueOf(qMotion.getBattery() + ""));
+                            DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
                 }
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
