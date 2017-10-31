@@ -107,6 +107,7 @@
         <state pattern="%.1d percent" readOnly="true" />
     </channel-type>
 
+
     <!-- qPhone thing -->
     <thing-type id="qPhone">
 
@@ -155,6 +156,27 @@
         <item-type>String</item-type>
         <label>Battery</label>
         <description>Danfoss thermostat channel for battery</description>
+    </channel-type>
+    
+    <!-- mock network on/off -->
+        <thing-type id="mocknetwork">
+
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="northqnetwork" />
+        </supported-bridge-type-refs>
+
+        <label>NorthQ TestNetwork</label>
+        <description>switch between live and mock network</description>
+
+        <channels>
+            <channel id="channelmock" typeId="mock-channel" />
+        </channels>
+    </thing-type>
+
+    <channel-type id="mock-channel">
+        <item-type>Switch</item-type>
+        <label>Mock network</label>
+        <description>channel for mockNtwork</description>
     </channel-type>
 
 </thing:thing-descriptions>

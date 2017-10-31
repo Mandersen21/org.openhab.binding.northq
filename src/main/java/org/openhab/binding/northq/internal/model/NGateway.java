@@ -28,15 +28,26 @@ public class NGateway {
     public NGateway(String gatewayId, GatewayStatus gatewayStatus) {
         this.gatewayId = gatewayId;
         things = new ArrayList<>();
-        for (int i = 0; i < gatewayStatus.BinarySwitches.size(); i++) {
-            things.add(new Qplug(gatewayStatus.BinarySwitches.get(i)));
+
+        if (gatewayStatus != null) {
+            if (gatewayStatus.BinarySwitches != null) {
+                for (int i = 0; i < gatewayStatus.BinarySwitches.size(); i++) {
+                    things.add(new Qplug(gatewayStatus.BinarySwitches.get(i)));
+                }
+            }
+            if (gatewayStatus.BinarySensors != null) {
+                for (int i = 0; i < gatewayStatus.BinarySensors.size(); i++) {
+                    things.add(new Qmotion(gatewayStatus.BinarySensors.get(i)));
+                }
+            }
+            if (gatewayStatus.Thermostats != null) {
+                for (int i = 0; i < gatewayStatus.Thermostats.size(); i++) {
+                    things.add(new Qthermostat(gatewayStatus.Thermostats.get(i)));
+                }
+            }
+
         }
-        for (int i = 0; i < gatewayStatus.BinarySensors.size(); i++) {
-            things.add(new Qmotion(gatewayStatus.BinarySensors.get(i)));
-        }
-        for (int i = 0; i < gatewayStatus.Thermostats.size(); i++) {
-            things.add(new Qthermostat(gatewayStatus.Thermostats.get(i)));
-        }
+
     }
 
     public String getGatewayId() {
@@ -53,6 +64,12 @@ public class NGateway {
 
     public void setThings(ArrayList<Thing> things) {
         this.things = things;
+    }
+
+    public void addThing(Thing t) {
+        if (things != null) {
+            things.add(t);
+        }
     }
 
 }
