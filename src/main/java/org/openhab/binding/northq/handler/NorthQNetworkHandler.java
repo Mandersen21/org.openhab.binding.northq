@@ -39,6 +39,41 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     private ScheduledFuture<?> pollingJob;
     private NorthqServices services;
 
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+
+            // if we are not running on Mock network
+
+            // Only run polling job with NETWORK is not null
+            if (NorthQConfig.NETWORK != null) {
+                try {
+                    ReadWriteLock.getInstance().lockWrite();
+
+                    if (!NorthQConfig.MOCK) {
+                        // live
+                        NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                    } else {
+
+                        // mock network
+                        if (NorthQConfig.MOCK_NETWORK == null) {
+                            NorthQConfig.MOCK_NETWORK = new NorthQMockNetwork();
+                        }
+                        NorthQConfig.NETWORK = NorthQConfig.MOCK_NETWORK.getNetwork();
+                    }
+
+                    System.out.println("Network fetched");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    ReadWriteLock.getInstance().unlockWrite();
+                }
+            }
+
+        }
+    };
+
     /**
      * Constructor
      */
@@ -73,39 +108,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         }
     }
 
-    private Runnable pollingRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-
-            // if we are not running on Mock network
-
-            // Only run polling job with NETWORK is not null
-            if (NorthQConfig.NETWORK != null) {
-                try {
-                    ReadWriteLock.getInstance().lockWrite();
-                    System.out.println("are we testing !?!?!?!?! " + NorthQConfig.MOCK);
-                    if (!NorthQConfig.MOCK) {
-                        NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
-                    } else {
-                        if (NorthQConfig.MOCK_NETWORK == null) {
-                            NorthQConfig.MOCK_NETWORK = new NorthQMockNetwork();
-                        }
-                        NorthQConfig.NETWORK = NorthQConfig.MOCK_NETWORK.getNetwork();
-                        System.out.println("Test data has overwritten config");
-                    }
-
-                    System.out.println("Network fetched");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    ReadWriteLock.getInstance().unlockWrite();
-                }
-            }
-
-        }
-    };
-
     /**
      * Abstract method overwritten
      * Requires:
@@ -114,5 +116,19 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
 
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Scheduled jobs and removes thing
+     */
+    @Override
+    public void handleRemoval() {
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
+        }
+        // remove thing
+        updateStatus(ThingStatus.REMOVED);
     }
 }

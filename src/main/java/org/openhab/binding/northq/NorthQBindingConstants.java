@@ -26,6 +26,9 @@ public class NorthQBindingConstants {
 
     public static final String BINDING_ID = "northq";
 
+    // Web service target:
+    public static final String GPS_SERVICE_ADDRESS = "http:// 95.85.57.71:8080/NorthqGpsService/gps";
+
     // Thing Type UIDs
     public static final ThingTypeUID THING_TYPE_NETWORK = new ThingTypeUID(BINDING_ID, "northqnetwork");
     public static final ThingTypeUID THING_TYPE_QPLUG = new ThingTypeUID(BINDING_ID, "qPlug");
@@ -42,9 +45,9 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_QPLUG = "channelplug";
     public static final String CHANNEL_QPLUGPOWER = "channelplugpower";
     public static final String CHANNEL_QMOTION = "channelmotion";
-    public static final String CHANNEL_QMOTION_TEMP = "channelmotiontemp";
-    public static final String CHANNEL_QMOTION_LIGHT = "channelmotionlight";
-    public static final String CHANNEL_QMOTION_HUMIDITY = "channelmotionhumidity";
+    public static final String CHANNEL_QMOTION_TEMP = "channeltemperature";
+    public static final String CHANNEL_QMOTION_LIGHT = "channellight";
+    public static final String CHANNEL_QMOTION_HUMIDITY = "channelhumidity";
     public static final String CHANNEL_QMOTION_NOTIFICATION = "channelnotification";
     public static final String CHANNEL_QMOTION_BATTERY = "channelbattery";
     public static final String CHANNEL_QPHONE = "channelgps";

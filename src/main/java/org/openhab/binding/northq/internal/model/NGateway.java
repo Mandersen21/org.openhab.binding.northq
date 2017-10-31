@@ -28,6 +28,7 @@ public class NGateway {
     public NGateway(String gatewayId, GatewayStatus gatewayStatus) {
         this.gatewayId = gatewayId;
         things = new ArrayList<>();
+
         if (gatewayStatus != null) {
             if (gatewayStatus.BinarySwitches != null) {
                 for (int i = 0; i < gatewayStatus.BinarySwitches.size(); i++) {

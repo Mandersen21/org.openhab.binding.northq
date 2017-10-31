@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.library.types.StringType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -48,13 +49,72 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private boolean currentTriggered;
 
     private ScheduledFuture<?> pollingJob;
+    private Runnable pollingRunnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                ReadWriteLock.getInstance().lockRead();
+                System.out.println("Polling data for q motion");
 
+                String nodeId = getThing().getProperties().get("thingID");
+                Qmotion qMotion = getQmotion(nodeId);
+
+                boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
+                        NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
+
+                if (qMotion != null && qMotion.getStatus()) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
+                            StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
+
+                    currentTriggered = triggered;
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
+                    currentTriggered = false;
+                }
+
+                if (qMotion != null && qMotion.getStatus() != currentStatus) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
+                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                    currentStatus = qMotion.getStatus();
+                }
+
+                if (qMotion != null) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_TEMP,
+                            DecimalType.valueOf(String.valueOf(qMotion.getTmp())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT,
+                            DecimalType.valueOf(String.valueOf(qMotion.getLight())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
+                            DecimalType.valueOf(String.valueOf(qMotion.getHumidity())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
+                            DecimalType.valueOf(qMotion.getBattery() + ""));
+                }
+            } catch (Exception e) {
+                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+            } finally {
+                ReadWriteLock.getInstance().unlockRead();
+            }
+        }
+    };
+
+    /**
+     * Constructor
+     */
     public NorthQMotionHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
         services = new NorthqServices();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initialiser
+     */
+    @Override
+    public void initialize() {
+        updateStatus(ThingStatus.ONLINE);
     }
 
     /**
@@ -95,57 +155,16 @@ public class NorthQMotionHandler extends BaseThingHandler {
     /**
      * Abstract method overwritten
      * Requires:
-     * Returns: Initialiser
+     * Returns: Scheduled jobs and removes thing
      */
     @Override
-    public void initialize() {
-        updateStatus(ThingStatus.ONLINE);
-    }
-
-    private Runnable pollingRunnable = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                ReadWriteLock.getInstance().lockRead();
-                System.out.println("Polling data for q motion");
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qmotion qMotion = getQmotion(nodeId);
-
-                boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
-                        NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
-
-                if (qMotion != null && qMotion.getStatus()) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
-                            StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
-
-                    currentTriggered = triggered;
-                } else {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
-                    currentTriggered = false;
-                }
-
-                if (qMotion != null && qMotion.getStatus() != currentStatus) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
-                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                    currentStatus = qMotion.getStatus();
-                }
-
-                if (qMotion != null) {
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_TEMP, String.valueOf(qMotion.getTmp()));
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT, String.valueOf(qMotion.getLight()));
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
-                            String.valueOf(qMotion.getHumidity()));
-                    updateProperty(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
-                            String.valueOf(qMotion.getBattery() + "%"));
-                }
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockRead();
-            }
+    public void handleRemoval() {
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
         }
-    };
+        // remove thing
+        updateStatus(ThingStatus.REMOVED);
+    }
 
     public @Nullable Qmotion getQmotion(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
