@@ -29,6 +29,7 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.Qmotion;
 import org.openhab.binding.northq.internal.model.Thing;
+import org.openhab.binding.northq.internal.services.DataRecorder;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
 
     private NorthqServices services;
+    private DataRecorder datarecorder; // TODO: Maybe change to only one datarecorder
     private boolean currentStatus;
     private boolean currentTriggered;
 
@@ -61,6 +63,11 @@ public class NorthQMotionHandler extends BaseThingHandler {
 
                 boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
                         NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
+
+                // Database Query to add events
+                if (datarecorder.open()) {
+                    datarecorder.addEvent(Integer.valueOf(nodeId));
+                }
 
                 if (qMotion != null && qMotion.getStatus()) {
                     updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
@@ -88,6 +95,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
                             DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
                 }
+                datarecorder.close();
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {
@@ -103,6 +111,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
         super(thing);
 
         services = new NorthqServices();
+        datarecorder = new DataRecorder();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
