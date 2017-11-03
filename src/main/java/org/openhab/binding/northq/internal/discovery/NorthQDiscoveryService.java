@@ -111,8 +111,8 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                         properties.put("thingID", thingID);
 
                         DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel(((Qplug) thing).getBs().name)
-                                .withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
+                                .withLabel("NorthQ Plug").withThingType(NorthQBindingConstants.THING_TYPE_QPLUG)
+                                .build();
 
                         thingDiscovered(dr);
 
