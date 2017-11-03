@@ -8,6 +8,9 @@
  */
 package org.openhab.binding.northq.internal.common;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 
@@ -28,6 +31,8 @@ public class NorthQConfig {
 
     public static boolean MOCK = false;
     public static NorthQMockNetwork MOCK_NETWORK;
+
+    public static Map<String, Boolean> PHONE_MAP = new HashMap<String, Boolean>();
 
     // TODO: clean this, so we do not die
 

@@ -50,6 +50,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
             Form form = new Form();
             form.param("getGPS", NorthQConfig.USERNAME);
+            form.param("name", getThing().getConfiguration().get("name").toString());
             NetworkUtils nu = new NetworkUtils();
 
             try {
@@ -58,17 +59,28 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     String result = String.valueOf(res.readEntity(String.class).charAt(0));
                     res.close();
 
+                    NorthQConfig.PHONE_MAP.put(getThing().getConfiguration().get("name").toString(),
+                            Boolean.parseBoolean(result));
+
                     // If a new update comes in and the ishome is to be switched
                     // If not home
                     System.out.println("away is set: " + result.equals("0"));
                     System.out.println("away is set: " + result.equals("1"));
 
-                    if (status && result.equals("0") && NorthQConfig.ISHOME) {
+                    Boolean[] phoneHome = (Boolean[]) NorthQConfig.PHONE_MAP.values().toArray();
+                    boolean allAway = true;
+                    for (Boolean b : phoneHome) {
+                        if (!b) {
+                            allAway = false;
+                        }
+                    }
+
+                    if (status && result.equals("0") && allAway) {
                         // turn off device
                         NorthQConfig.setISHOME(false);
                         System.out.println("Set config to: " + NorthQConfig.ISHOME);
                     } // If home
-                    else if (status && result.equals("1") && !NorthQConfig.ISHOME) {
+                    else if (status && result.equals("1") && !allAway) {
                         NorthQConfig.setISHOME(true);
                         System.out.println("Set config to: " + NorthQConfig.ISHOME);
                     }
