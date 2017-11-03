@@ -65,9 +65,9 @@ public class NorthQMotionHandler extends BaseThingHandler {
                         NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
 
                 // Database Query to add events
-                if (datarecorder.open()) {
-                    datarecorder.addEvent(Integer.valueOf(nodeId));
-                }
+                // if (datarecorder.open()) {
+                // datarecorder.addEvent(Integer.valueOf(nodeId));
+                // }
 
                 if (qMotion != null && qMotion.getStatus()) {
                     updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
@@ -95,7 +95,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
                             DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
                 }
-                datarecorder.close();
+                // datarecorder.close();
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {
