@@ -10,7 +10,7 @@
 			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
-		<label>NorthQ Plug</label>
+		<label>HomePlug</label>
 		<description>QPlug thing for NorthQ Binding</description>
 
 		<channels>
@@ -39,7 +39,7 @@
 			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
-		<label>NorthQ Motion</label>
+		<label>HomeMotion</label>
 		<description>QMotion thing for NorthQ Binding</description>
 
 		<channels>
