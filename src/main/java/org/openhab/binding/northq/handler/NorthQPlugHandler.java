@@ -87,11 +87,11 @@ public class NorthQPlugHandler extends BaseThingHandler {
                             DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
 
                     // Database Query to add power consumption
-                    if (datarecorder.open()) {
-                        datarecorder.addPowerCon(Integer.valueOf(nodeId), qplug.getPowerConsumption());
-                    }
+                    // if (datarecorder.open()) {
+                    // datarecorder.addPowerCon(Integer.valueOf(nodeId), qplug.getPowerConsumption());
+                    // }
                 }
-                datarecorder.close();
+                // datarecorder.close();
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {
