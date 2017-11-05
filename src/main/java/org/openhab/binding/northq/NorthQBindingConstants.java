@@ -27,7 +27,7 @@ public class NorthQBindingConstants {
     public static final String BINDING_ID = "northq";
 
     // Web service target:
-    public static final String GPS_SERVICE_ADDRESS = "http:// 95.85.57.71:8080/NorthqGpsService/gps";
+    public static final String GPS_SERVICE_ADDRESS = "http://95.85.57.71:8080/NorthqGpsService/gps";
 
     // Thing Type UIDs
     public static final ThingTypeUID THING_TYPE_NETWORK = new ThingTypeUID(BINDING_ID, "northqnetwork");

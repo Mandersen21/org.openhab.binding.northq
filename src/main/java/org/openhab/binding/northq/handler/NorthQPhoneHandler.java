@@ -62,45 +62,61 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
             Form form = new Form();
             form.param("getGPS", NorthQConfig.USERNAME);
+            System.out.println(getThing().getConfiguration().get("name").toString());
             form.param("name", getThing().getConfiguration().get("name").toString());
             NetworkUtils nu = new NetworkUtils();
 
             try {
                 if (status) {
                     Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
+                    String raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
+                    // System.out.println("Raw: " + raw);
+                    // String realraw = "0MfPkY+OLuFwVdlTsF+rEA";
+                    // System.out.println("Expected: 0MfPkY+OLuFwVdlTsF+rEA");
+                    // System.out.println("Matches: " + raw.equals(realraw));
+                    String decrypted = decrypt(raw);
 
-                    String decrypted = decrypt(res.readEntity(String.class));
-
-                    System.out.println("decrypting string: " + res.readEntity(String.class));
-                    System.out.println("decrypted to: " + decrypted);
+                    // System.out.println("decrypting string: " + raw);
+                    // System.out.println("decrypted to: " + decrypted);
 
                     // String result = String.valueOf(res.readEntity(String.class).charAt(0));
                     String result = String.valueOf(decrypted);
+                    System.out.println("Result =" + result);
 
                     res.close();
-
-                    NorthQConfig.PHONE_MAP.put(getThing().getConfiguration().get("name").toString(),
-                            Boolean.parseBoolean(result));
+                    System.out.println("Boolean.parseBoolean(result) = " + Boolean.parseBoolean(result));
+                    boolean resBol;
+                    if (result.equals("0")) {
+                        resBol = false;
+                    } else {
+                        resBol = true;
+                    }
+                    Boolean bres = new Boolean(resBol);
+                    NorthQConfig.PHONE_MAP.put(getThing().getConfiguration().get("name").toString(), bres);
 
                     // If a new update comes in and the ishome is to be switched
                     // If not home
-                    System.out.println("away is set: " + result.equals("0"));
-                    System.out.println("away is set: " + result.equals("1"));
+                    // System.out.println("away is set: " + result.equals("0"));
+                    // System.out.println("away is set: " + result.equals("1"));
 
-                    Boolean[] phoneHome = (Boolean[]) NorthQConfig.PHONE_MAP.values().toArray();
+                    Boolean[] phoneHome = new Boolean[NorthQConfig.PHONE_MAP.values().toArray().length];
+
+                    NorthQConfig.PHONE_MAP.values().toArray(phoneHome);
                     boolean allAway = true;
                     for (Boolean b : phoneHome) {
-                        if (!b) {
+                        boolean bol = b.booleanValue();
+                        System.out.println(bol);
+                        if (bol) {
                             allAway = false;
                         }
                     }
-
-                    if (status && result.equals("0") && allAway) {
+                    System.out.println("All people are out: " + allAway);
+                    if (status && allAway) {
                         // turn off device
                         NorthQConfig.setISHOME(false);
                         System.out.println("Set config to: " + NorthQConfig.ISHOME);
                     } // If home
-                    else if (status && result.equals("1") && !allAway) {
+                    else if (status && !allAway) {
                         NorthQConfig.setISHOME(true);
                         System.out.println("Set config to: " + NorthQConfig.ISHOME);
                     }
