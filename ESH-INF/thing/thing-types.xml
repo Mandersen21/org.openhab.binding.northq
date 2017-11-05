@@ -10,26 +10,32 @@
 			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
-		<label>HomePlug</label>
+		<label>NorthQ Plug</label>
 		<description>QPlug thing for NorthQ Binding</description>
 
 		<channels>
-			<channel id="channelPlug" typeId="plugChannel" />
-			<channel id="channelPlugPower" typeId="plugPowerChannel" />
+			<channel id="channelplug" typeId="plug-channel" />
+			<channel id="channelplugevent" typeId="plugEventTrigger" />
+			<channel id="channelplugpower" typeId="plugPower" />
 		</channels>
 	</thing-type>
 
-	<channel-type id="plugChannel">
+	<channel-type id="plug-channel">
 		<item-type>Switch</item-type>
-		<label>QPlug</label>
+		<label>NorthQ plug</label>
 		<description>QPlug channel for NorthQ Binding</description>
 	</channel-type>
 	
-    <channel-type id="plugPowerChannel">
+	<channel-type id="plugEventTrigger">
+        <kind>trigger</kind>
+        <label>QPlug event trigger</label>
+        <description>Triggered to get current status of q plug</description>
+    </channel-type>
+    
+    <channel-type id="plugPower">
         <item-type>Number</item-type>
         <label>Power Consumption</label>
         <description>Power consumption of QPlug</description>
-        <category>Energy</category>
         <state pattern="%.1d W" readOnly="true" />
     </channel-type>
 
@@ -40,7 +46,7 @@
 			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
-		<label>HomeMotion</label>
+		<label>NorthQ Motion</label>
 		<description>QMotion thing for NorthQ Binding</description>
 
 		<channels>
@@ -142,8 +148,7 @@
 
         <label>Danfoss thermostat</label>
         <description>Danfoss thermostat thing for NorthQ Binding</description>
-        
-        
+
         <channels>
             <channel id="channelthermostat" typeId="thermostat-channel" />
             <channel id="channelthermostatbattery" typeId="thermostat-battery-channel" />
@@ -154,18 +159,14 @@
         <item-type>Number</item-type>
         <label>Temperature</label>
         <description>Danfoss thermostat channel for temperature</description>
-        <category>Temperature</category>
         <state pattern="%.1d °C" />
-        
     </channel-type>
     
     <channel-type id="thermostat-battery-channel">
         <item-type>Number</item-type>
         <label>Battery</label>
         <description>Danfoss thermostat channel for battery</description>
-        <category>Energy</category>
         <state pattern="%.1d %%" readOnly="true" />
-        
     </channel-type>
     
     <!-- mock network on/off -->
@@ -188,5 +189,6 @@
         <label>Mock network</label>
         <description>channel for mockNtwork</description>
     </channel-type>
+    
 
 </thing:thing-descriptions>

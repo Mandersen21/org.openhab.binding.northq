@@ -8,13 +8,23 @@
  */
 package org.openhab.binding.northq.handler;
 
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
@@ -41,6 +51,8 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     private NorthqServices services;
     private boolean status;
 
+    private final byte[] keyValue = "Beercalc12DTU123".getBytes(); // TODO: move to password file
+
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
 
@@ -56,7 +68,15 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             try {
                 if (status) {
                     Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
-                    String result = String.valueOf(res.readEntity(String.class).charAt(0));
+
+                    String decrypted = decrypt(res.readEntity(String.class));
+
+                    System.out.println("decrypting string: " + res.readEntity(String.class));
+                    System.out.println("decrypted to: " + decrypted);
+
+                    // String result = String.valueOf(res.readEntity(String.class).charAt(0));
+                    String result = String.valueOf(decrypted);
+
                     res.close();
 
                     NorthQConfig.PHONE_MAP.put(getThing().getConfiguration().get("name").toString(),
@@ -140,6 +160,35 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         }
         // remove thing
         updateStatus(ThingStatus.REMOVED);
+    }
+
+    public @Nullable String decrypt(String cipherText) {
+        try {
+            Cipher AesCipher;
+            AesCipher = Cipher.getInstance("AES");
+            AesCipher.init(Cipher.DECRYPT_MODE, generateKey());
+            System.out.println(AesCipher.doFinal(Base64.getDecoder().decode(cipherText.getBytes())).length);
+
+            return new String(AesCipher.doFinal(Base64.getDecoder().decode(cipherText.getBytes())));
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Key generateKey() {
+        Key key = new SecretKeySpec(keyValue, "AES");
+        return key;
     }
 
 }
