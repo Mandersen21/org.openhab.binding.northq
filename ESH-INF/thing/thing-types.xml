@@ -10,22 +10,22 @@
 			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
-		<label>NorthQ Plug</label>
+		<label>HomePlug</label>
 		<description>QPlug thing for NorthQ Binding</description>
 
 		<channels>
-			<channel id="channelplug" typeId="plug-channel" />
-			<channel id="channelplugpower" typeId="plugPower" />
+			<channel id="channelPlug" typeId="plugChannel" />
+			<channel id="channelPlugPower" typeId="plugPowerChannel" />
 		</channels>
 	</thing-type>
 
-	<channel-type id="plug-channel">
+	<channel-type id="plugChannel">
 		<item-type>Switch</item-type>
 		<label>NorthQ plug</label>
 		<description>QPlug channel for NorthQ Binding</description>
 	</channel-type>
 	
-    <channel-type id="plugPower">
+    <channel-type id="plugPowerChannel">
         <item-type>Number</item-type>
         <label>Power Consumption</label>
         <description>Power consumption of QPlug</description>
