@@ -15,7 +15,6 @@
 
 		<channels>
 			<channel id="channelplug" typeId="plug-channel" />
-			<channel id="channelplugevent" typeId="plugEventTrigger" />
 			<channel id="channelplugpower" typeId="plugPower" />
 		</channels>
 	</thing-type>
@@ -26,12 +25,6 @@
 		<description>QPlug channel for NorthQ Binding</description>
 	</channel-type>
 	
-	<channel-type id="plugEventTrigger">
-        <kind>trigger</kind>
-        <label>QPlug event trigger</label>
-        <description>Triggered to get current status of q plug</description>
-    </channel-type>
-    
     <channel-type id="plugPower">
         <item-type>Number</item-type>
         <label>Power Consumption</label>
