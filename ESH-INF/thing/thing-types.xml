@@ -39,7 +39,7 @@
 			<bridge-type-ref id="northqnetwork" />
 		</supported-bridge-type-refs>
 
-		<label>NorthQ Motion</label>
+		<label>HomeMotion sensor</label>
 		<description>QMotion thing for NorthQ Binding</description>
 
 		<channels>
@@ -54,20 +54,20 @@
 
 	<channel-type id="motion-channel">
 		<item-type>Switch</item-type>
-		<label>Arm/Disarm Motion Sensor</label>
+		<label>Arm/Disarm motion sensor</label>
 		<description>QMotion channel for NorthQ Binding</description>
 	</channel-type>
 	
 	<channel-type id="motion-notification-channel">
 	   <item-type>String</item-type>
-	   <label>Motion Notification</label>
+	   <label>Notification</label>
 	   <description>Qmotion channel for reacting on motion</description>
 	   
 	   <state readOnly="true">
         <options>
-            <option value="TRIGGERED">Triggered</option>
-            <option value="NOT_TRIGGERED">Not Triggered</option>
-            <option value="NOT_ARMED">Not Armed</option>
+            <option value="Triggered">Triggered</option>
+            <option value="Not Triggered">Not Triggered</option>
+            <option value="Not Armed">Not Armed</option>
         </options>
        </state>
 	</channel-type>
@@ -104,7 +104,6 @@
     <!-- qPhone thing -->
     <thing-type id="qPhone">
 
-    
         <supported-bridge-type-refs>
             <bridge-type-ref id="northqnetwork" />
         </supported-bridge-type-refs>
@@ -126,13 +125,13 @@
 
     <channel-type id="gps-channel">
         <item-type>Switch</item-type>
-        <label>NorthQ phone</label>
+        <label>Phone</label>
         <description>NorthQ phone channel for NorthQ Binding</description>
     </channel-type>
 
     
 
-<!-- qThermostat thing -->
+    <!-- qThermostat thing -->
     <thing-type id="qThermostat">
 
         <supported-bridge-type-refs>
