@@ -145,6 +145,22 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
 
                         thingDiscovered(dr);
                     }
+                    // TODO Settings does not have a unique id
+                    // else if (thing instanceof Qsettings) {
+                    // System.out.println("Discovered thing type Q Settings");
+                    // String thingID = ;
+                    //
+                    // ThingUID newThing = new ThingsUID(NorthQBindingConstants.THING_TYPE_SETTINGS, thingID);
+                    // Map<String, Object> properties = new HashMap<>(1);
+                    //
+                    // properties.put("thingID", thingID);
+                    //
+                    // DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                    // .withLabel("Settings" + ((Qsettings) thing).getQsettings().))
+                    // .withThingType(NorthQBindingConstants.THING_TYPE_SETTINGS).build();
+                    //
+                    // thingDiscovered(dr);
+                    // }
                 }
             }
 
