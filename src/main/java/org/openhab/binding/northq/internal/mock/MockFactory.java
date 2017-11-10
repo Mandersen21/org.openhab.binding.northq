@@ -41,7 +41,7 @@ public class MockFactory {
 
     public static Qthermostat createQthermostat() {
         autoNodeId++;
-        return createQthermestat(autoNodeId, 1);
+        return createQthermostat(autoNodeId, 1);
     }
 
     /**
@@ -116,7 +116,7 @@ public class MockFactory {
      * @param roomId
      * @return
      */
-    public static Qthermostat createQthermestat(int nodeId, int roomId) {
+    public static Qthermostat createQthermostat(int nodeId, int roomId) {
         Thermostat t = new Thermostat();
 
         t.node_id = nodeId;

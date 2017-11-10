@@ -72,11 +72,26 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                             DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
                 }
 
+                if (!NorthQConfig.isISHOME()) {
+                    // When no body home temp set down to 17C
+                    services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, "17", qthermostat);
+                    System.out.println("Nobody home, temp set to 17C");
+
+                } // When somebody home set temp up to 22C
+                else if (NorthQConfig.isISHOME()) {
+                    services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, "22", qthermostat);
+                    System.out.println("Somebody home, temp set to 22C");
+                }
+
             } catch (Exception e) {
                 logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             } finally {
                 ReadWriteLock.getInstance().unlockWrite();
             }
+            Boolean[] phoneHome = new Boolean[NorthQConfig.PHONE_MAP.values().toArray().length];
+
+            NorthQConfig.PHONE_MAP.values().toArray(phoneHome);
+
         }
     };
 
