@@ -29,7 +29,6 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.Qmotion;
 import org.openhab.binding.northq.internal.model.Thing;
-import org.openhab.binding.northq.internal.services.DataRecorder;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +45,6 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
 
     private NorthqServices services;
-    private DataRecorder datarecorder; // TODO: Maybe change to only one datarecorder
     private boolean currentStatus;
     private boolean currentTriggered;
 
@@ -111,7 +109,6 @@ public class NorthQMotionHandler extends BaseThingHandler {
         super(thing);
 
         services = new NorthqServices();
-        datarecorder = new DataRecorder();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }

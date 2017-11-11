@@ -55,7 +55,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 System.out.println("Polling data for thermostat");
 
                 NorthqServices services = new NorthqServices();
-                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.USERNAME, NorthQConfig.PASSWORD);
+                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(),
+                        NorthQConfig.getPASSWORD());
 
                 String nodeId = getThing().getProperties().get("thingID");
                 Qthermostat qthermostat = getThermostat(nodeId);
@@ -72,13 +73,13 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                             DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
                 }
 
-                if (!NorthQConfig.isISHOME()) {
+                if (!NorthQConfig.ISHOME()) {
                     // When no body home temp set down to 17C
                     services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, "17", qthermostat);
                     System.out.println("Nobody home, temp set to 17C");
 
                 } // When somebody home set temp up to 22C
-                else if (NorthQConfig.isISHOME()) {
+                else if (NorthQConfig.ISHOME()) {
                     services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, "22", qthermostat);
                     System.out.println("Somebody home, temp set to 22C");
                 }

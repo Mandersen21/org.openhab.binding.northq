@@ -29,7 +29,6 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.Qplug;
 import org.openhab.binding.northq.internal.model.Thing;
-import org.openhab.binding.northq.internal.services.DataRecorder;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +45,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
     private NorthqServices services;
-    private DataRecorder datarecorder; // TODO: Maybe change to only one datarecorder
     private ScheduledFuture<?> pollingJob;
     private boolean currentStatus;
     private Runnable pollingRunnable = new Runnable() {
@@ -64,7 +62,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.NETWORK.getUserId();
 
-                if (qplug != null && !NorthQConfig.ISHOME) {
+                if (qplug != null && !NorthQConfig.ISHOME()) {
                     try {
                         boolean res = services.turnOffPlug(qplug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
                         currentStatus = false;
@@ -107,7 +105,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
         super(thing);
 
         services = new NorthqServices();
-        datarecorder = new DataRecorder();
         currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
