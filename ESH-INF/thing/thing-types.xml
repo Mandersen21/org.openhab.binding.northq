@@ -160,6 +160,42 @@
         <description>Danfoss thermostat channel for battery</description>
         <state pattern="%.1d %%" readOnly="true" />
     </channel-type>
+
+    <!-- settings thing -->
+    <thing-type id="settings">
+
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="northqnetwork" />
+        </supported-bridge-type-refs>
+
+        <label>Settings</label>
+        <description>Settings for openhab</description>
+
+        <channels>
+            <channel id="channeltoggleHeatOnLocation" typeId="toggleHeatOnLocation-channel" />
+            <channel id="channelisHomeTemp" typeId="isHomeTemp-channel"></channel>
+            <channel id="channelnotHomeTemp" typeId="notHomeTemp-channel"></channel>
+        </channels>
+    </thing-type>
+
+    <channel-type id="toggleHeatOnLocation-channel">
+        <item-type>Switch</item-type>
+        <label>ToggleHeat</label>
+        <description>Toggle heat based on location</description>
+    </channel-type>
+    
+    <channel-type id="isHomeTemp-channel">
+       <item-type>Number</item-type>
+       <label>IsHomeTemp</label>
+       <description>Temperature when home</description>
+    </channel-type>
+
+    <channel-type id="notHomeTemp-channel">
+        <item-type>Number</item-type>
+        <label>NotHomeTemp</label>
+        <description>Temperature when not home</description>
+    </channel-type>
+    
     
     <!-- mock network on/off -->
         <thing-type id="mocknetwork">
