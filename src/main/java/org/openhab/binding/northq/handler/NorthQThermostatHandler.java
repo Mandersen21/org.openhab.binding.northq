@@ -55,15 +55,16 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 System.out.println("Polling data for thermostat");
 
                 NorthqServices services = new NorthqServices();
-                NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(),
+                NorthQConfig.getNETWORK() = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(),
                         NorthQConfig.getPASSWORD());
 
                 String nodeId = getThing().getProperties().get("thingID");
                 Qthermostat qthermostat = getThermostat(nodeId);
 
                 // Configurations
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
-                String userID = NorthQConfig.NETWORK.getUserId();
+                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();// TODO: make this
+                                                                                                 // dynamic
+                String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (qthermostat != null) {
                     updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
@@ -75,12 +76,12 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
                 if (!NorthQConfig.ISHOME()) {
                     // When no body home temp set down to 17C
-                    services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, "17", qthermostat);
+                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, "17", qthermostat);
                     System.out.println("Nobody home, temp set to 17C");
 
                 } // When somebody home set temp up to 22C
                 else if (NorthQConfig.ISHOME()) {
-                    services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, "22", qthermostat);
+                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, "22", qthermostat);
                     System.out.println("Somebody home, temp set to 22C");
                 }
 
@@ -89,9 +90,9 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             } finally {
                 ReadWriteLock.getInstance().unlockWrite();
             }
-            Boolean[] phoneHome = new Boolean[NorthQConfig.PHONE_MAP.values().toArray().length];
+            Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
 
-            NorthQConfig.PHONE_MAP.values().toArray(phoneHome);
+            NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
 
         }
     };
@@ -139,13 +140,14 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 }
 
                 // Configurations
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();// TODO: make this dynamic
-                String userID = NorthQConfig.NETWORK.getUserId();
+                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();// TODO: make this
+                                                                                                 // dynamic
+                String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (command.toString() != null) {
                     String temperature = command.toString();
                     System.out.println("Temp: " + temperature);
-                    services.setTemperature(NorthQConfig.NETWORK.getToken(), userID, gatewayID, temperature,
+                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
                     qThermostat.getTher().temperature = Float.valueOf(temperature);
                 }
@@ -173,7 +175,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     }
 
     public @Nullable Qthermostat getThermostat(String nodeID) {
-        ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
+        ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
         for (NGateway gw : gateways) {
             ArrayList<Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {

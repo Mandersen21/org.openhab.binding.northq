@@ -23,19 +23,19 @@ import org.openhab.binding.northq.internal.model.NorthNetwork;
 public class NorthQConfig {
 
     // North network
-    public static NorthNetwork NETWORK = null;
+    private static NorthNetwork NETWORK = null;
 
     private static String USERNAME = "";
     private static String PASSWORD = "";
     private static boolean ISHOME = true;
-    public static boolean HEATONLOCATION = false;
-    public static float ISHOMETEMP = 23;
-    public static float NOTHOMETEMP = 18;
+    private static boolean HEATONLOCATION = false;
+    private static float ISHOMETEMP = 23;
+    private static float NOTHOMETEMP = 18;
 
-    public static boolean MOCK = false;
-    public static NorthQMockNetwork MOCK_NETWORK;
+    private static boolean MOCK = false;
+    private static NorthQMockNetwork MOCK_NETWORK;
 
-    public static Map<String, Boolean> PHONE_MAP = new HashMap<String, Boolean>();
+    private static Map<String, Boolean> PHONE_MAP = new HashMap<String, Boolean>();
 
     public static boolean isHEATONLOCATION() {
         return HEATONLOCATION;
@@ -61,8 +61,6 @@ public class NorthQConfig {
         NOTHOMETEMP = nOTHOMETEMP;
     }
 
-    // TODO: clean this, so we do not die
-
     public static boolean ISHOME() {
         return ISHOME;
     }
@@ -86,4 +84,37 @@ public class NorthQConfig {
     public static void setPASSWORD(String password) {
         PASSWORD = password;
     }
+
+    public static NorthNetwork getNETWORK() {
+        return NETWORK;
+    }
+
+    public static void setNETWORK(NorthNetwork nETWORK) {
+        NETWORK = nETWORK;
+    }
+
+    public static boolean isMOCK() {
+        return MOCK;
+    }
+
+    public static void setMOCK(boolean mOCK) {
+        MOCK = mOCK;
+    }
+
+    public static NorthQMockNetwork getMOCK_NETWORK() {
+        return MOCK_NETWORK;
+    }
+
+    public static void setMOCK_NETWORK(NorthQMockNetwork mOCK_NETWORK) {
+        MOCK_NETWORK = mOCK_NETWORK;
+    }
+
+    public static Map<String, Boolean> getPHONE_MAP() {
+        return PHONE_MAP;
+    }
+
+    public static void setPHONE_MAP(Map<String, Boolean> pHONE_MAP) {
+        PHONE_MAP = pHONE_MAP;
+    }
+
 }

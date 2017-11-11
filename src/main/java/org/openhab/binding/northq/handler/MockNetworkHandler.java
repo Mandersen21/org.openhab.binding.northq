@@ -41,9 +41,9 @@ public class MockNetworkHandler extends BaseThingHandler {
         if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_MOCKNETWORK)) {
             System.out.println("---------------------------Mock network handler engaged!----------------------------");
             if (command.toString().equals("ON")) {
-                NorthQConfig.MOCK = true;
+                NorthQConfig.setMOCK(true);
             } else if (command.toString().equals("OFF")) {
-                NorthQConfig.MOCK = false;
+                NorthQConfig.setMOCK(false);
             }
         }
     }
