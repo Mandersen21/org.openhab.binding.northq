@@ -10,6 +10,7 @@ package org.openhab.binding.northq.handler;
 
 import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QMOTION;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -47,59 +48,11 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private NorthqServices services;
     private boolean currentStatus;
     private boolean currentTriggered;
-
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
         @Override
         public void run() {
-            try {
-                ReadWriteLock.getInstance().lockRead();
-                System.out.println("Polling data for q motion");
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qmotion qMotion = getQmotion(nodeId);
-
-                boolean triggered = services.isTriggered(services.getNotificationArray(
-                        NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
-                        NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
-
-                // Database Query to add events
-                // if (datarecorder.open()) {
-                // datarecorder.addEvent(Integer.valueOf(nodeId));
-                // }
-
-                if (qMotion != null && qMotion.getStatus()) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
-                            StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
-
-                    currentTriggered = triggered;
-                } else {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
-                    currentTriggered = false;
-                }
-
-                if (qMotion != null && qMotion.getStatus() != currentStatus) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
-                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                    currentStatus = qMotion.getStatus();
-                }
-
-                if (qMotion != null) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_TEMP,
-                            DecimalType.valueOf(String.valueOf(qMotion.getTmp())));
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT,
-                            DecimalType.valueOf(String.valueOf(qMotion.getLight())));
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
-                            DecimalType.valueOf(String.valueOf(qMotion.getHumidity())));
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
-                            DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
-                }
-                // datarecorder.close();
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockRead();
-            }
+            ScheduledCode();
         }
     };
 
@@ -138,18 +91,12 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
                 String nodeId = getThing().getProperties().get("thingID");
                 Qmotion qMotion = getQmotion(nodeId);
-
-                if (command.toString().equals("ON")) {
-                    services.armMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
-                            gatewayID, qMotion);
-                    currentStatus = true;
-                    qMotion.getBs().armed = 1;
-
-                } else if (command.toString().equals("OFF")) {
-                    services.disarmMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
-                            gatewayID, qMotion);
-                    currentStatus = false;
-                    qMotion.getBs().armed = 0;
+                if (qMotion != null) {
+                    if (command.toString().equals("ON")) {
+                        arm(gatewayID, qMotion);
+                    } else if (command.toString().equals("OFF")) {
+                        disarm(gatewayID, qMotion);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -157,6 +104,28 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 ReadWriteLock.getInstance().unlockWrite();
             }
         }
+    }
+
+    /**
+     * Requires: a gatewayId, and a qmotion thing
+     * Returns: disarms the requested qmotion and updates state.
+     */
+    public void disarm(String gatewayID, Qmotion qMotion) throws IOException, Exception {
+        services.disarmMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(), gatewayID,
+                qMotion);
+        currentStatus = false;
+        qMotion.getBs().armed = 0;
+    }
+
+    /**
+     * Requires: a gatewayId, and a qmotion thing
+     * Returns: arms the requested qmotion and updates state.
+     */
+    public void arm(String gatewayID, Qmotion qMotion) throws IOException, Exception {
+        services.armMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(), gatewayID,
+                qMotion);
+        currentStatus = true;
+        qMotion.getBs().armed = 1;
     }
 
     /**
@@ -185,5 +154,54 @@ public class NorthQMotionHandler extends BaseThingHandler {
             }
         }
         return null;
+    }
+
+    /**
+     * Requires: void
+     * Returns: updates the thing, when run
+     */
+    public void ScheduledCode() {
+        try {
+            ReadWriteLock.getInstance().lockRead();
+            System.out.println("Polling data for q motion");
+
+            String nodeId = getThing().getProperties().get("thingID");
+            Qmotion qMotion = getQmotion(nodeId);
+
+            boolean triggered = services.isTriggered(services.getNotificationArray(
+                    NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
+                    NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
+
+            if (qMotion != null && qMotion.getStatus()) { // Trigger state update
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
+                        StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
+
+                currentTriggered = triggered;
+            } else {
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
+                currentTriggered = false;
+            }
+
+            if (qMotion != null && qMotion.getStatus() != currentStatus) { // Check if external change occurs
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION, qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                currentStatus = qMotion.getStatus();
+            }
+
+            if (qMotion != null) { // Update items:
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_TEMP,
+                        DecimalType.valueOf(String.valueOf(qMotion.getTmp())));
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT,
+                        DecimalType.valueOf(String.valueOf(qMotion.getLight())));
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
+                        DecimalType.valueOf(String.valueOf(qMotion.getHumidity())));
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
+                        DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+        } finally {
+            ReadWriteLock.getInstance().unlockRead();
+        }
     }
 }
