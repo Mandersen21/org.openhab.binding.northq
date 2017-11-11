@@ -25,9 +25,9 @@ public class NorthQConfig {
     // North network
     public static NorthNetwork NETWORK = null;
 
-    public static String USERNAME = "";
-    public static String PASSWORD = "";
-    public static boolean ISHOME = true;
+    private static String USERNAME = "";
+    private static String PASSWORD = "";
+    private static boolean ISHOME = true;
     public static boolean HEATONLOCATION = false;
     public static float ISHOMETEMP = 23;
     public static float NOTHOMETEMP = 18;
@@ -63,7 +63,7 @@ public class NorthQConfig {
 
     // TODO: clean this, so we do not die
 
-    public static boolean isISHOME() {
+    public static boolean ISHOME() {
         return ISHOME;
     }
 

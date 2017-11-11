@@ -60,19 +60,6 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     }
 
     /**
-     * this function is called to start background discovery
-     */
-    @Override
-    protected void startBackgroundDiscovery() {
-        System.out.println("Discovery - starting background service");
-    }
-
-    @Override
-    protected void stopBackgroundDiscovery() {
-        System.out.println("Discovery - stopping background service");
-    }
-
-    /**
      * Abstract method overwritten
      * Requires:
      * Returns: Informs framework of any discovered things
@@ -91,81 +78,68 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     @Override
     public void onDataFetched() {
         NorthNetwork n = NorthQConfig.NETWORK;
-
         if (n != null) {
-            ArrayList<NGateway> g = n.getGateways();
+            discoverAlldevices(n);
+        }
+    }
 
-            for (int i = 0; i < g.size(); i++) {
-                ArrayList<Thing> things = g.get(i).getThings();
+    public void discoverAlldevices(NorthNetwork n) {
+        ArrayList<NGateway> g = n.getGateways();
 
-                for (int j = 0; j < things.size(); j++) {
-                    Thing thing = things.get(j);
+        for (int i = 0; i < g.size(); i++) {
+            ArrayList<Thing> things = g.get(i).getThings();
 
-                    if (thing instanceof Qplug) {
-                        System.out.println("Discovered thing type Q plug");
+            for (int j = 0; j < things.size(); j++) {
+                Thing thing = things.get(j);
 
-                        String thingID = thing.getNodeID();
-                        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
-                        Map<String, Object> properties = new HashMap<>(1);
+                if (thing instanceof Qplug) {
+                    System.out.println("Discovered thing type Q plug");
 
-                        properties.put("thingID", thingID);
+                    String thingID = thing.getNodeID();
+                    ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
+                    Map<String, Object> properties = new HashMap<>(1);
 
-                        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel(((Qplug) thing).getBs().name)
-                                .withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
+                    properties.put("thingID", thingID);
 
-                        thingDiscovered(dr);
+                    DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                            .withLabel(((Qplug) thing).getBs().name)
+                            .withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
 
-                    } else if (thing instanceof Qmotion) {
-                        System.out.println("Discovered thing type Q motion");
+                    thingDiscovered(dr);
 
-                        String thingID = thing.getNodeID();
-                        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
-                        Map<String, Object> properties = new HashMap<>(1);
+                } else if (thing instanceof Qmotion) {
+                    System.out.println("Discovered thing type Q motion");
 
-                        properties.put("thingID", thingID);
+                    String thingID = thing.getNodeID();
+                    ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
+                    Map<String, Object> properties = new HashMap<>(1);
 
-                        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel(((Qmotion) thing).getBs().name)
-                                .withThingType(NorthQBindingConstants.THING_TYPE_QMOTION).build();
+                    properties.put("thingID", thingID);
 
-                        thingDiscovered(dr);
-                    } else if (thing instanceof Qthermostat) {
-                        System.out.println("Discovered thing type Q thermostat");
+                    DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                            .withLabel(((Qmotion) thing).getBs().name)
+                            .withThingType(NorthQBindingConstants.THING_TYPE_QMOTION).build();
 
-                        String thingID = thing.getNodeID();
-                        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
-                        Map<String, Object> properties = new HashMap<>(1);
+                    thingDiscovered(dr);
+                } else if (thing instanceof Qthermostat) {
+                    System.out.println("Discovered thing type Q thermostat");
 
-                        properties.put("thingID", thingID);
+                    String thingID = thing.getNodeID();
+                    ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
+                    Map<String, Object> properties = new HashMap<>(1);
 
-                        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                                .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
-                                .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
+                    properties.put("thingID", thingID);
+                    DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                            .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
+                            .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
 
-                        thingDiscovered(dr);
-                    }
-                    // TODO Settings does not have a unique id
-                    // else if (thing instanceof Qsettings) {
-                    // System.out.println("Discovered thing type Q Settings");
-                    // String thingID = ;
-                    //
-                    // ThingUID newThing = new ThingsUID(NorthQBindingConstants.THING_TYPE_SETTINGS, thingID);
-                    // Map<String, Object> properties = new HashMap<>(1);
-                    //
-                    // properties.put("thingID", thingID);
-                    //
-                    // DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                    // .withLabel("Settings" + ((Qsettings) thing).getQsettings().))
-                    // .withThingType(NorthQBindingConstants.THING_TYPE_SETTINGS).build();
-                    //
-                    // thingDiscovered(dr);
-                    // }
+                    thingDiscovered(dr);
+
                 }
             }
-
-            // Things has been added by discovery
-            System.out.println("Discovery - Scan completed thing added");
         }
+
+        // Things has been added by discovery
+        System.out.println("Discovery - Scan completed thing added");
     }
 }

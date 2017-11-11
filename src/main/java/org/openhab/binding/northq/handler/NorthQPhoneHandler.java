@@ -61,7 +61,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             System.out.println("Polling data for phone");
 
             Form form = new Form();
-            form.param("getGPS", NorthQConfig.USERNAME);
+            form.param("getGPS", NorthQConfig.getUSERNAME());
             System.out.println(getThing().getConfiguration().get("name").toString());
             form.param("name", getThing().getConfiguration().get("name").toString());
             NetworkUtils nu = new NetworkUtils();
@@ -114,11 +114,11 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     if (status && allAway) {
                         // turn off device
                         NorthQConfig.setISHOME(false);
-                        System.out.println("Set config to: " + NorthQConfig.ISHOME);
+                        System.out.println("Set config to: " + NorthQConfig.ISHOME());
                     } // If home
                     else if (status && !allAway) {
                         NorthQConfig.setISHOME(true);
-                        System.out.println("Set config to: " + NorthQConfig.ISHOME);
+                        System.out.println("Set config to: " + NorthQConfig.ISHOME());
                     }
                 }
             } catch (Exception e) {
