@@ -92,16 +92,16 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                         resBol = true;
                     }
                     Boolean bres = new Boolean(resBol);
-                    NorthQConfig.PHONE_MAP.put(getThing().getConfiguration().get("name").toString(), bres);
+                    NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), bres);
 
                     // If a new update comes in and the ishome is to be switched
                     // If not home
                     // System.out.println("away is set: " + result.equals("0"));
                     // System.out.println("away is set: " + result.equals("1"));
 
-                    Boolean[] phoneHome = new Boolean[NorthQConfig.PHONE_MAP.values().toArray().length];
+                    Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
 
-                    NorthQConfig.PHONE_MAP.values().toArray(phoneHome);
+                    NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
                     boolean allAway = true;
                     for (Boolean b : phoneHome) {
                         boolean bol = b.booleanValue();

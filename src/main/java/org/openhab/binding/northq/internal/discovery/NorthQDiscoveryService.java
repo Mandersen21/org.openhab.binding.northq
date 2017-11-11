@@ -77,7 +77,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
      */
     @Override
     public void onDataFetched() {
-        NorthNetwork n = NorthQConfig.NETWORK;
+        NorthNetwork n = NorthQConfig.getNETWORK();
         if (n != null) {
             discoverAlldevices(n);
         }

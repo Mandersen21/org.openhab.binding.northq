@@ -47,21 +47,21 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
             // if we are not running on Mock network
 
             // Only run polling job with NETWORK is not null
-            if (NorthQConfig.NETWORK != null) {
+            if (NorthQConfig.getNETWORK() != null) {
                 try {
                     ReadWriteLock.getInstance().lockWrite();
 
-                    if (!NorthQConfig.MOCK) {
+                    if (!NorthQConfig.isMOCK()) {
                         // live
-                        NorthQConfig.NETWORK = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(),
-                                NorthQConfig.getPASSWORD());
+                        NorthQConfig.setNETWORK(
+                                services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
                     } else {
 
                         // mock network
-                        if (NorthQConfig.MOCK_NETWORK == null) {
-                            NorthQConfig.MOCK_NETWORK = new NorthQMockNetwork();
+                        if (NorthQConfig.getMOCK_NETWORK() == null) {
+                            NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
                         }
-                        NorthQConfig.NETWORK = NorthQConfig.MOCK_NETWORK.getNetwork();
+                        NorthQConfig.setNETWORK(NorthQConfig.getMOCK_NETWORK().getNetwork());
                     }
 
                     System.out.println("Network fetched");

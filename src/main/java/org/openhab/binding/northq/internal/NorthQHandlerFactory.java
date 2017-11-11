@@ -81,7 +81,7 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         return null;
     }
 
-    private void registerDiscoveryService(NorthQNetworkHandler bridgeHandler) {
+    public void registerDiscoveryService(NorthQNetworkHandler bridgeHandler) {
         NorthQDiscoveryService discoveryService = new NorthQDiscoveryService(bridgeHandler);
         discoveryService.startScan();
     }

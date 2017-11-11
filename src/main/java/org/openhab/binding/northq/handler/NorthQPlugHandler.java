@@ -59,12 +59,13 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 Qplug qplug = getPlug(nodeId);
 
                 // Configurations
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
-                String userID = NorthQConfig.NETWORK.getUserId();
+                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
+                String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (qplug != null && !NorthQConfig.ISHOME()) {
                     try {
-                        boolean res = services.turnOffPlug(qplug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
+                        boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID,
+                                gatewayID);
                         currentStatus = false;
                         updateStatus(ThingStatus.ONLINE);
                     } catch (Exception e) {
@@ -140,8 +141,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
                     updateStatus(ThingStatus.ONLINE);
                 }
 
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
-                String userID = NorthQConfig.NETWORK.getUserId();
+                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
+                String userID = NorthQConfig.getNETWORK().getUserId();
 
                 // Check if plug should be turned on or off
                 if (command.toString().equals("ON")) {
@@ -172,7 +173,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
     }
 
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
-        boolean res = services.turnOffPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
+        boolean res = services.turnOffPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
         if (res) {
             currentStatus = false;
             qPlug.getBs().pos = 0;
@@ -180,7 +181,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
     }
 
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
-        boolean res = services.turnOnPlug(qPlug, NorthQConfig.NETWORK.getToken(), userID, gatewayID);
+        boolean res = services.turnOnPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
         if (res) {
             currentStatus = true;
             qPlug.getBs().pos = 1;
@@ -188,7 +189,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
     }
 
     public @Nullable Qplug getPlug(String nodeID) {
-        ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
+        ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
         for (NGateway gw : gateways) {
             ArrayList<Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {

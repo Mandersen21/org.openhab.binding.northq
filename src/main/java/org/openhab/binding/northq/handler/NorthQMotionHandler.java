@@ -59,8 +59,9 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 String nodeId = getThing().getProperties().get("thingID");
                 Qmotion qMotion = getQmotion(nodeId);
 
-                boolean triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.NETWORK.getUserId(),
-                        NorthQConfig.NETWORK.getToken(), NorthQConfig.NETWORK.getHouses()[0].id + "", 1 + ""));
+                boolean triggered = services.isTriggered(services.getNotificationArray(
+                        NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
+                        NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
 
                 // Database Query to add events
                 // if (datarecorder.open()) {
@@ -134,19 +135,19 @@ public class NorthQMotionHandler extends BaseThingHandler {
         if (channelUID.getId().equals(CHANNEL_QMOTION)) {
             try {
                 ReadWriteLock.getInstance().lockWrite();
-                String gatewayID = NorthQConfig.NETWORK.getGateways().get(0).getGatewayId();
+                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
                 String nodeId = getThing().getProperties().get("thingID");
                 Qmotion qMotion = getQmotion(nodeId);
 
                 if (command.toString().equals("ON")) {
-                    services.armMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
-                            qMotion);
+                    services.armMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
+                            gatewayID, qMotion);
                     currentStatus = true;
                     qMotion.getBs().armed = 1;
 
                 } else if (command.toString().equals("OFF")) {
-                    services.disarmMotion(NorthQConfig.NETWORK.getUserId(), NorthQConfig.NETWORK.getToken(), gatewayID,
-                            qMotion);
+                    services.disarmMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
+                            gatewayID, qMotion);
                     currentStatus = false;
                     qMotion.getBs().armed = 0;
                 }
@@ -173,7 +174,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     }
 
     public @Nullable Qmotion getQmotion(String nodeID) {
-        ArrayList<NGateway> gateways = NorthQConfig.NETWORK.getGateways();
+        ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
         for (NGateway gw : gateways) {
             ArrayList<Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {
