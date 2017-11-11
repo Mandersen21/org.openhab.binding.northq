@@ -101,7 +101,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         NorthNetwork network = null;
         try {
             network = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD());
-            NorthQConfig.NETWORK = network;
+            NorthQConfig.setNETWORK(network);
             updateStatus(ThingStatus.ONLINE);
             logger.info("Q-stick is online");
         } catch (Exception e1) {
