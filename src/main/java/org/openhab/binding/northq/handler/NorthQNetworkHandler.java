@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author DTU_02162_group03 - Initial contribution
  */
+
 @NonNullByDefault
 public class NorthQNetworkHandler extends BaseBridgeHandler {
 
