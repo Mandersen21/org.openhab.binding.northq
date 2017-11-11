@@ -23,7 +23,7 @@ import org.openhab.binding.northq.internal.model.NorthNetwork;
 public class NorthQConfig {
 
     // North network
-    private static NorthNetwork NETWORK = null;
+    public static NorthNetwork NETWORK = null;
 
     private static String USERNAME = "";
     private static String PASSWORD = "";
