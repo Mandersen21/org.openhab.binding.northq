@@ -129,12 +129,12 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                     Map<String, Object> properties = new HashMap<>(1);
 
                     properties.put("thingID", thingID);
-
                     DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                             .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
                             .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
 
                     thingDiscovered(dr);
+
                 }
             }
         }

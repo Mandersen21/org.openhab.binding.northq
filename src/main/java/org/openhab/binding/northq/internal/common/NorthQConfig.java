@@ -28,11 +28,38 @@ public class NorthQConfig {
     private static String USERNAME = "";
     private static String PASSWORD = "";
     private static boolean ISHOME = true;
+    public static boolean HEATONLOCATION = false;
+    public static float ISHOMETEMP = 23;
+    public static float NOTHOMETEMP = 18;
 
     public static boolean MOCK = false;
     public static NorthQMockNetwork MOCK_NETWORK;
 
     public static Map<String, Boolean> PHONE_MAP = new HashMap<String, Boolean>();
+
+    public static boolean isHEATONLOCATION() {
+        return HEATONLOCATION;
+    }
+
+    public static void setHEATONLOCATION(boolean hEATONLOCATION) {
+        HEATONLOCATION = hEATONLOCATION;
+    }
+
+    public static float getISHOMETEMP() {
+        return ISHOMETEMP;
+    }
+
+    public static void setISHOMETEMP(float iSHOMETEMP) {
+        ISHOMETEMP = iSHOMETEMP;
+    }
+
+    public static float getNOTHOMETEMP() {
+        return NOTHOMETEMP;
+    }
+
+    public static void setNOTHOMETEMP(float nOTHOMETEMP) {
+        NOTHOMETEMP = nOTHOMETEMP;
+    }
 
     // TODO: clean this, so we do not die
 
