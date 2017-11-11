@@ -55,8 +55,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 System.out.println("Polling data for thermostat");
 
                 NorthqServices services = new NorthqServices();
-                NorthQConfig.getNETWORK() = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(),
-                        NorthQConfig.getPASSWORD());
+                // NorthQConfig.getNETWORK() = services.mapNorthQNetwork(NorthQConfig.getUSERNAME(),
+                // NorthQConfig.getPASSWORD());
 
                 String nodeId = getThing().getProperties().get("thingID");
                 Qthermostat qthermostat = getThermostat(nodeId);
