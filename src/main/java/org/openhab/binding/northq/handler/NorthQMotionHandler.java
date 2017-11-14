@@ -110,7 +110,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
      * Requires: a gatewayId, and a qmotion thing
      * Returns: disarms the requested qmotion and updates state.
      */
-    public void disarm(String gatewayID, Qmotion qMotion) throws IOException, Exception {
+    private void disarm(String gatewayID, Qmotion qMotion) throws IOException, Exception {
         services.disarmMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(), gatewayID,
                 qMotion);
         currentStatus = false;
@@ -121,7 +121,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
      * Requires: a gatewayId, and a qmotion thing
      * Returns: arms the requested qmotion and updates state.
      */
-    public void arm(String gatewayID, Qmotion qMotion) throws IOException, Exception {
+    private void arm(String gatewayID, Qmotion qMotion) throws IOException, Exception {
         services.armMotion(NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(), gatewayID,
                 qMotion);
         currentStatus = true;
