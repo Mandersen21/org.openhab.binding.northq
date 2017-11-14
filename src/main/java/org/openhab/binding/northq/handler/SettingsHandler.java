@@ -37,14 +37,14 @@ public class SettingsHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         try {
-            ReadWriteLock.getInstance().lockRead();
+            ReadWriteLock.getInstance().lockWrite();
 
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
                     NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.GETHOMETEMP())));
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.GETNOTHOMETEMP())));
 
             if (channelUID.getId().equals(CHANNEL_SETTINGS_TOGGLEHEATLOCATION)) {
                 if (command.toString().equals("ON")) {

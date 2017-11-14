@@ -59,6 +59,7 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_SETTINGS_TOGGLEHEATLOCATION = "channeltoggleHeatOnLocation";
     public static final String CHANNEL_SETTINGS_ISHOMETEMP = "channelisHomeTemp";
     public static final String CHANNEL_SETTINGS_NOTHOMETEMP = "channelnotHomeTemp";
+    public static final String CHANNEL_QPHONE_GPSLOCATION = "channelgpslocation";
 
     // Event Channel IDs
     public static final String CHANNEL_QSTICK_SCAN = "qStickScanning";
