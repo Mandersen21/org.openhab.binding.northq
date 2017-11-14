@@ -108,11 +108,12 @@
             <bridge-type-ref id="northqnetwork" />
         </supported-bridge-type-refs>
 
-        <label>qPhone location service</label>
-        <description>Qphone can automatically shut off devices when leaving the house</description>
+        <label>Phone location service</label>
+        <description>Phone service automatically shut off devices when leaving the house</description>
         
         <channels>
             <channel id="channelgps" typeId="gps-channel" />
+            <channel id="channelgpslocation" typeId="gpslocation-channel" />
         </channels>
         
         <config-description>
@@ -122,7 +123,21 @@
             </parameter>
         </config-description>
     </thing-type>
-
+    
+    <channel-type id="gpslocation-channel">
+       <item-type>String</item-type>
+       <label>GPS status</label>
+       <description>GPS status</description>
+       
+       <state readOnly="true">
+        <options>
+            <option value="Home">Home</option>
+            <option value="Out">Out</option>
+            <option value="Inactive">Inactive</option>
+        </options>
+       </state>
+    </channel-type>
+    
     <channel-type id="gps-channel">
         <item-type>Switch</item-type>
         <label>Phone</label>
@@ -168,8 +183,8 @@
             <bridge-type-ref id="northqnetwork" />
         </supported-bridge-type-refs>
 
-        <label>Settings</label>
-        <description>Settings for openhab</description>
+        <label>NorthQ Device Settings</label>
+        <description>Settings for NorthQ Devices</description>
 
         <channels>
             <channel id="channeltoggleHeatOnLocation" typeId="toggleHeatOnLocation-channel" />
