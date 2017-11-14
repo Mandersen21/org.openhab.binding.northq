@@ -102,6 +102,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
     /**
      * Constructor
      */
+    @SuppressWarnings("null")
     public NorthQPlugHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
