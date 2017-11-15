@@ -16,6 +16,9 @@
 		<channels>
 			<channel id="channelPlug" typeId="plugChannel" />
 			<channel id="channelPlugPower" typeId="plugPowerChannel" />
+			<channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
+			<channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
+			<channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
 		</channels>
 	</thing-type>
 

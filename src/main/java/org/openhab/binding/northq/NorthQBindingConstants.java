@@ -46,6 +46,9 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_QSTICK = "channelstick";
     public static final String CHANNEL_QPLUG = "channelPlug";
     public static final String CHANNEL_QPLUGPOWER = "channelPlugPower";
+    public static final String CHANNEL_QPLUGPOWERDAY = "channelPlugPowerDay";
+    public static final String CHANNEL_QPLUGPOWERWEEK = "channelPlugPowerWeek";
+    public static final String CHANNEL_QPLUGPOWERMONTH = "channelPlugPowerMonth";
     public static final String CHANNEL_QMOTION = "channelmotion";
     public static final String CHANNEL_QMOTION_TEMP = "channeltemperature";
     public static final String CHANNEL_QMOTION_LIGHT = "channellight";
