@@ -42,9 +42,9 @@ public class SettingsHandler extends BaseThingHandler {
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
                     NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.GETHOMETEMP())));
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.GETNOTHOMETEMP())));
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
 
             if (channelUID.getId().equals(CHANNEL_SETTINGS_TOGGLEHEATLOCATION)) {
                 if (command.toString().equals("ON")) {

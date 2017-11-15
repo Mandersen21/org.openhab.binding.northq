@@ -169,7 +169,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
             if (!NorthQConfig.ISHOME()) {
                 // When no body home temp set down to 17C
-                int temp = (int) NorthQConfig.GETNOTHOMETEMP();
+                int temp = (int) NorthQConfig.getNOTHOMETEMP();
                 if (temp > 30) {
                     temp = 30;
                 }
@@ -179,7 +179,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
             } // When somebody home set temp up to 22C
             else if (NorthQConfig.ISHOME()) {
-                int temp = (int) NorthQConfig.GETHOMETEMP();
+                int temp = (int) NorthQConfig.getISHOMETEMP();
                 if (temp < 5) {
                     temp = 5;
                 }
