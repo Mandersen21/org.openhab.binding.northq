@@ -31,6 +31,27 @@
         <description>Power consumption of QPlug</description>
         <state pattern="%.1d W" readOnly="true" />
     </channel-type>
+    
+    <channel-type id="plugPowerDayChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption day</label>
+        <description>Power consumption day of QPlug</description>
+        <state pattern="%.1d kWh" readOnly="true" />
+    </channel-type>
+    
+    <channel-type id="plugPowerWeekChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption week</label>
+        <description>Power consumption week of QPlug</description>
+        <state pattern="%.1d kWh" readOnly="true" />
+    </channel-type>
+    
+    <channel-type id="plugPowerMonthChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption month</label>
+        <description>Power consumption month of QPlug</description>
+        <state pattern="%.1d kWh" readOnly="true" />
+    </channel-type>
 
 	<!-- qmotion thing -->
 	<thing-type id="qMotion">
