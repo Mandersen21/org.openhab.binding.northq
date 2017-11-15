@@ -50,57 +50,9 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
         @Override
         public void run() {
-            try {
-                ReadWriteLock.getInstance().lockWrite();
-                System.out.println("Polling data for thermostat");
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qthermostat qthermostat = getThermostat(nodeId);
-
-                // Configurations
-                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();// TODO: make this
-                                                                                                 // dynamic
-                String userID = NorthQConfig.getNETWORK().getUserId();
-
-                if (qthermostat != null) {
-                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
-                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
-                    System.out.println("GetTemp Thermostat: " + qthermostat.getTemp());
-                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
-                            DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
-                }
-
-                if (!NorthQConfig.ISHOME()) {
-                    // When no body home temp set down to 17C
-                    int temp = (int) NorthQConfig.GETNOTHOMETEMP();
-                    if (temp > 30) {
-                        temp = 30;
-                    }
-                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                            qthermostat);
-                    System.out.println("Nobody home, temp set to 17C");
-
-                } // When somebody home set temp up to 22C
-                else if (NorthQConfig.ISHOME()) {
-                    int temp = (int) NorthQConfig.GETHOMETEMP();
-                    if (temp < 5) {
-                        temp = 5;
-                    }
-                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                            qthermostat);
-                    System.out.println("Somebody home, temp set to 22C");
-                }
-
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockWrite();
-            }
-            Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
-
-            NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
-
+            ScheduleCode();
         }
+
     };
 
     /**
@@ -192,5 +144,57 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             }
         }
         return null;
+    }
+
+    public void ScheduleCode() {
+        try {
+            ReadWriteLock.getInstance().lockWrite();
+            System.out.println("Polling data for thermostat");
+
+            String nodeId = getThing().getProperties().get("thingID");
+            Qthermostat qthermostat = getThermostat(nodeId);
+
+            // Configurations
+            String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();// TODO: make this
+                                                                                             // dynamic
+            String userID = NorthQConfig.getNETWORK().getUserId();
+
+            if (qthermostat != null) {
+                updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                        DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+                System.out.println("GetTemp Thermostat: " + qthermostat.getTemp());
+                updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
+                        DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
+            }
+
+            if (!NorthQConfig.ISHOME()) {
+                // When no body home temp set down to 17C
+                int temp = (int) NorthQConfig.GETNOTHOMETEMP();
+                if (temp > 30) {
+                    temp = 30;
+                }
+                services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                        qthermostat);
+                System.out.println("Nobody home, temp set to 17C");
+
+            } // When somebody home set temp up to 22C
+            else if (NorthQConfig.ISHOME()) {
+                int temp = (int) NorthQConfig.GETHOMETEMP();
+                if (temp < 5) {
+                    temp = 5;
+                }
+                services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                        qthermostat);
+                System.out.println("Somebody home, temp set to 22C");
+            }
+
+        } catch (Exception e) {
+            logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+        } finally {
+            ReadWriteLock.getInstance().unlockWrite();
+        }
+        Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
+
+        NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
     }
 }
