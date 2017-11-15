@@ -45,7 +45,7 @@ public class NorthQConfig {
         HEATONLOCATION = hEATONLOCATION;
     }
 
-    public static float GETHOMETEMP() {
+    public static float getISHOMETEMP() {
         return ISHOMETEMP;
     }
 
@@ -53,7 +53,7 @@ public class NorthQConfig {
         ISHOMETEMP = iSHOMETEMP;
     }
 
-    public static float GETNOTHOMETEMP() {
+    public static float getNOTHOMETEMP() {
         return NOTHOMETEMP;
     }
 
