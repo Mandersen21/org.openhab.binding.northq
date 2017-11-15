@@ -16,6 +16,9 @@
 		<channels>
 			<channel id="channelPlug" typeId="plugChannel" />
 			<channel id="channelPlugPower" typeId="plugPowerChannel" />
+			<channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
+			<channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
+			<channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
 		</channels>
 	</thing-type>
 
@@ -29,6 +32,27 @@
         <item-type>Number</item-type>
         <label>Power Consumption</label>
         <description>Power consumption of QPlug</description>
+        <state pattern="%.1d W" readOnly="true" />
+    </channel-type>
+    
+    <channel-type id="plugPowerDayChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption day</label>
+        <description>Power consumption day of QPlug</description>
+        <state pattern="%.1d W" readOnly="true" />
+    </channel-type>
+    
+    <channel-type id="plugPowerWeekChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption week</label>
+        <description>Power consumption week of QPlug</description>
+        <state pattern="%.1d W" readOnly="true" />
+    </channel-type>
+    
+    <channel-type id="plugPowerMonthChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption month</label>
+        <description>Power consumption month of QPlug</description>
         <state pattern="%.1d W" readOnly="true" />
     </channel-type>
 
