@@ -39,6 +39,7 @@ public class SettingsHandler extends BaseThingHandler {
         try {
             ReadWriteLock.getInstance().lockWrite();
 
+            // set initial values
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
                     NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
@@ -46,6 +47,7 @@ public class SettingsHandler extends BaseThingHandler {
             updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
                     DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
 
+            // updating ToggleHeatLocation variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_TOGGLEHEATLOCATION)) {
                 if (command.toString().equals("ON")) {
                     NorthQConfig.setHEATONLOCATION(true);
@@ -54,11 +56,13 @@ public class SettingsHandler extends BaseThingHandler {
                     NorthQConfig.setHEATONLOCATION(false);
                 }
             }
+            // updating IsHomeTemp variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_ISHOMETEMP)) {
                 if (command.toString() != null) {
                     NorthQConfig.setISHOMETEMP(Float.valueOf(command.toString()));
                 }
             }
+            // updating NoHomeTemp variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_NOTHOMETEMP)) {
                 if (command.toString() != null) {
                     NorthQConfig.setNOTHOMETEMP(Float.valueOf(command.toString()));
@@ -88,6 +92,7 @@ public class SettingsHandler extends BaseThingHandler {
      */
     @Override
     public void initialize() {
+        NorthQConfig.setHEATONLOCATION(false);
         updateStatus(ThingStatus.ONLINE);
     }
 

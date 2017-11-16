@@ -28,7 +28,6 @@ public class MockNetworkHandler extends BaseThingHandler {
 
     public MockNetworkHandler(Thing thing) {
         super(thing);
-        // TODO Auto-generated constructor stub
     }
 
     /**
