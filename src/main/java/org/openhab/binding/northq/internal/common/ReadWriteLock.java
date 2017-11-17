@@ -27,6 +27,10 @@ public class ReadWriteLock {
 
     }
 
+    /**
+     * Requires:
+     * Returns: returns and instance of the lock
+     */
     public static ReadWriteLock getInstance() {
         if (instance == null) {
             instance = new ReadWriteLock();
@@ -35,6 +39,10 @@ public class ReadWriteLock {
         return instance;
     }
 
+    /**
+     * Requires:
+     * Returns: adds a reader lock
+     */
     public synchronized void lockRead() {
         while (writers > 0 || writeRequests > 0) {
             try {
@@ -46,11 +54,19 @@ public class ReadWriteLock {
         readers++;
     }
 
+    /**
+     * Requires:
+     * Returns: Unlocks a read lock
+     */
     public synchronized void unlockRead() {
         readers--;
         notifyAll();
     }
 
+    /**
+     * Requires:
+     * Returns: locks write
+     */
     public synchronized void lockWrite() {
         writeRequests++;
 
@@ -65,6 +81,10 @@ public class ReadWriteLock {
         writers++;
     }
 
+    /**
+     * Requires:
+     * Returns: unlocks write
+     */
     public synchronized void unlockWrite() {
         writers--;
         notifyAll();

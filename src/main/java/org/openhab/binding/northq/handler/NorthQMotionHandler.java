@@ -142,6 +142,10 @@ public class NorthQMotionHandler extends BaseThingHandler {
         updateStatus(ThingStatus.REMOVED);
     }
 
+    /**
+     * Requires: a nodeId
+     * Returns: gets the Qmotion with nodeId
+     */
     public @Nullable Qmotion getQmotion(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
         for (NGateway gw : gateways) {
@@ -157,7 +161,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     }
 
     /**
-     * Requires: void
+     * Requires:
      * Returns: updates the thing, when run
      */
     public void ScheduledCode() {

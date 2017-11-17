@@ -51,51 +51,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
         @Override
         public void run() {
-            try {
-                ReadWriteLock.getInstance().lockRead();
-                System.out.println("Polling data for plug");
-
-                String nodeId = getThing().getProperties().get("thingID");
-                Qplug qplug = getPlug(nodeId);
-
-                // Configurations
-                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
-                String userID = NorthQConfig.getNETWORK().getUserId();
-
-                if (qplug != null && !NorthQConfig.ISHOME()) {
-                    try {
-                        boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID,
-                                gatewayID);
-                        currentStatus = false;
-                        updateStatus(ThingStatus.ONLINE);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        updateStatus(ThingStatus.OFFLINE);
-                    }
-                    updateState("channelplug", OnOffType.OFF);
-                    currentStatus = false;
-
-                }
-
-                if (qplug != null && qplug.getStatus() != currentStatus) {
-                    updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                    currentStatus = qplug.getStatus();
-                }
-                if (qplug != null) {
-                    updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
-                            DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
-
-                    // Database Query to add power consumption
-                    // if (datarecorder.open()) {
-                    // datarecorder.addPowerCon(Integer.valueOf(nodeId), qplug.getPowerConsumption());
-                    // }
-                }
-                // datarecorder.close();
-            } catch (Exception e) {
-                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-            } finally {
-                ReadWriteLock.getInstance().unlockRead();
-            }
+            scheduleCode();
         }
     };
 
@@ -173,6 +129,10 @@ public class NorthQPlugHandler extends BaseThingHandler {
         updateStatus(ThingStatus.REMOVED);
     }
 
+    /**
+     * Requires: void
+     * Returns: turns plug off and updates model
+     */
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOffPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
         if (res) {
@@ -181,6 +141,10 @@ public class NorthQPlugHandler extends BaseThingHandler {
         }
     }
 
+    /**
+     * Requires: void
+     * Returns: turns plug on and updates model
+     */
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOnPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
         if (res) {
@@ -189,6 +153,10 @@ public class NorthQPlugHandler extends BaseThingHandler {
         }
     }
 
+    /**
+     * Requires: a nodeId
+     * Returns: gets the Qplug with nodeId
+     */
     public @Nullable Qplug getPlug(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
         for (NGateway gw : gateways) {
@@ -201,5 +169,56 @@ public class NorthQPlugHandler extends BaseThingHandler {
             }
         }
         return null;
+    }
+
+    /**
+     * Requires:
+     * Returns: updates the thing, when run
+     */
+    private void scheduleCode() {
+        try {
+            ReadWriteLock.getInstance().lockRead();
+            System.out.println("Polling data for plug");
+
+            String nodeId = getThing().getProperties().get("thingID");
+            Qplug qplug = getPlug(nodeId);
+
+            // Configurations
+            String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
+            String userID = NorthQConfig.getNETWORK().getUserId();
+
+            if (qplug != null && !NorthQConfig.ISHOME()) {
+                try {
+                    boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
+                    currentStatus = false;
+                    updateStatus(ThingStatus.ONLINE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    updateStatus(ThingStatus.OFFLINE);
+                }
+                updateState("channelplug", OnOffType.OFF);
+                currentStatus = false;
+
+            }
+
+            if (qplug != null && qplug.getStatus() != currentStatus) {
+                updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                currentStatus = qplug.getStatus();
+            }
+            if (qplug != null) {
+                updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
+                        DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
+
+                // Database Query to add power consumption
+                // if (datarecorder.open()) {
+                // datarecorder.addPowerCon(Integer.valueOf(nodeId), qplug.getPowerConsumption());
+                // }
+            }
+            // datarecorder.close();
+        } catch (Exception e) {
+            logger.error("An unexpected error occurred: {}", e.getMessage(), e);
+        } finally {
+            ReadWriteLock.getInstance().unlockRead();
+        }
     }
 }
