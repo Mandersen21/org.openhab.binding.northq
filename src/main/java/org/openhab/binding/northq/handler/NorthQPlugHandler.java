@@ -208,13 +208,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
             if (qplug != null) {
                 updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
                         DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
-
-                // Database Query to add power consumption
-                // if (datarecorder.open()) {
-                // datarecorder.addPowerCon(Integer.valueOf(nodeId), qplug.getPowerConsumption());
-                // }
             }
-            // datarecorder.close();
         } catch (Exception e) {
             logger.error("An unexpected error occurred: {}", e.getMessage(), e);
         } finally {
