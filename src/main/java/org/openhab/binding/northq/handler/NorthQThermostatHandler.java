@@ -104,7 +104,6 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
                 if (command.toString() != null) {
                     String temperature = command.toString();
-                    System.out.println("Temp: " + temperature);
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
                     qThermostat.getTher().temperature = Float.valueOf(temperature);
@@ -163,29 +162,27 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             Qthermostat qthermostat = getThermostat(nodeId);
 
             // Configurations
-            String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();// TODO: make this
-                                                                                             // dynamic
+            String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
+
             String userID = NorthQConfig.getNETWORK().getUserId();
 
             if (qthermostat != null) {
                 updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
                         DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
-                System.out.println("GetTemp Thermostat: " + qthermostat.getTemp());
                 updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
                         DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
             }
 
             if (!NorthQConfig.ISHOME()) {
-                // When no body home temp set down to 17C
+                // When noone is home maximum temp is 30
                 int temp = (int) NorthQConfig.getNOTHOMETEMP();
                 if (temp > 30) {
                     temp = 30;
                 }
                 services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
                         qthermostat);
-                System.out.println("Nobody home, temp set to 17C");
 
-            } // When somebody home set temp up to 22C
+            } // When someone it home the minimum temp is 5
             else if (NorthQConfig.ISHOME()) {
                 int temp = (int) NorthQConfig.getISHOMETEMP();
                 if (temp < 5) {
@@ -193,7 +190,6 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 }
                 services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
                         qthermostat);
-                System.out.println("Somebody home, temp set to 22C");
             }
 
         } catch (Exception e) {

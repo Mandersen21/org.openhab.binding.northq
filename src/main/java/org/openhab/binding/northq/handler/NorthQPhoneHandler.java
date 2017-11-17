@@ -93,7 +93,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_QPHONE)) {
-            // System.out.println("In enable GPS services");
             if (command.toString().equals("ON")) {
                 status = true;
             } else if (command.toString().equals("OFF")) {
@@ -124,7 +123,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             Cipher AesCipher;
             AesCipher = Cipher.getInstance("AES");
             AesCipher.init(Cipher.DECRYPT_MODE, generateKey());
-            // System.out.println(AesCipher.doFinal(Base64.getDecoder().decode(cipherText.getBytes())).length);
 
             return new String(AesCipher.doFinal(Base64.getDecoder().decode(cipherText.getBytes())));
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
@@ -150,7 +148,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
         Form form = new Form();
         form.param("getGPS", NorthQConfig.getUSERNAME());
-        System.out.println(getThing().getConfiguration().get("name").toString());
         form.param("name", getThing().getConfiguration().get("name").toString());
         NetworkUtils nu = new NetworkUtils();
 
@@ -160,18 +157,14 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                 String raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
 
                 String decrypted = decrypt(raw);
-                // System.out.println("Decrypted: " + decrypted);
                 // 1 or 0 ; home | work |
                 String[] data = decrypted.split(";");
                 String locationStatus = data[0];
                 String location = data[1];
-                // System.out.println("Data in phone " + data[0] + " " + data[1]);
 
                 String result = String.valueOf(decrypted);
-                // System.out.println("Result =" + result);
 
                 res.close();
-                // System.out.println("Boolean.parseBoolean(result) = " + Boolean.parseBoolean(result));
                 boolean resBol;
                 if (!NorthQPhoneHandler.this.location.equals("Home")
                         && NorthQPhoneHandler.this.locationStatus.equals("1") && !location.equals("home")
@@ -204,15 +197,12 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                         allAway = false;
                     }
                 }
-                // System.out.println("All people are out: " + allAway);
                 if (status && allAway) {
                     // turn off device
                     NorthQConfig.setISHOME(false);
-                    // System.out.println("Set config to: " + NorthQConfig.ISHOME());
                 } // If home
                 else if (status && !allAway) {
                     NorthQConfig.setISHOME(true);
-                    // System.out.println("Set config to: " + NorthQConfig.ISHOME());
                 }
             } else {
                 updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION, StringType.valueOf("Inactive"));
