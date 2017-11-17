@@ -132,6 +132,10 @@ public class NorthQThermostatHandler extends BaseThingHandler {
         updateStatus(ThingStatus.REMOVED);
     }
 
+    /**
+     * Requires: a nodeId
+     * Returns: gets the Qthermostat with nodeId
+     */
     public @Nullable Qthermostat getThermostat(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
         for (NGateway gw : gateways) {
@@ -146,6 +150,10 @@ public class NorthQThermostatHandler extends BaseThingHandler {
         return null;
     }
 
+    /**
+     * Requires:
+     * Returns: updates the thing, when run
+     */
     public void ScheduleCode() {
         try {
             ReadWriteLock.getInstance().lockWrite();

@@ -61,81 +61,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
         @Override
         public void run() {
-            System.out.println("Polling data for phone");
-
-            Form form = new Form();
-            form.param("getGPS", NorthQConfig.getUSERNAME());
-            System.out.println(getThing().getConfiguration().get("name").toString());
-            form.param("name", getThing().getConfiguration().get("name").toString());
-            NetworkUtils nu = new NetworkUtils();
-
-            try {
-                if (status) {
-                    Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
-                    String raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
-
-                    String decrypted = decrypt(raw);
-                    // System.out.println("Decrypted: " + decrypted);
-                    // 1 or 0 ; home | work |
-                    String[] data = decrypted.split(";");
-                    String locationStatus = data[0];
-                    String location = data[1];
-                    // System.out.println("Data in phone " + data[0] + " " + data[1]);
-
-                    String result = String.valueOf(decrypted);
-                    // System.out.println("Result =" + result);
-
-                    res.close();
-                    // System.out.println("Boolean.parseBoolean(result) = " + Boolean.parseBoolean(result));
-                    boolean resBol;
-                    if (!NorthQPhoneHandler.this.location.equals("Home")
-                            && NorthQPhoneHandler.this.locationStatus.equals("1") && !location.equals("home")
-                            && locationStatus.equals("0")) {
-                        resBol = true;
-                    } else if (location.equals("Home")) {
-                        resBol = true;
-                    } else {
-                        resBol = false;
-                    }
-
-                    NorthQPhoneHandler.this.location = location;
-                    NorthQPhoneHandler.this.locationStatus = locationStatus;
-
-                    Boolean isHome = new Boolean(resBol);
-                    // Updated displayed name
-                    updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION,
-                            StringType.valueOf(isHome ? "Home" : "Out"));
-
-                    NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), isHome);
-
-                    Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
-
-                    NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
-                    boolean allAway = true;
-                    for (Boolean b : phoneHome) {
-                        boolean bol = b.booleanValue();
-                        // System.out.println(bol);
-                        if (bol) {
-                            allAway = false;
-                        }
-                    }
-                    // System.out.println("All people are out: " + allAway);
-                    if (status && allAway) {
-                        // turn off device
-                        NorthQConfig.setISHOME(false);
-                        // System.out.println("Set config to: " + NorthQConfig.ISHOME());
-                    } // If home
-                    else if (status && !allAway) {
-                        NorthQConfig.setISHOME(true);
-                        // System.out.println("Set config to: " + NorthQConfig.ISHOME());
-                    }
-                } else {
-                    updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION, StringType.valueOf("Inactive"));
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            scheduleCode();
 
         }
     };
@@ -191,6 +117,8 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         updateStatus(ThingStatus.REMOVED);
     }
 
+    // Requires: A cipher text string
+    // Returns: The decrypted plain text of text string
     public @Nullable String decrypt(String cipherText) {
         try {
             Cipher AesCipher;
@@ -206,9 +134,93 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         return null;
     }
 
+    // Requires:
+    // Returns: generates the AES key
     private Key generateKey() {
         Key key = new SecretKeySpec(keyValue, "AES");
         return key;
+    }
+
+    /**
+     * Requires:
+     * Returns: updates the thing, when run
+     */
+    private void scheduleCode() {
+        System.out.println("Polling data for phone");
+
+        Form form = new Form();
+        form.param("getGPS", NorthQConfig.getUSERNAME());
+        System.out.println(getThing().getConfiguration().get("name").toString());
+        form.param("name", getThing().getConfiguration().get("name").toString());
+        NetworkUtils nu = new NetworkUtils();
+
+        try {
+            if (status) {
+                Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
+                String raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
+
+                String decrypted = decrypt(raw);
+                // System.out.println("Decrypted: " + decrypted);
+                // 1 or 0 ; home | work |
+                String[] data = decrypted.split(";");
+                String locationStatus = data[0];
+                String location = data[1];
+                // System.out.println("Data in phone " + data[0] + " " + data[1]);
+
+                String result = String.valueOf(decrypted);
+                // System.out.println("Result =" + result);
+
+                res.close();
+                // System.out.println("Boolean.parseBoolean(result) = " + Boolean.parseBoolean(result));
+                boolean resBol;
+                if (!NorthQPhoneHandler.this.location.equals("Home")
+                        && NorthQPhoneHandler.this.locationStatus.equals("1") && !location.equals("home")
+                        && locationStatus.equals("0")) {
+                    resBol = true;
+                } else if (location.equals("Home")) {
+                    resBol = true;
+                } else {
+                    resBol = false;
+                }
+
+                NorthQPhoneHandler.this.location = location;
+                NorthQPhoneHandler.this.locationStatus = locationStatus;
+
+                Boolean isHome = new Boolean(resBol);
+                // Updated displayed name
+                updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION,
+                        StringType.valueOf(isHome ? "Home" : "Out"));
+
+                NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), isHome);
+
+                Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
+
+                NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
+                boolean allAway = true;
+                for (Boolean b : phoneHome) {
+                    boolean bol = b.booleanValue();
+                    // System.out.println(bol);
+                    if (bol) {
+                        allAway = false;
+                    }
+                }
+                // System.out.println("All people are out: " + allAway);
+                if (status && allAway) {
+                    // turn off device
+                    NorthQConfig.setISHOME(false);
+                    // System.out.println("Set config to: " + NorthQConfig.ISHOME());
+                } // If home
+                else if (status && !allAway) {
+                    NorthQConfig.setISHOME(true);
+                    // System.out.println("Set config to: " + NorthQConfig.ISHOME());
+                }
+            } else {
+                updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION, StringType.valueOf("Inactive"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -29,11 +29,18 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
  */
 
 public class SettingsHandler extends BaseThingHandler {
-
+    /**
+     * Constructor
+     */
     public SettingsHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
     }
 
+    /**
+     * Abstract method overwritten
+     * Requires: a channelId and a command
+     * Returns: Updates the state of the device
+     */
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         try {

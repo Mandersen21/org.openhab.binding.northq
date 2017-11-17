@@ -21,11 +21,13 @@ import org.openhab.binding.northq.internal.common.NorthQConfig;
  * The {@link MockNetworkHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
- * @author Nicolaj - Initial contribution
+ * @author Team C - Initial contribution
  */
 @NonNullByDefault
 public class MockNetworkHandler extends BaseThingHandler {
-
+    /**
+     * Constructor
+     */
     public MockNetworkHandler(Thing thing) {
         super(thing);
     }
@@ -47,6 +49,11 @@ public class MockNetworkHandler extends BaseThingHandler {
         }
     }
 
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initialiser
+     */
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);

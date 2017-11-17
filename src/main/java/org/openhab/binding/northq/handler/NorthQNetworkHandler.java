@@ -44,34 +44,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
 
         @Override
         public void run() {
-
-            // if we are not running on Mock network
-
-            // Only run polling job with NETWORK is not null
-            if (NorthQConfig.getNETWORK() != null) {
-                try {
-                    ReadWriteLock.getInstance().lockWrite();
-
-                    if (!NorthQConfig.isMOCK()) {
-                        // live
-                        NorthQConfig.setNETWORK(
-                                services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
-                    } else {
-
-                        // mock network
-                        if (NorthQConfig.getMOCK_NETWORK() == null) {
-                            NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
-                        }
-                        NorthQConfig.setNETWORK(NorthQConfig.getMOCK_NETWORK().getNetwork());
-                    }
-
-                    System.out.println("Network fetched");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    ReadWriteLock.getInstance().unlockWrite();
-                }
-            }
+            scheduleCode();
 
         }
     };
@@ -131,5 +104,37 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         }
         // remove thing
         updateStatus(ThingStatus.REMOVED);
+    }
+
+    /**
+     * Requires:
+     * Returns: updates the thing, when run
+     */
+    private void scheduleCode() {
+        // Only run polling job with NETWORK is not null
+        if (NorthQConfig.getNETWORK() != null) {
+            try {
+                ReadWriteLock.getInstance().lockWrite();
+
+                if (!NorthQConfig.isMOCK()) {
+                    // live
+                    NorthQConfig.setNETWORK(
+                            services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
+                } else {
+
+                    // mock network
+                    if (NorthQConfig.getMOCK_NETWORK() == null) {
+                        NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
+                    }
+                    NorthQConfig.setNETWORK(NorthQConfig.getMOCK_NETWORK().getNetwork());
+                }
+
+                System.out.println("Network fetched");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                ReadWriteLock.getInstance().unlockWrite();
+            }
+        }
     }
 }
