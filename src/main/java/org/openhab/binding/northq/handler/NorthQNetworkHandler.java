@@ -116,6 +116,19 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
             try {
                 ReadWriteLock.getInstance().lockWrite();
 
+                // Configurations
+                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
+                String userID = NorthQConfig.getNETWORK().getUserId();
+
+                // 200 = success code, everything else is some fail
+                if (!NorthQConfig.isMOCK() && services
+                        .getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200) {
+                    updateStatus(ThingStatus.OFFLINE);
+                    return;
+                } else {
+                    updateStatus(ThingStatus.ONLINE);
+                }
+
                 if (!NorthQConfig.isMOCK()) {
                     // live
                     NorthQConfig.setNETWORK(

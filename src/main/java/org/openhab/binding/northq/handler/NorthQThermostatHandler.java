@@ -163,8 +163,15 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
             // Configurations
             String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
-
             String userID = NorthQConfig.getNETWORK().getUserId();
+
+            // 200 = success code, everything else is some fail
+            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200) {
+                updateStatus(ThingStatus.OFFLINE);
+                return;
+            } else {
+                updateStatus(ThingStatus.ONLINE);
+            }
 
             if (qthermostat != null) {
                 updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,

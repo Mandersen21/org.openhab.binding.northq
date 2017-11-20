@@ -176,6 +176,17 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
                     NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
 
+            // 200 = success code, everything else is some fail
+            if (services
+                    .getGatewayStatus(NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId(),
+                            NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken())
+                    .getStatus() != 200) {
+                updateStatus(ThingStatus.OFFLINE);
+                return;
+            } else {
+                updateStatus(ThingStatus.ONLINE);
+            }
+
             if (qMotion != null && qMotion.getStatus()) { // Trigger state update
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
                         StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
