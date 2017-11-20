@@ -187,6 +187,14 @@ public class NorthQPlugHandler extends BaseThingHandler {
             String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
             String userID = NorthQConfig.getNETWORK().getUserId();
 
+            // 200 = success code, everything else is some fail
+            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200) {
+                updateStatus(ThingStatus.OFFLINE);
+                return;
+            } else {
+                updateStatus(ThingStatus.ONLINE);
+            }
+
             if (qplug != null && !NorthQConfig.ISHOME()) {
                 try {
                     boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
