@@ -145,6 +145,10 @@
                 <label>Name</label>
                 <description>name of the phone owner</description>
             </parameter>
+            <parameter name="homelocation" type="text" required="true">
+               <label>Home</label>
+               <description>GPS location of home</description>
+            </parameter>
         </config-description>
     </thing-type>
     
@@ -200,23 +204,30 @@
         <state pattern="%.1d %%" readOnly="true" />
     </channel-type>
 
-    <!-- settings thing -->
-    <thing-type id="settings">
+    <!-- gateway thing -->
+    <thing-type id="gateway">
 
         <supported-bridge-type-refs>
             <bridge-type-ref id="northqnetwork" />
         </supported-bridge-type-refs>
 
-        <label>NorthQ Device Settings</label>
-        <description>Settings for NorthQ Devices</description>
+        <label>NorthQ Gateway</label>
+        <description>Settings for NorthQ Gateway</description>
 
         <channels>
             <channel id="channeltoggleHeatOnLocation" typeId="toggleHeatOnLocation-channel" />
             <channel id="channelisHomeTemp" typeId="isHomeTemp-channel"></channel>
             <channel id="channelnotHomeTemp" typeId="notHomeTemp-channel"></channel>
+               <channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel"></channel>
         </channels>
     </thing-type>
 
+    <channel-type id="gpspoweroffenabled-channel">
+        <item-type>Switch</item-type>
+        <label>GPS service</label>
+        <description>Toggle power off plugs based on location</description>
+    </channel-type>
+    
     <channel-type id="toggleHeatOnLocation-channel">
         <item-type>Switch</item-type>
         <label>ToggleHeat</label>

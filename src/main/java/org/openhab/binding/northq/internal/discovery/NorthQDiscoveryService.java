@@ -27,6 +27,7 @@ import org.openhab.binding.northq.internal.model.Qmotion;
 import org.openhab.binding.northq.internal.model.Qplug;
 import org.openhab.binding.northq.internal.model.Qthermostat;
 import org.openhab.binding.northq.internal.model.Thing;
+import org.openhab.binding.northq.internal.model.json.Room;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,9 +87,24 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
     public void discoverAlldevices(NorthNetwork n) {
         ArrayList<NGateway> g = n.getGateways();
 
+        // for each gateway get things
         for (int i = 0; i < g.size(); i++) {
             ArrayList<Thing> things = g.get(i).getThings();
+            if (g != null) {
+                System.out.println("Discovered a gateway");
+                String thingID = g.get(i).getGatewayId();
+                ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
+                Map<String, Object> properties = new HashMap<>(1);
 
+                properties.put("thingID", thingID);
+
+                DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                        .withLabel("Gateway: " + thingID).withThingType(NorthQBindingConstants.THING_TYPE_GATEWAY)
+                        .build();
+
+                thingDiscovered(dr);
+            }
+            // for each thing found in gateway
             for (int j = 0; j < things.size(); j++) {
                 Thing thing = things.get(j);
 
@@ -97,9 +113,10 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
 
                     String thingID = thing.getNodeID();
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
-                    Map<String, Object> properties = new HashMap<>(1);
+                    Map<String, Object> properties = new HashMap<>(2);
 
                     properties.put("thingID", thingID);
+                    properties.put("room", getRoomName(n, ((Qplug) thing).getBs().room));
 
                     DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                             .withLabel(((Qplug) thing).getBs().name)
@@ -112,9 +129,10 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
 
                     String thingID = thing.getNodeID();
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
-                    Map<String, Object> properties = new HashMap<>(1);
+                    Map<String, Object> properties = new HashMap<>(2);
 
                     properties.put("thingID", thingID);
+                    properties.put("room", getRoomName(n, ((Qmotion) thing).getBs().room));
 
                     DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                             .withLabel(((Qmotion) thing).getBs().name)
@@ -126,9 +144,11 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
 
                     String thingID = thing.getNodeID();
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
-                    Map<String, Object> properties = new HashMap<>(1);
+                    Map<String, Object> properties = new HashMap<>(2);
 
                     properties.put("thingID", thingID);
+                    properties.put("room", getRoomName(n, ((Qthermostat) thing).getTher().room));
+
                     DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                             .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
                             .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
@@ -141,5 +161,27 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
 
         // Things has been added by discovery
         System.out.println("Discovery - Scan completed thing added");
+    }
+
+    public String getRoomName(NorthNetwork n, int roomid) {
+        String res = "";
+        ArrayList<NGateway> g = n.getGateways();
+        // for each gateway get things
+        for (int i = 0; i < g.size(); i++) {
+            ArrayList<Room> rooms = g.get(i).getRooms();
+            if (rooms != null) {
+                for (int j = 0; j < rooms.size(); j++) {
+                    Room r = rooms.get(j);
+                    System.out.println(r.name);
+                    System.out.println(r.uploaded_id);
+                    System.out.println(roomid);
+                    if (r.uploaded_id == roomid) {
+                        return r.name;
+                    }
+                }
+            }
+        }
+        return res;
+
     }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.model.json.GatewayStatus;
+import org.openhab.binding.northq.internal.model.json.Room;
 
 /**
  * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
@@ -24,8 +25,9 @@ import org.openhab.binding.northq.internal.model.json.GatewayStatus;
 public class NGateway {
     private String gatewayId;
     private ArrayList<Thing> things;
+    private ArrayList<Room> rooms;
 
-    public NGateway(String gatewayId, GatewayStatus gatewayStatus) {
+    public NGateway(String gatewayId, GatewayStatus gatewayStatus, ArrayList<Room> rooms) {
         this.gatewayId = gatewayId;
         things = new ArrayList<>();
 
@@ -45,9 +47,20 @@ public class NGateway {
                     things.add(new Qthermostat(gatewayStatus.Thermostats.get(i)));
                 }
             }
+            if (rooms != null) {
+                this.rooms = rooms;
+            }
 
         }
 
+    }
+
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(ArrayList<Room> rooms) {
+        this.rooms = rooms;
     }
 
     public String getGatewayId() {
