@@ -50,9 +50,12 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     private final Logger logger = LoggerFactory.getLogger(NorthQPhoneHandler.class);
 
     private NorthqServices services;
-    private boolean status;
+    private boolean phoneEnabledStatus;
     public String location = "0";
     public String locationStatus = "home";
+
+    private String sqlUser = "root";
+    private String sqlPassword = "changeme";
 
     private final byte[] keyValue = "Beercalc12DTU123".getBytes(); // TODO: move to password file
 
@@ -69,7 +72,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     public NorthQPhoneHandler(Thing thing) {
         super(thing);
 
-        status = false;
+        phoneEnabledStatus = false;
         services = new NorthqServices();
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
 
@@ -83,6 +86,24 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
+
+        // New code for later release, uncomment when tested
+        // register database tracking
+        // Connection conn;
+        // try {
+        // Class.forName("com.mysql.jdbc.Driver");
+        // conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+        // PreparedStatement createStatement = null;
+        // createStatement = conn.prepareStatement(
+        // "insert ignore into gpsapp.registeredgpsusers set registeredgpsusers.Username = ?,
+        // registeredgpsusers.Homelocation = ?");
+        // createStatement.setString(1, getThing().getConfiguration().get("name").toString());
+        // createStatement.setString(2, getThing().getConfiguration().get("homelocation").toString());
+        // createStatement.executeQuery();
+        // } catch (Exception e) {
+        // System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        // }
+
     }
 
     /**
@@ -94,10 +115,10 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_QPHONE)) {
             if (command.toString().equals("ON")) {
-                status = true;
+                phoneEnabledStatus = true;
             } else if (command.toString().equals("OFF")) {
                 NorthQConfig.setISHOME(true);
-                status = false;
+                phoneEnabledStatus = false;
             }
         }
     }
@@ -112,8 +133,23 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         if (pollingJob != null && !pollingJob.isCancelled()) {
             pollingJob.cancel(true);
         }
-        // remove thing
-        updateStatus(ThingStatus.REMOVED);
+        // New code for later release, uncomment when tested
+        // unregister database tracking
+        // Connection conn;
+        // try {
+        // Class.forName("com.mysql.jdbc.Driver");
+        // conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+        // PreparedStatement createStatement = null;
+        // createStatement = conn
+        // .prepareStatement("delete from gpsapp.registeredgpsusers where registeredgpsusers.Username = ?;");
+        // createStatement.setString(1, getThing().getConfiguration().get("name").toString());
+        // createStatement.executeQuery();
+        // } catch (Exception e) {
+        // System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        // }
+        //
+        // // remove thing
+        // updateStatus(ThingStatus.REMOVED);
     }
 
     // Requires: A cipher text string
@@ -152,9 +188,39 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         NetworkUtils nu = new NetworkUtils();
 
         try {
-            if (status) {
+            if (phoneEnabledStatus) {
+                String raw;
+                // New code for later release, uncomment when tested
+                // Connection conn;
+                // try {
+                // Class.forName("com.mysql.jdbc.Driver");
+                // conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+                // PreparedStatement createStatement = null;
+                // createStatement = conn.prepareStatement(
+                // "select * from `gpsapp`.`gpsdata` where user = ? ORDER BY stamp DESC LIMIT 1");
+                // createStatement.setString(1, getThing().getConfiguration().get("name").toString());
+                // ResultSet rs = null;
+                // rs = createStatement.executeQuery();
+                // while (rs.next()) {
+                // raw = rs.getString("gpscords");
+                // //if older then 30 set offline and update to being home as no data is avaliable and we assume home /
+                // phone power out
+                // if (rs.getTimestamp("stamp").after(Timestamp.valueOf(LocalDateTime.now().minusMinutes(30)))) {
+                // updateStatus(ThingStatus.ONLINE);
+                // } else {
+                // updateStatus(ThingStatus.OFFLINE);
+                // NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), true);
+                // return;
+                //
+                // }
+                //
+                // }
+                // } catch (Exception e) {
+                // System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                // }
+
                 Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
-                String raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
+                raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
 
                 String decrypted = decrypt(raw);
                 // 1 or 0 ; home | work |
@@ -192,16 +258,15 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                 boolean allAway = true;
                 for (Boolean b : phoneHome) {
                     boolean bol = b.booleanValue();
-                    // System.out.println(bol);
                     if (bol) {
                         allAway = false;
                     }
                 }
-                if (status && allAway) {
+                if (phoneEnabledStatus && allAway) {
                     // turn off device
                     NorthQConfig.setISHOME(false);
                 } // If home
-                else if (status && !allAway) {
+                else if (phoneEnabledStatus && !allAway) {
                     NorthQConfig.setISHOME(true);
                 }
             } else {

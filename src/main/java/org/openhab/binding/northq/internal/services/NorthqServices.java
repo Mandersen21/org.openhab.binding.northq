@@ -10,6 +10,7 @@ package org.openhab.binding.northq.internal.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
@@ -23,6 +24,7 @@ import org.openhab.binding.northq.internal.model.Qthermostat;
 import org.openhab.binding.northq.internal.model.json.Gateway;
 import org.openhab.binding.northq.internal.model.json.GatewayStatus;
 import org.openhab.binding.northq.internal.model.json.House;
+import org.openhab.binding.northq.internal.model.json.Room;
 import org.openhab.binding.northq.internal.model.json.User;
 import org.openhab.binding.northq.internal.model.json.UserNotification;
 import org.openhab.binding.northq.internal.model.json.UserNotificationHolder;
@@ -64,10 +66,11 @@ public class NorthqServices {
             // Get gateway status for each gateway.
             for (int j = 0; j < gatewayArray.length; j++) {
                 Gateway gateway = gatewayArray[j];
+                ArrayList<Room> rooms = getRooms(gateway.serial_nr + "", user.user + "", user.token);
                 Response gatewayStatusResponse = getGatewayStatus(gateway.serial_nr, user.user + "", user.token);
                 GatewayStatus gatewayStatus = gson.fromJson(gatewayStatusResponse.readEntity(String.class),
                         GatewayStatus.class);
-                NGateway nGateway = new NGateway(gateway.serial_nr, gatewayStatus);
+                NGateway nGateway = new NGateway(gateway.serial_nr, gatewayStatus, rooms);
                 gateways.add(nGateway);
             }
         }
@@ -75,6 +78,20 @@ public class NorthqServices {
         NorthNetwork network = new NorthNetwork(user.token, user.user + "", houseHolder, gateways);
 
         return network;
+    }
+
+    private ArrayList<Room> getRooms(String gatewayId, String userid, String token) throws IOException, Exception {
+        Response response = networkUtils.getHttpGetResponse("https://homemanager.tv/main/getGatewayRooms?gateway="
+                + gatewayId + "&user=" + userid + "&token=" + token);
+        // Test success of request
+        if (response.getStatus() == 200) {
+            Room[] room = gson.fromJson(response.readEntity(String.class), Room[].class);
+            response.close();
+            return new ArrayList<Room>(Arrays.asList(room));
+        } else {
+            response.close();
+            throw new Exception("token not recieved http error code: " + response.getStatus());
+        }
     }
 
     // Requires: user name and password for login

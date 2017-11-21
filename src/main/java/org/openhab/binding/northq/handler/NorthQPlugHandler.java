@@ -195,7 +195,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 updateStatus(ThingStatus.ONLINE);
             }
 
-            if (qplug != null && !NorthQConfig.ISHOME()) {
+            // power based on gps
+            if (qplug != null && !NorthQConfig.ISHOME() && NorthQConfig.isPOWERONLOCATION()) {
                 try {
                     boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
                     currentStatus = false;

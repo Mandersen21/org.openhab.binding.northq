@@ -35,11 +35,11 @@ public class NorthQBindingConstants {
     public static final ThingTypeUID THING_TYPE_QMOTION = new ThingTypeUID(BINDING_ID, "qMotion");
     public static final ThingTypeUID THING_TYPE_QPHONE = new ThingTypeUID(BINDING_ID, "qPhone");
     public static final ThingTypeUID THING_TYPE_QTHERMOSTAT = new ThingTypeUID(BINDING_ID, "qThermostat");
-    public static final ThingTypeUID THING_TYPE_SETTINGS = new ThingTypeUID(BINDING_ID, "settings");
+    public static final ThingTypeUID THING_TYPE_GATEWAY = new ThingTypeUID(BINDING_ID, "gateway");
     public static final ThingTypeUID THING_TYPE_MOCKNETWORK = new ThingTypeUID(BINDING_ID, "mocknetwork");
 
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(THING_TYPE_QPLUG,
-            THING_TYPE_QMOTION, THING_TYPE_NETWORK, THING_TYPE_QPHONE, THING_TYPE_QTHERMOSTAT, THING_TYPE_SETTINGS,
+            THING_TYPE_QMOTION, THING_TYPE_NETWORK, THING_TYPE_QPHONE, THING_TYPE_QTHERMOSTAT, THING_TYPE_GATEWAY,
             THING_TYPE_MOCKNETWORK);
 
     // Channel IDs
@@ -63,6 +63,7 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_SETTINGS_ISHOMETEMP = "channelisHomeTemp";
     public static final String CHANNEL_SETTINGS_NOTHOMETEMP = "channelnotHomeTemp";
     public static final String CHANNEL_QPHONE_GPSLOCATION = "channelgpslocation";
+    public static final String CHANNEL_SETTINGS_GPSPOWEROFF = "channelgpspoweroff";
 
     // Event Channel IDs
     public static final String CHANNEL_QSTICK_SCAN = "qStickScanning";

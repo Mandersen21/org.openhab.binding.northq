@@ -22,17 +22,17 @@ import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 
 /**
- * The {@link SettingsHandler} is responsible for handling commands, which are
+ * The {@link GatewayHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
  * @author DTU_02162_group03 - Initial contribution
  */
 
-public class SettingsHandler extends BaseThingHandler {
+public class GatewayHandler extends BaseThingHandler {
     /**
      * Constructor
      */
-    public SettingsHandler(org.eclipse.smarthome.core.thing.Thing thing) {
+    public GatewayHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
     }
 
@@ -75,6 +75,16 @@ public class SettingsHandler extends BaseThingHandler {
                     NorthQConfig.setNOTHOMETEMP(Float.valueOf(command.toString()));
                 }
             }
+            // updating ToggleHeatLocation variable dependent on input from channel
+            if (channelUID.getId().equals(CHANNEL_SETTINGS_GPSPOWEROFF)) {
+                if (command.toString().equals("ON")) {
+                    NorthQConfig.setHEATONLOCATION(true);
+
+                } else if (command.toString().equals("OFF")) {
+                    NorthQConfig.setHEATONLOCATION(false);
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
