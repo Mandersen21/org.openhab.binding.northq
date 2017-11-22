@@ -65,10 +65,6 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_QPHONE_GPSLOCATION = "channelgpslocation";
     public static final String CHANNEL_SETTINGS_GPSPOWEROFF = "channelgpspoweroff";
 
-    // Group channels
-    public static final String CHANNEL_GROUP_PLUG = "plugGroup";
-    public static final String CHANNEL_GROUP_PLUG_POWER = "plugPowerGroup";
-
     // Event Channel IDs
     public static final String CHANNEL_QSTICK_SCAN = "qStickScanning";
 }

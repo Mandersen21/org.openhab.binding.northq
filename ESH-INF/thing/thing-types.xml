@@ -12,31 +12,15 @@
 
 		<label>HomePlug</label>
 		<description>QPlug thing for NorthQ Binding</description>
-
-		<channel-groups>
-			<channel-group typeId="plugGroup" id="plugGroup" />
-			<channel-group typeId="plugPowerGroup" id="plugPowerGroup" />
-		</channel-groups>
-	</thing-type>
-
-	<channel-group-type id="plugPowerGroup">
-		<label>Plug power group</label>
-		<description>Group for all power plug channels</description>
-		<channels>
-			<channel id="channelPlugPower" typeId="plugPowerChannel" />
-			<channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
+        
+        <channels>
+            <channel id="channelPlug" typeId="plugChannel" />
+            <channel id="channelPlugPower" typeId="plugPowerChannel" />
+            <channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
             <channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
             <channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
-		</channels>
-	</channel-group-type>
-
-	<channel-group-type id="plugGroup">
-		<label>Plug group</label>
-		<description>Group for all standard plug channels</description>
-		<channels>
-			<channel id="channelPlug" typeId="plugChannel" />
-		</channels>
-	</channel-group-type>
+        </channels>
+	</thing-type>
 
 	<channel-type id="plugChannel">
 		<item-type>Switch</item-type>
