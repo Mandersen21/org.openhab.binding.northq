@@ -13,48 +13,64 @@
 		<label>HomePlug</label>
 		<description>QPlug thing for NorthQ Binding</description>
 
+		<channel-groups>
+			<channel-group typeId="plugGroup" id="plugGroup" />
+			<channel-group typeId="plugPowerGroup" id="plugPowerGroup" />
+		</channel-groups>
+	</thing-type>
+
+	<channel-group-type id="plugPowerGroup">
+		<label>Plug power group</label>
+		<description>Group for all power plug channels</description>
 		<channels>
-			<channel id="channelPlug" typeId="plugChannel" />
 			<channel id="channelPlugPower" typeId="plugPowerChannel" />
 			<channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
-			<channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
-			<channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
+            <channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
+            <channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
 		</channels>
-	</thing-type>
+	</channel-group-type>
+
+	<channel-group-type id="plugGroup">
+		<label>Plug group</label>
+		<description>Group for all standard plug channels</description>
+		<channels>
+			<channel id="channelPlug" typeId="plugChannel" />
+		</channels>
+	</channel-group-type>
 
 	<channel-type id="plugChannel">
 		<item-type>Switch</item-type>
 		<label>NorthQ plug</label>
 		<description>QPlug channel for NorthQ Binding</description>
 	</channel-type>
-	
-    <channel-type id="plugPowerChannel">
-        <item-type>Number</item-type>
-        <label>Power Consumption</label>
-        <description>Power consumption of QPlug</description>
-        <state pattern="%.1d W" readOnly="true" />
-    </channel-type>
-    
-    <channel-type id="plugPowerDayChannel">
-        <item-type>Number</item-type>
-        <label>Power Consumption day</label>
-        <description>Power consumption day of QPlug</description>
-        <state pattern="%.1d kWh" readOnly="true" />
-    </channel-type>
-    
-    <channel-type id="plugPowerWeekChannel">
-        <item-type>Number</item-type>
-        <label>Power Consumption week</label>
-        <description>Power consumption week of QPlug</description>
-        <state pattern="%.1d kWh" readOnly="true" />
-    </channel-type>
-    
-    <channel-type id="plugPowerMonthChannel">
-        <item-type>Number</item-type>
-        <label>Power Consumption month</label>
-        <description>Power consumption month of QPlug</description>
-        <state pattern="%.1d kWh" readOnly="true" />
-    </channel-type>
+
+	<channel-type id="plugPowerChannel">
+		<item-type>Number</item-type>
+		<label>Power Consumption</label>
+		<description>Power consumption of QPlug</description>
+		<state pattern="%.1d W" readOnly="true" />
+	</channel-type>
+
+	<channel-type id="plugPowerDayChannel">
+		<item-type>Number</item-type>
+		<label>Power Consumption day</label>
+		<description>Power consumption day of QPlug</description>
+		<state pattern="%.1d kWh" readOnly="true" />
+	</channel-type>
+
+	<channel-type id="plugPowerWeekChannel">
+		<item-type>Number</item-type>
+		<label>Power Consumption week</label>
+		<description>Power consumption week of QPlug</description>
+		<state pattern="%.1d kWh" readOnly="true" />
+	</channel-type>
+
+	<channel-type id="plugPowerMonthChannel">
+		<item-type>Number</item-type>
+		<label>Power Consumption month</label>
+		<description>Power consumption month of QPlug</description>
+		<state pattern="%.1d kWh" readOnly="true" />
+	</channel-type>
 
 	<!-- qmotion thing -->
 	<thing-type id="qMotion">
@@ -81,192 +97,192 @@
 		<label>Arm/Disarm motion sensor</label>
 		<description>QMotion channel for NorthQ Binding</description>
 	</channel-type>
-	
+
 	<channel-type id="motion-notification-channel">
-	   <item-type>String</item-type>
-	   <label>Notification</label>
-	   <description>Qmotion channel for reacting on motion</description>
-	   
-	   <state readOnly="true">
-        <options>
-            <option value="Triggered">Triggered</option>
-            <option value="Not Triggered">Not Triggered</option>
-            <option value="Not Armed">Not Armed</option>
-        </options>
-       </state>
+		<item-type>String</item-type>
+		<label>Notification</label>
+		<description>Qmotion channel for reacting on motion</description>
+
+		<state readOnly="true">
+			<options>
+				<option value="Triggered">Triggered</option>
+				<option value="Not Triggered">Not Triggered</option>
+				<option value="Not Armed">Not Armed</option>
+			</options>
+		</state>
 	</channel-type>
 
-    <channel-type id="motion-temperature-channel">
-        <item-type>Number</item-type>
-        <label>Temperature</label>
-        <description>QMotion channel for temperature</description>
-        <state pattern="%.1d °C" readOnly="true" />    
-    </channel-type>
-    
-    <channel-type id="motion-light-channel">
-        <item-type>Number</item-type>
-        <label>Light Intensity</label>
-        <description>QMotion channel for light</description>
-        <state pattern="%.1d %%" readOnly="true" />
-    </channel-type>
-    
-    <channel-type id="motion-humidity-channel">
-        <item-type>Number</item-type>
-        <label>Humidity</label>
-        <description>QMotion channel for humidity</description>
-        <state pattern="%.1d %%" readOnly="true" />
-    </channel-type>
-    
-     <channel-type id="motion-battery-channel">
-        <item-type>Number</item-type>
-        <label>Battery</label>
-        <description>QMotion channel for battery</description>
-        <state pattern="%.1d %%" readOnly="true" />
-    </channel-type>
+	<channel-type id="motion-temperature-channel">
+		<item-type>Number</item-type>
+		<label>Temperature</label>
+		<description>QMotion channel for temperature</description>
+		<state pattern="%.1d °C" readOnly="true" />
+	</channel-type>
+
+	<channel-type id="motion-light-channel">
+		<item-type>Number</item-type>
+		<label>Light Intensity</label>
+		<description>QMotion channel for light</description>
+		<state pattern="%.1d %%" readOnly="true" />
+	</channel-type>
+
+	<channel-type id="motion-humidity-channel">
+		<item-type>Number</item-type>
+		<label>Humidity</label>
+		<description>QMotion channel for humidity</description>
+		<state pattern="%.1d %%" readOnly="true" />
+	</channel-type>
+
+	<channel-type id="motion-battery-channel">
+		<item-type>Number</item-type>
+		<label>Battery</label>
+		<description>QMotion channel for battery</description>
+		<state pattern="%.1d %%" readOnly="true" />
+	</channel-type>
 
 
-    <!-- qPhone thing -->
-    <thing-type id="qPhone">
+	<!-- qPhone thing -->
+	<thing-type id="qPhone">
 
-        <supported-bridge-type-refs>
-            <bridge-type-ref id="northqnetwork" />
-        </supported-bridge-type-refs>
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="northqnetwork" />
+		</supported-bridge-type-refs>
 
-        <label>Phone location service</label>
-        <description>Phone service automatically shut off devices when leaving the house</description>
-        
-        <channels>
-            <channel id="channelgps" typeId="gps-channel" />
-            <channel id="channelgpslocation" typeId="gpslocation-channel" />
-        </channels>
-        
-        <config-description>
-            <parameter name="name" type="text" required="true">
-                <label>Name</label>
-                <description>name of the phone owner</description>
-            </parameter>
-            <parameter name="homelocation" type="text" required="true">
-               <label>Home</label>
-               <description>GPS location of home</description>
-            </parameter>
-        </config-description>
-    </thing-type>
-    
-    <channel-type id="gpslocation-channel">
-       <item-type>String</item-type>
-       <label>GPS status</label>
-       <description>GPS status</description>
-       
-       <state readOnly="true">
-        <options>
-            <option value="Home">Home</option>
-            <option value="Out">Out</option>
-            <option value="Inactive">Inactive</option>
-        </options>
-       </state>
-    </channel-type>
-    
-    <channel-type id="gps-channel">
-        <item-type>Switch</item-type>
-        <label>Phone</label>
-        <description>NorthQ phone channel for NorthQ Binding</description>
-    </channel-type>
+		<label>Phone location service</label>
+		<description>Phone service automatically shut off devices when leaving the house</description>
 
-    
+		<channels>
+			<channel id="channelgps" typeId="gps-channel" />
+			<channel id="channelgpslocation" typeId="gpslocation-channel" />
+		</channels>
 
-    <!-- qThermostat thing -->
-    <thing-type id="qThermostat">
+		<config-description>
+			<parameter name="name" type="text" required="true">
+				<label>Name</label>
+				<description>name of the phone owner</description>
+			</parameter>
+			<parameter name="homelocation" type="text" required="true">
+				<label>Home</label>
+				<description>GPS location of home</description>
+			</parameter>
+		</config-description>
+	</thing-type>
 
-        <supported-bridge-type-refs>
-            <bridge-type-ref id="northqnetwork" />
-        </supported-bridge-type-refs>
+	<channel-type id="gpslocation-channel">
+		<item-type>String</item-type>
+		<label>GPS status</label>
+		<description>GPS status</description>
 
-        <label>Danfoss thermostat</label>
-        <description>Danfoss thermostat thing for NorthQ Binding</description>
+		<state readOnly="true">
+			<options>
+				<option value="Home">Home</option>
+				<option value="Out">Out</option>
+				<option value="Inactive">Inactive</option>
+			</options>
+		</state>
+	</channel-type>
 
-        <channels>
-            <channel id="channelthermostat" typeId="thermostat-channel" />
-            <channel id="channelthermostatbattery" typeId="thermostat-battery-channel" />
-        </channels>
-    </thing-type>
+	<channel-type id="gps-channel">
+		<item-type>Switch</item-type>
+		<label>Phone</label>
+		<description>NorthQ phone channel for NorthQ Binding</description>
+	</channel-type>
 
-    <channel-type id="thermostat-channel">
-        <item-type>Number</item-type>
-        <label>Temperature</label>
-        <description>Danfoss thermostat channel for temperature</description>
-        <state pattern="%.1d °C" />
-    </channel-type>
-    
-    <channel-type id="thermostat-battery-channel">
-        <item-type>Number</item-type>
-        <label>Battery</label>
-        <description>Danfoss thermostat channel for battery</description>
-        <state pattern="%.1d %%" readOnly="true" />
-    </channel-type>
 
-    <!-- gateway thing -->
-    <thing-type id="gateway">
 
-        <supported-bridge-type-refs>
-            <bridge-type-ref id="northqnetwork" />
-        </supported-bridge-type-refs>
+	<!-- qThermostat thing -->
+	<thing-type id="qThermostat">
 
-        <label>NorthQ Gateway</label>
-        <description>Settings for NorthQ Gateway</description>
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="northqnetwork" />
+		</supported-bridge-type-refs>
 
-        <channels>
-            <channel id="channeltoggleHeatOnLocation" typeId="toggleHeatOnLocation-channel" />
-            <channel id="channelisHomeTemp" typeId="isHomeTemp-channel"></channel>
-            <channel id="channelnotHomeTemp" typeId="notHomeTemp-channel"></channel>
-               <channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel"></channel>
-        </channels>
-    </thing-type>
+		<label>Danfoss thermostat</label>
+		<description>Danfoss thermostat thing for NorthQ Binding</description>
 
-    <channel-type id="gpspoweroffenabled-channel">
-        <item-type>Switch</item-type>
-        <label>GPS service</label>
-        <description>Toggle power off plugs based on location</description>
-    </channel-type>
-    
-    <channel-type id="toggleHeatOnLocation-channel">
-        <item-type>Switch</item-type>
-        <label>ToggleHeat</label>
-        <description>Toggle heat based on location</description>
-    </channel-type>
-    
-    <channel-type id="isHomeTemp-channel">
-       <item-type>Number</item-type>
-       <label>IsHomeTemp</label>
-       <description>Temperature when home</description>
-    </channel-type>
+		<channels>
+			<channel id="channelthermostat" typeId="thermostat-channel" />
+			<channel id="channelthermostatbattery" typeId="thermostat-battery-channel" />
+		</channels>
+	</thing-type>
 
-    <channel-type id="notHomeTemp-channel">
-        <item-type>Number</item-type>
-        <label>NotHomeTemp</label>
-        <description>Temperature when not home</description>
-    </channel-type>
-    
-    
-    <!-- mock network on/off -->
-        <thing-type id="mocknetwork">
+	<channel-type id="thermostat-channel">
+		<item-type>Number</item-type>
+		<label>Temperature</label>
+		<description>Danfoss thermostat channel for temperature</description>
+		<state pattern="%.1d °C" />
+	</channel-type>
 
-        <supported-bridge-type-refs>
-            <bridge-type-ref id="northqnetwork" />
-        </supported-bridge-type-refs>
+	<channel-type id="thermostat-battery-channel">
+		<item-type>Number</item-type>
+		<label>Battery</label>
+		<description>Danfoss thermostat channel for battery</description>
+		<state pattern="%.1d %%" readOnly="true" />
+	</channel-type>
 
-        <label>NorthQ TestNetwork</label>
-        <description>switch between live and mock network</description>
+	<!-- gateway thing -->
+	<thing-type id="gateway">
 
-        <channels>
-            <channel id="channelmock" typeId="mock-channel" />
-        </channels>
-    </thing-type>
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="northqnetwork" />
+		</supported-bridge-type-refs>
 
-    <channel-type id="mock-channel">
-        <item-type>Switch</item-type>
-        <label>Mock network</label>
-        <description>channel for mockNtwork</description>
-    </channel-type>
-    
+		<label>NorthQ Gateway</label>
+		<description>Settings for NorthQ Gateway</description>
+
+		<channels>
+			<channel id="channeltoggleHeatOnLocation" typeId="toggleHeatOnLocation-channel" />
+			<channel id="channelisHomeTemp" typeId="isHomeTemp-channel"></channel>
+			<channel id="channelnotHomeTemp" typeId="notHomeTemp-channel"></channel>
+			<channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel"></channel>
+		</channels>
+	</thing-type>
+
+	<channel-type id="gpspoweroffenabled-channel">
+		<item-type>Switch</item-type>
+		<label>GPS service</label>
+		<description>Toggle power off plugs based on location</description>
+	</channel-type>
+
+	<channel-type id="toggleHeatOnLocation-channel">
+		<item-type>Switch</item-type>
+		<label>ToggleHeat</label>
+		<description>Toggle heat based on location</description>
+	</channel-type>
+
+	<channel-type id="isHomeTemp-channel">
+		<item-type>Number</item-type>
+		<label>IsHomeTemp</label>
+		<description>Temperature when home</description>
+	</channel-type>
+
+	<channel-type id="notHomeTemp-channel">
+		<item-type>Number</item-type>
+		<label>NotHomeTemp</label>
+		<description>Temperature when not home</description>
+	</channel-type>
+
+
+	<!-- mock network on/off -->
+	<thing-type id="mocknetwork">
+
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="northqnetwork" />
+		</supported-bridge-type-refs>
+
+		<label>NorthQ TestNetwork</label>
+		<description>switch between live and mock network</description>
+
+		<channels>
+			<channel id="channelmock" typeId="mock-channel" />
+		</channels>
+	</thing-type>
+
+	<channel-type id="mock-channel">
+		<item-type>Switch</item-type>
+		<label>Mock network</label>
+		<description>channel for mockNtwork</description>
+	</channel-type>
+
 
 </thing:thing-descriptions>
