@@ -8,7 +8,7 @@
  */
 package org.openhab.binding.northq.handler;
 
-import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QPLUG;
+import static org.openhab.binding.northq.NorthQBindingConstants.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,32 +85,34 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
 
-        if (channelUID.getId().equals(CHANNEL_QPLUG)) {
-            try {
-                ReadWriteLock.getInstance().lockWrite();
-                String nodeId = getThing().getProperties().get("thingID");
-                Qplug qPlug = getPlug(nodeId);
+        if (channelUID.getId().equals(CHANNEL_GROUP_PLUG)) {
+            if (channelUID.getId().equals(CHANNEL_QPLUG)) {
+                try {
+                    ReadWriteLock.getInstance().lockWrite();
+                    String nodeId = getThing().getProperties().get("thingID");
+                    Qplug qPlug = getPlug(nodeId);
 
-                if (qPlug == null) {
+                    if (qPlug == null) {
+                        updateStatus(ThingStatus.OFFLINE);
+                        return;
+                    } else {
+                        updateStatus(ThingStatus.ONLINE);
+                    }
+
+                    String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
+                    String userID = NorthQConfig.getNETWORK().getUserId();
+
+                    // Check if plug should be turned on or off
+                    if (command.toString().equals("ON")) {
+                        turnPlugOn(qPlug, gatewayID, userID);
+                    } else if (command.toString().equals("OFF")) {
+                        turnPlugOff(qPlug, gatewayID, userID);
+                    }
+                } catch (Exception e) {
                     updateStatus(ThingStatus.OFFLINE);
-                    return;
-                } else {
-                    updateStatus(ThingStatus.ONLINE);
+                } finally {
+                    ReadWriteLock.getInstance().unlockWrite();
                 }
-
-                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
-                String userID = NorthQConfig.getNETWORK().getUserId();
-
-                // Check if plug should be turned on or off
-                if (command.toString().equals("ON")) {
-                    turnPlugOn(qPlug, gatewayID, userID);
-                } else if (command.toString().equals("OFF")) {
-                    turnPlugOff(qPlug, gatewayID, userID);
-                }
-            } catch (Exception e) {
-                updateStatus(ThingStatus.OFFLINE);
-            } finally {
-                ReadWriteLock.getInstance().unlockWrite();
             }
         }
     }
