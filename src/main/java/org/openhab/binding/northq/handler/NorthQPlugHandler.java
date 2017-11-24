@@ -212,7 +212,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
             }
 
             updateState(NorthQBindingConstants.CHANNEL_QPLUG, qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-            updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
+            updateState(NorthQBindingConstants.CHANNEL_QPLUG_POWER,
                     DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
 
         } catch (Exception e) {
