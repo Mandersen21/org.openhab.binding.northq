@@ -19,6 +19,9 @@
             <channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
             <channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
             <channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
+            <channel id="channelPlugPowerEndOfDay" typeId="plugPowerEndOfDayChannel" />
+            <channel id="channelPlugPowerEndOfWeek" typeId="plugPowerEndOfWeekChannel" />
+            <channel id="channelPlugPowerEndOfMonth" typeId="plugPowerEndOfMonthChannel" />
         </channels>
 	</thing-type>
 
@@ -55,6 +58,27 @@
 		<description>Power consumption month of QPlug</description>
 		<state pattern="%.1d kWh" readOnly="true" />
 	</channel-type>
+	
+	<channel-type id="plugPowerEndOfDayChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption end of current day</label>
+        <description>Power consumption end of current day for Q-Plug</description>
+        <state pattern="%.1d kWh" readOnly="true" />
+    </channel-type>
+
+    <channel-type id="plugPowerEndOfWeekChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption week</label>
+        <description>Power consumption end of current week of Q-Plug</description>
+        <state pattern="%.1d kWh" readOnly="true" />
+    </channel-type>
+
+    <channel-type id="plugPowerEndOfMonthChannel">
+        <item-type>Number</item-type>
+        <label>Power Consumption month</label>
+        <description>Power consumption end of current month of Q-Plug</description>
+        <state pattern="%.1d kWh" readOnly="true" />
+    </channel-type>
 
 	<!-- qmotion thing -->
 	<thing-type id="qMotion">
