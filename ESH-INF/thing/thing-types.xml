@@ -68,14 +68,14 @@
 
     <channel-type id="plugPowerEndOfWeekChannel">
         <item-type>Number</item-type>
-        <label>Power Consumption week</label>
+        <label>Power Consumption end of current week</label>
         <description>Power consumption end of current week of Q-Plug</description>
         <state pattern="%.1d kWh" readOnly="true" />
     </channel-type>
 
     <channel-type id="plugPowerEndOfMonthChannel">
         <item-type>Number</item-type>
-        <label>Power Consumption month</label>
+        <label>Power Consumption end of current month</label>
         <description>Power consumption end of current month of Q-Plug</description>
         <state pattern="%.1d kWh" readOnly="true" />
     </channel-type>
