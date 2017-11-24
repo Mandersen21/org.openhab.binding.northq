@@ -56,7 +56,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         super(bridge);
 
         services = new NorthqServices();
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 10, TimeUnit.SECONDS);
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
     /**

@@ -263,6 +263,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                 Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
 
                 NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
+
                 boolean allAway = true;
                 for (Boolean b : phoneHome) {
                     boolean bol = b.booleanValue();
