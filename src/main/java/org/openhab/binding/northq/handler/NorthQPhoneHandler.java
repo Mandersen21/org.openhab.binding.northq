@@ -194,7 +194,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
         try {
             if (phoneEnabledStatus) {
-                String raw;
+                String raw = "";
                 // New code for later release, uncomment when tested
                 Connection conn;
                 try {
@@ -227,7 +227,9 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
                 // Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
                 // raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
-
+                if (raw.equals("")) {
+                    return;
+                }
                 String decrypted = decrypt(raw);
                 // 1 or 0 ; home | work |
                 String[] data = decrypted.split(";");
