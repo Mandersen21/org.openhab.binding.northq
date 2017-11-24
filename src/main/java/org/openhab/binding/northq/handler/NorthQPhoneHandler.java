@@ -244,7 +244,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                         && NorthQPhoneHandler.this.locationStatus.equals("1") && !location.equals("home")
                         && locationStatus.equals("0")) {
                     resBol = true;
-                } else if (location.equals("Home")) {
+                } else if (location.equals("Home") && locationStatus.equals(1)) {
                     resBol = true;
                 } else {
                     resBol = false;
