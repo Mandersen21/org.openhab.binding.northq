@@ -199,7 +199,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
             if (qMotion != null && qMotion.getStatus()) { // Trigger state update
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
                         StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
-                if (triggered && (lastNotification + 54000) > System.currentTimeMillis()) {
+                if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
                     // unregister database tracking
                     Connection conn;
                     try {
