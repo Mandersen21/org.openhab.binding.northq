@@ -93,7 +93,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
 
-        // New code for later release, uncomment when tested
         // register database tracking
         Connection conn;
         try {
@@ -138,7 +137,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         if (pollingJob != null && !pollingJob.isCancelled()) {
             pollingJob.cancel(true);
         }
-        // New code for later release, uncomment when tested
         // unregister database tracking
         Connection conn;
         try {
@@ -195,7 +193,8 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         try {
             if (phoneEnabledStatus) {
                 String raw = "";
-                // New code for later release, uncomment when tested
+
+                // SQL connection code, fetch newest phone status
                 Connection conn;
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
@@ -208,9 +207,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     rs = createStatement.executeQuery();
                     while (rs.next()) {
                         raw = rs.getString("gpscords");
-                        // if older then 30 set offline and update to being home as no data is avaliable and we assume
-                        // home /
-                        // phone power out
+                        // if older then 30 set offline and update to being home as no data is avaliable
                         if (rs.getTimestamp("stamp").after(Timestamp.valueOf(LocalDateTime.now().minusMinutes(30)))) {
                             updateStatus(ThingStatus.ONLINE);
                         } else {
@@ -223,22 +220,17 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     }
                 } catch (Exception e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                    updateStatus(ThingStatus.OFFLINE);
                 }
-
-                // Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
-                // raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
                 if (raw.equals("")) {
                     return;
                 }
                 String decrypted = decrypt(raw);
-                // 1 or 0 ; home | work |
+                // 1 or 0 ; home | work
                 String[] data = decrypted.split(";");
                 String locationStatus = data[0];
                 String location = data[1];
 
-                String result = String.valueOf(decrypted);
-
-                // res.close();
                 boolean resBol;
                 if (!NorthQPhoneHandler.this.location.equals("Home")
                         && NorthQPhoneHandler.this.locationStatus.equals("1") && !location.equals("home")
