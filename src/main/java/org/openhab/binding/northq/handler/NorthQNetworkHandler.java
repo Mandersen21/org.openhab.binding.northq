@@ -134,7 +134,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                     // live
                     NorthQConfig.setNETWORK(
                             services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
-                    System.out.println("NorthNetwork just updated");
                 } else {
 
                     // mock network

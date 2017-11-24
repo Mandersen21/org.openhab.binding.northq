@@ -179,24 +179,25 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
                         DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
             }
+            if (NorthQConfig.isHEATONLOCATION()) {
+                if (!NorthQConfig.ISHOME()) {
+                    // When noone is home maximum temp is 30
+                    int temp = (int) NorthQConfig.getNOTHOMETEMP();
+                    if (temp > 30) {
+                        temp = 30;
+                    }
+                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                            qthermostat);
 
-            if (!NorthQConfig.ISHOME()) {
-                // When noone is home maximum temp is 30
-                int temp = (int) NorthQConfig.getNOTHOMETEMP();
-                if (temp > 30) {
-                    temp = 30;
+                } // When someone it home the minimum temp is 5
+                else if (NorthQConfig.ISHOME()) {
+                    int temp = (int) NorthQConfig.getISHOMETEMP();
+                    if (temp < 5) {
+                        temp = 5;
+                    }
+                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                            qthermostat);
                 }
-                services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                        qthermostat);
-
-            } // When someone it home the minimum temp is 5
-            else if (NorthQConfig.ISHOME()) {
-                int temp = (int) NorthQConfig.getISHOMETEMP();
-                if (temp < 5) {
-                    temp = 5;
-                }
-                services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                        qthermostat);
             }
 
         } catch (Exception e) {
