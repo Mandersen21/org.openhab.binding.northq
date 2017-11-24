@@ -27,7 +27,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.ws.rs.core.Form;
-import javax.ws.rs.core.Response;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -226,8 +225,8 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
                 }
 
-                Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
-                raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
+                // Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
+                // raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
 
                 String decrypted = decrypt(raw);
                 // 1 or 0 ; home | work |
