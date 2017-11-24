@@ -211,11 +211,9 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
             }
 
-            if (qplug != null) {
-                updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
-                        DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
-            }
+            updateState(NorthQBindingConstants.CHANNEL_QPLUG, qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
+            updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
+                    DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
 
         } catch (Exception e) {
             logger.error("An unexpected error occurred: {}", e.getMessage(), e);

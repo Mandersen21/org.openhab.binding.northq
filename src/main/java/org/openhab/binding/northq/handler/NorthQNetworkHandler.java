@@ -111,6 +111,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
      * Returns: updates the thing, when run
      */
     private void scheduleCode() {
+        System.out.println("In network handler");
         // Only run polling job with NETWORK is not null
         if (NorthQConfig.getNETWORK() != null) {
             try {
@@ -133,6 +134,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                     // live
                     NorthQConfig.setNETWORK(
                             services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
+                    System.out.println("NorthNetwork just updated");
                 } else {
 
                     // mock network
