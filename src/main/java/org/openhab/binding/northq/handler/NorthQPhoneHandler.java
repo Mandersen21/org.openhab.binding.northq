@@ -101,7 +101,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
             PreparedStatement createStatement = null;
             createStatement = conn.prepareStatement(
-                    "insert ignore into gpsapp.registeredgpsusers set registeredgpsusers.Username = ?,registeredgpsusers.Homelocation = ?");
+                    "insert ignore into gpsapp.registeredgpsusers (`username`, `homelocation`) values (?,?);");
             createStatement.setString(1, getThing().getConfiguration().get("name").toString());
             createStatement.setString(2, getThing().getConfiguration().get("homelocation").toString());
             createStatement.executeQuery();
@@ -202,7 +202,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
                     PreparedStatement createStatement = null;
                     createStatement = conn.prepareStatement(
-                            "select * from `gpsapp`.`gpsdata` where user = ? ORDER BY stamp DESC LIMIT 1");
+                            "select * from `gpsapp`.`gpsdata` where  `user` = ? ORDER BY stamp DESC LIMIT 1;");
                     createStatement.setString(1, getThing().getConfiguration().get("name").toString());
                     ResultSet rs = null;
                     rs = createStatement.executeQuery();
