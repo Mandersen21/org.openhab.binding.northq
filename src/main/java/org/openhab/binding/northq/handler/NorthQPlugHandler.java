@@ -113,6 +113,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 ReadWriteLock.getInstance().unlockWrite();
             }
         }
+
     }
 
     /**
