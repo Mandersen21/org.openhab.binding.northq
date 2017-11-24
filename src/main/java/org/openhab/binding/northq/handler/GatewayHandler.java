@@ -77,10 +77,10 @@ public class GatewayHandler extends BaseThingHandler {
             // updating ToggleHeatLocation variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_GPSPOWEROFF)) {
                 if (command.toString().equals("ON")) {
-                    NorthQConfig.setHEATONLOCATION(true);
+                    NorthQConfig.setPOWERONLOCATION(true);
 
                 } else if (command.toString().equals("OFF")) {
-                    NorthQConfig.setHEATONLOCATION(false);
+                    NorthQConfig.setPOWERONLOCATION(false);
                 }
             }
 
