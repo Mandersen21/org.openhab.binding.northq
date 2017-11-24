@@ -200,25 +200,23 @@ public class NorthQPlugHandler extends BaseThingHandler {
             if (qplug != null && !NorthQConfig.ISHOME() && NorthQConfig.isPOWERONLOCATION()) {
                 try {
                     boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
+                    qplug.getBs().pos = 0;
+                    updateState("channelplug", OnOffType.OFF);
                     currentStatus = false;
                     updateStatus(ThingStatus.ONLINE);
                 } catch (Exception e) {
                     e.printStackTrace();
                     updateStatus(ThingStatus.OFFLINE);
                 }
-                updateState("channelplug", OnOffType.OFF);
-                currentStatus = false;
 
             }
 
-            if (qplug != null && qplug.getStatus() != currentStatus) {
-                updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                currentStatus = qplug.getStatus();
-            }
             if (qplug != null) {
+                updateState("channelplug", qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
                 updateState(NorthQBindingConstants.CHANNEL_QPLUGPOWER,
                         DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
             }
+
         } catch (Exception e) {
             logger.error("An unexpected error occurred: {}", e.getMessage(), e);
         } finally {

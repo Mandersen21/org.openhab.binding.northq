@@ -46,6 +46,13 @@ public class GatewayHandler extends BaseThingHandler {
         try {
             ReadWriteLock.getInstance().lockWrite();
 
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
+                    NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
+
             // updating ToggleHeatLocation variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_TOGGLEHEATLOCATION)) {
                 if (command.toString().equals("ON")) {
@@ -104,12 +111,6 @@ public class GatewayHandler extends BaseThingHandler {
         NorthQConfig.setHEATONLOCATION(false);
         updateStatus(ThingStatus.ONLINE);
         // set initial values
-        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
-                NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
-        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
-                DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
-        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
-                DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
 
     }
 
