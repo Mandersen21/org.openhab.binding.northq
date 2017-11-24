@@ -11,6 +11,12 @@ package org.openhab.binding.northq.handler;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -44,6 +50,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author DTU_02162_group03 - Initial contribution
  */
+
 @NonNullByDefault
 public class NorthQPhoneHandler extends BaseThingHandler {
 
@@ -89,20 +96,19 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
         // New code for later release, uncomment when tested
         // register database tracking
-        // Connection conn;
-        // try {
-        // Class.forName("com.mysql.jdbc.Driver");
-        // conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
-        // PreparedStatement createStatement = null;
-        // createStatement = conn.prepareStatement(
-        // "insert ignore into gpsapp.registeredgpsusers set registeredgpsusers.Username = ?,
-        // registeredgpsusers.Homelocation = ?");
-        // createStatement.setString(1, getThing().getConfiguration().get("name").toString());
-        // createStatement.setString(2, getThing().getConfiguration().get("homelocation").toString());
-        // createStatement.executeQuery();
-        // } catch (Exception e) {
-        // System.out.println(e.getClass().getName() + ": " + e.getMessage());
-        // }
+        Connection conn;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+            PreparedStatement createStatement = null;
+            createStatement = conn.prepareStatement(
+                    "insert ignore into gpsapp.registeredgpsusers set registeredgpsusers.Username = ?,registeredgpsusers.Homelocation = ?");
+            createStatement.setString(1, getThing().getConfiguration().get("name").toString());
+            createStatement.setString(2, getThing().getConfiguration().get("homelocation").toString());
+            createStatement.executeQuery();
+        } catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
 
     }
 
@@ -135,21 +141,21 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         }
         // New code for later release, uncomment when tested
         // unregister database tracking
-        // Connection conn;
-        // try {
-        // Class.forName("com.mysql.jdbc.Driver");
-        // conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
-        // PreparedStatement createStatement = null;
-        // createStatement = conn
-        // .prepareStatement("delete from gpsapp.registeredgpsusers where registeredgpsusers.Username = ?;");
-        // createStatement.setString(1, getThing().getConfiguration().get("name").toString());
-        // createStatement.executeQuery();
-        // } catch (Exception e) {
-        // System.out.println(e.getClass().getName() + ": " + e.getMessage());
-        // }
-        //
-        // // remove thing
-        // updateStatus(ThingStatus.REMOVED);
+        Connection conn;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+            PreparedStatement createStatement = null;
+            createStatement = conn
+                    .prepareStatement("delete from gpsapp.registeredgpsusers where registeredgpsusers.Username = ?;");
+            createStatement.setString(1, getThing().getConfiguration().get("name").toString());
+            createStatement.executeQuery();
+        } catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        // remove thing
+        updateStatus(ThingStatus.REMOVED);
     }
 
     // Requires: A cipher text string
@@ -191,33 +197,34 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             if (phoneEnabledStatus) {
                 String raw;
                 // New code for later release, uncomment when tested
-                // Connection conn;
-                // try {
-                // Class.forName("com.mysql.jdbc.Driver");
-                // conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
-                // PreparedStatement createStatement = null;
-                // createStatement = conn.prepareStatement(
-                // "select * from `gpsapp`.`gpsdata` where user = ? ORDER BY stamp DESC LIMIT 1");
-                // createStatement.setString(1, getThing().getConfiguration().get("name").toString());
-                // ResultSet rs = null;
-                // rs = createStatement.executeQuery();
-                // while (rs.next()) {
-                // raw = rs.getString("gpscords");
-                // //if older then 30 set offline and update to being home as no data is avaliable and we assume home /
-                // phone power out
-                // if (rs.getTimestamp("stamp").after(Timestamp.valueOf(LocalDateTime.now().minusMinutes(30)))) {
-                // updateStatus(ThingStatus.ONLINE);
-                // } else {
-                // updateStatus(ThingStatus.OFFLINE);
-                // NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), true);
-                // return;
-                //
-                // }
-                //
-                // }
-                // } catch (Exception e) {
-                // System.out.println(e.getClass().getName() + ": " + e.getMessage());
-                // }
+                Connection conn;
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+                    PreparedStatement createStatement = null;
+                    createStatement = conn.prepareStatement(
+                            "select * from `gpsapp`.`gpsdata` where user = ? ORDER BY stamp DESC LIMIT 1");
+                    createStatement.setString(1, getThing().getConfiguration().get("name").toString());
+                    ResultSet rs = null;
+                    rs = createStatement.executeQuery();
+                    while (rs.next()) {
+                        raw = rs.getString("gpscords");
+                        // if older then 30 set offline and update to being home as no data is avaliable and we assume
+                        // home /
+                        // phone power out
+                        if (rs.getTimestamp("stamp").after(Timestamp.valueOf(LocalDateTime.now().minusMinutes(30)))) {
+                            updateStatus(ThingStatus.ONLINE);
+                        } else {
+                            updateStatus(ThingStatus.OFFLINE);
+                            NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), true);
+                            return;
+
+                        }
+
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                }
 
                 Response res = nu.getHttpPostResponse(NorthQBindingConstants.GPS_SERVICE_ADDRESS, form);
                 raw = res.readEntity(String.class).replaceAll("\\r|\\n", "");
