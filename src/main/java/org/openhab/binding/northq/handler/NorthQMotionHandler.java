@@ -11,6 +11,9 @@ package org.openhab.binding.northq.handler;
 import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QMOTION;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +52,12 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private boolean currentStatus;
     private boolean currentTriggered;
     private ScheduledFuture<?> pollingJob;
+
+    private String sqlUser = "root";
+    private String sqlPassword = "changeme";
+
+    private long lastNotification;
+
     private Runnable pollingRunnable = new Runnable() {
         @Override
         public void run() {
@@ -190,6 +199,22 @@ public class NorthQMotionHandler extends BaseThingHandler {
             if (qMotion != null && qMotion.getStatus()) { // Trigger state update
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
                         StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
+                if (triggered && (lastNotification + 54000) > System.currentTimeMillis()) {
+                    // unregister database tracking
+                    Connection conn;
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+                        PreparedStatement createStatement = null;
+                        createStatement = conn.prepareStatement(
+                                "insert into gpsapp.notifications (`TimeStamp,Device`) values (NOW(),?);");
+                        createStatement.setString(1, getThing().getConfiguration().get("name").toString());
+                        createStatement.executeQuery();
+                    } catch (Exception e) {
+                        System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                    }
+                    lastNotification = System.currentTimeMillis();
+                }
 
                 currentTriggered = triggered;
             } else {
