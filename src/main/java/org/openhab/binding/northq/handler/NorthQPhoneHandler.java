@@ -236,7 +236,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
                 String result = String.valueOf(decrypted);
 
-                res.close();
+                // res.close();
                 boolean resBol;
                 if (!NorthQPhoneHandler.this.location.equals("Home")
                         && NorthQPhoneHandler.this.locationStatus.equals("1") && !location.equals("home")
