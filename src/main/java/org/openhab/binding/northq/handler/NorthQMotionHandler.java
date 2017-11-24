@@ -56,7 +56,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private String sqlUser = "root";
     private String sqlPassword = "changeme";
 
-    private long lastNotification;
+    private long lastNotification = 0;
 
     private Runnable pollingRunnable = new Runnable() {
         @Override
@@ -207,7 +207,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                         conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
                         PreparedStatement createStatement = null;
                         createStatement = conn.prepareStatement(
-                                "insert into gpsapp.notifications (`TimeStamp,Device`) values (NOW(),?);");
+                                "insert into gpsapp.notifications (`TimeStamp`,`Device`) values (NOW(),?);");
                         createStatement.setString(1, getThing().getConfiguration().get("name").toString());
                         createStatement.executeQuery();
                     } catch (Exception e) {
