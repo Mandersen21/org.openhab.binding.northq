@@ -137,5 +137,4 @@ public class MockFactory {
     public static NGateway createGateway(String gatewayId) {
         return new NGateway(gatewayId, null, null);
     }
-
 }

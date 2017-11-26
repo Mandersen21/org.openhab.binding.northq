@@ -20,6 +20,7 @@ import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
+import org.openhab.binding.northq.internal.mock.gui.MockGui;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
@@ -139,6 +140,9 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                     // mock network
                     if (NorthQConfig.getMOCK_NETWORK() == null) {
                         NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
+
+                        MockGui gui = new MockGui();
+                        gui.setVisible(true);
                     }
                     NorthQConfig.setNETWORK(NorthQConfig.getMOCK_NETWORK().getNetwork());
                 }
