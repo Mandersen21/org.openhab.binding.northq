@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2010-2017 by the respective copyright holders.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package org.openhab.binding.northq.internal.mock.gui;
 
 import java.awt.BorderLayout;
@@ -19,10 +27,17 @@ import javax.swing.border.EmptyBorder;
 
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.mock.MockFactory;
+import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 import org.openhab.binding.northq.internal.model.Thing;
 
+/**
+ * The {@link NorthQMockNetwork} is responsible generating a mock network
+ * that allows us to simulate multiple scenarios.
+ *
+ * @author Nicolaj - Initial contribution
+ */
 public class MockGui extends JFrame {
     // MainPanel
     private JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
