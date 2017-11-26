@@ -67,6 +67,15 @@ public class NorthNetwork {
         this.gateways = gateways;
     }
 
+    public String[] toStringArray() {
+        String[] res = new String[gateways.size()];
+        for (int i = 0; i < gateways.size(); i++) {
+            res[i] = gateways.get(i).toString().substring(42, gateways.get(i).toString().length() - 1).split("@")[0]
+                    + " " + (i + 1);
+        }
+        return res;
+    }
+
     @Override
     public String toString() {
         return "token: " + token + "\ngateway id: " + gateways.get(0).getGatewayId() + "\nthings: "
