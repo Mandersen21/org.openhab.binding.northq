@@ -184,7 +184,22 @@ public class NorthQMotionHandler extends BaseThingHandler {
             boolean triggered = services.isTriggered(services.getNotificationArray(
                     NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
                     NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
-
+            if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
+                // unregister database tracking
+                Connection conn;
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+                    PreparedStatement createStatement = null;
+                    createStatement = conn.prepareStatement(
+                            "insert into gpsapp.notifications (`TimeStamp`,`Device`) values (NOW(),?);");
+                    createStatement.setString(1, qMotion.getBs().name);
+                    createStatement.executeQuery();
+                } catch (Exception e) {
+                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                }
+                lastNotification = System.currentTimeMillis();
+            }
             // 200 = success code, everything else is some fail
             if (services
                     .getGatewayStatus(NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId(),
@@ -199,22 +214,6 @@ public class NorthQMotionHandler extends BaseThingHandler {
             if (qMotion != null && qMotion.getStatus()) { // Trigger state update
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
                         StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
-                if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
-                    // unregister database tracking
-                    Connection conn;
-                    try {
-                        Class.forName("com.mysql.jdbc.Driver");
-                        conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
-                        PreparedStatement createStatement = null;
-                        createStatement = conn.prepareStatement(
-                                "insert into gpsapp.notifications (`TimeStamp`,`Device`) values (NOW(),?);");
-                        createStatement.setString(1, qMotion.getBs().name);
-                        createStatement.executeQuery();
-                    } catch (Exception e) {
-                        System.out.println(e.getClass().getName() + ": " + e.getMessage());
-                    }
-                    lastNotification = System.currentTimeMillis();
-                }
 
                 currentTriggered = triggered;
             } else {
