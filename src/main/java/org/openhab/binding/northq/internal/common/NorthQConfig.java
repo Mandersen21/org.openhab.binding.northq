@@ -33,7 +33,7 @@ public class NorthQConfig {
     private static float ISHOMETEMP = 23;
     private static float NOTHOMETEMP = 18;
 
-    private static boolean MOCK = true;
+    private static boolean MOCK = false;
     private static NorthQMockNetwork MOCK_NETWORK;
 
     private static Map<String, Boolean> PHONE_MAP = new HashMap<String, Boolean>();
