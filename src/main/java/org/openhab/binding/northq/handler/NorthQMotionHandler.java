@@ -184,6 +184,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
             boolean triggered = services.isTriggered(services.getNotificationArray(
                     NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
                     NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
+            // Moved here
             if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
                 // unregister database tracking
                 Connection conn;
