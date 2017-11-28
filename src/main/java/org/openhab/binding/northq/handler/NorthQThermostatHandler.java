@@ -22,6 +22,7 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
@@ -87,7 +88,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
         if (channelUID.getId().equals(CHANNEL_QTHERMOSTAT)) {
             try {
                 ReadWriteLock.getInstance().lockRead();
-                String nodeId = getThing().getProperties().get("thingID");
+                String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
                 Qthermostat qThermostat = getThermostat(nodeId);
 
                 if (qThermostat == null) {
@@ -158,7 +159,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             ReadWriteLock.getInstance().lockWrite();
             logger.debug("Polling data for thermostat");
 
-            String nodeId = getThing().getProperties().get("thingID");
+            String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qthermostat qthermostat = getThermostat(nodeId);
 
             // Configurations

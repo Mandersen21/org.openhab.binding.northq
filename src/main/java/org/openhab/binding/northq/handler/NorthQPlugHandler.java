@@ -24,6 +24,7 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
@@ -102,9 +103,9 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 // Check if plug should be turned on or off
-                if (command.toString().equals("ON")) {
+                if (command.toString().equals(NorthQStringConstants.ON)) {
                     turnPlugOn(qPlug, gatewayID, userID);
-                } else if (command.toString().equals("OFF")) {
+                } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                     turnPlugOff(qPlug, gatewayID, userID);
                 }
             } catch (Exception e) {
@@ -181,7 +182,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
             ReadWriteLock.getInstance().lockRead();
             logger.debug("Polling data for plug");
 
-            String nodeId = getThing().getProperties().get("thingID");
+            String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qplug qplug = getPlug(nodeId);
 
             // Configurations

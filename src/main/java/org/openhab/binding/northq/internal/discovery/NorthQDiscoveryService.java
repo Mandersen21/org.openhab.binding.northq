@@ -18,6 +18,7 @@ import org.eclipse.smarthome.config.discovery.DiscoveryResultBuilder;
 import org.eclipse.smarthome.config.discovery.DiscoveryService;
 import org.eclipse.smarthome.core.thing.ThingUID;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.model.NGateway;
@@ -85,7 +86,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService {
                 ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
                 Map<String, Object> properties = new HashMap<>(1);
 
-                properties.put("thingID", thingID);
+                properties.put(NorthQStringConstants.THING_ID, thingID);
 
                 DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                         .withLabel("Gateway: " + thingID).withThingType(NorthQBindingConstants.THING_TYPE_GATEWAY)
@@ -104,8 +105,8 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService {
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
                     Map<String, Object> properties = new HashMap<>(2);
 
-                    properties.put("thingID", thingID);
-                    properties.put("room", getRoomName(n, ((Qplug) thing).getBs().room));
+                    properties.put(NorthQStringConstants.THING_ID, thingID);
+                    properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qplug) thing).getBs().room));
 
                     DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                             .withLabel(((Qplug) thing).getBs().name)
@@ -120,8 +121,8 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService {
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
                     Map<String, Object> properties = new HashMap<>(2);
 
-                    properties.put("thingID", thingID);
-                    properties.put("room", getRoomName(n, ((Qmotion) thing).getBs().room));
+                    properties.put(NorthQStringConstants.THING_ID, thingID);
+                    properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qmotion) thing).getBs().room));
 
                     DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                             .withLabel(((Qmotion) thing).getBs().name)
@@ -135,8 +136,8 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService {
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
                     Map<String, Object> properties = new HashMap<>(2);
 
-                    properties.put("thingID", thingID);
-                    properties.put("room", getRoomName(n, ((Qthermostat) thing).getTher().room));
+                    properties.put(NorthQStringConstants.THING_ID, thingID);
+                    properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qthermostat) thing).getTher().room));
 
                     DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
                             .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)

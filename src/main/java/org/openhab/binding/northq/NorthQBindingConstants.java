@@ -64,11 +64,10 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_SETTINGS_NOTHOMETEMP = "channelnotHomeTemp";
     public static final String CHANNEL_QPHONE_GPSLOCATION = "channelgpslocation";
     public static final String CHANNEL_SETTINGS_GPSPOWEROFF = "channelgpspoweroff";
-    public static final String CHANNEL_SETTINGS_GPSSTATUS = "channelheatgpsstatus";
-
+    public static final String CHANNEL_SETTING_STATUS_GPS_POWER = "channlegpspowerstatus";
+    public static final String CHANNEL_SETTING_STATUS_GPS_HEATING = "channlegpsheatingtatus";
     public static final String CHANNEL_QMOTION_POWER_ON_MOTION = "channelpoweronmotion";
     public static final String CHANNEL_QMOTION_LIGHT_ON_PERCENT = "channellightonpercent";
-
     public static final String CHANNEL_QMOTION_POWER_ON_MOTION_SWITCH = "channelpoweronmotionswitch";
     public static final String CHANNEL_QMOTION_LIGHT_ON_PERCENT_SWITCH = "channellightonpercentswitch";
 
