@@ -19,7 +19,6 @@ import org.eclipse.smarthome.config.discovery.DiscoveryService;
 import org.eclipse.smarthome.core.thing.ThingUID;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
-import org.openhab.binding.northq.internal.NorthqDataListener;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @author Dan - Initial contribution
  */
 @Component(service = DiscoveryService.class, immediate = true, configurationPid = "discovery.northq")
-public class NorthQDiscoveryService extends AbstractDiscoveryService implements NorthqDataListener {
+public class NorthQDiscoveryService extends AbstractDiscoveryService {
 
     private final Logger logger = LoggerFactory.getLogger(NorthQDiscoveryService.class);
 
@@ -67,17 +66,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
      */
     @Override
     public void startScan() {
-        System.out.println("Discovery - starting scan");
-        onDataFetched();
-    }
-
-    /**
-     * Abstract method overwritten
-     * Requires:
-     * Returns: Discovers all things related to the northQ network
-     */
-    @Override
-    public void onDataFetched() {
+        logger.debug("Discovery - starting scan");
         NorthNetwork n = NorthQConfig.getNETWORK();
         if (n != null) {
             discoverAlldevices(n);
@@ -91,7 +80,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
         for (int i = 0; i < g.size(); i++) {
             ArrayList<Thing> things = g.get(i).getThings();
             if (g != null) {
-                System.out.println("Discovered a gateway");
+                logger.debug("Discovered a gateway");
                 String thingID = g.get(i).getGatewayId();
                 ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
                 Map<String, Object> properties = new HashMap<>(1);
@@ -109,7 +98,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                 Thing thing = things.get(j);
 
                 if (thing instanceof Qplug) {
-                    System.out.println("Discovered thing type Q plug");
+                    logger.debug("Discovered thing type Q plug");
 
                     String thingID = thing.getNodeID();
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
@@ -125,7 +114,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                     thingDiscovered(dr);
 
                 } else if (thing instanceof Qmotion) {
-                    System.out.println("Discovered thing type Q motion");
+                    logger.debug("Discovered thing type Q motion");
 
                     String thingID = thing.getNodeID();
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
@@ -140,7 +129,7 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
 
                     thingDiscovered(dr);
                 } else if (thing instanceof Qthermostat) {
-                    System.out.println("Discovered thing type Q thermostat");
+                    logger.debug("Discovered thing type Q thermostat");
 
                     String thingID = thing.getNodeID();
                     ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
@@ -158,9 +147,6 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
                 }
             }
         }
-
-        // Things has been added by discovery
-        System.out.println("Discovery - Scan completed thing added");
     }
 
     public String getRoomName(NorthNetwork n, int roomid) {
@@ -172,9 +158,6 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService implements 
             if (rooms != null) {
                 for (int j = 0; j < rooms.size(); j++) {
                     Room r = rooms.get(j);
-                    System.out.println(r.name);
-                    System.out.println(r.uploaded_id);
-                    System.out.println(roomid);
                     if (r.uploaded_id == roomid) {
                         return r.name;
                     }

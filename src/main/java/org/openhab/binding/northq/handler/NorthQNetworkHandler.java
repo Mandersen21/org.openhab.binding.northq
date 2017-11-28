@@ -70,6 +70,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         // Get parameters from configuration
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get("username").toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get("password").toString());
+        NorthQConfig.setHOMELOCATION(getThing().getConfiguration().get("homelocation").toString());
 
         NorthNetwork network = null;
         try {
@@ -112,7 +113,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
      * Returns: updates the thing, when run
      */
     private void scheduleCode() {
-        System.out.println("In network handler");
+        logger.debug("In network handler");
         // Only run polling job with NETWORK is not null
         if (NorthQConfig.getNETWORK() != null) {
             try {
@@ -147,7 +148,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                     NorthQConfig.setNETWORK(NorthQConfig.getMOCK_NETWORK().getNetwork());
                 }
 
-                System.out.println("Network fetched");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

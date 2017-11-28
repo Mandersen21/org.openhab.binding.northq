@@ -51,6 +51,11 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private NorthqServices services;
     private boolean currentStatus;
     private boolean currentTriggered;
+
+    private boolean powerOnMotion;
+    private boolean lightOnPercent;
+    private long lightTriggered;
+
     private ScheduledFuture<?> pollingJob;
 
     private String sqlUser = "root";
@@ -73,6 +78,9 @@ public class NorthQMotionHandler extends BaseThingHandler {
 
         services = new NorthqServices();
         currentStatus = false;
+        powerOnMotion = false;
+        lightOnPercent = false;
+        lightTriggered = 1;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
@@ -111,6 +119,18 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 e.printStackTrace();
             } finally {
                 ReadWriteLock.getInstance().unlockWrite();
+            }
+        } else if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT_SWITCH)) {
+            if (command.toString().equals("ON")) {
+                lightOnPercent = true;
+            } else if (command.toString().equals("OFF")) {
+                lightOnPercent = false;
+            }
+        } else if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_QMOTION_POWER_ON_MOTION_SWITCH)) {
+            if (command.toString().equals("ON")) {
+                powerOnMotion = true;
+            } else if (command.toString().equals("OFF")) {
+                powerOnMotion = false;
             }
         }
     }
@@ -176,7 +196,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     public void ScheduledCode() {
         try {
             ReadWriteLock.getInstance().lockRead();
-            System.out.println("Polling data for q motion");
+            logger.debug("Polling data for q motion");
 
             String nodeId = getThing().getProperties().get("thingID");
             Qmotion qMotion = getQmotion(nodeId);
@@ -197,7 +217,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     createStatement.setString(1, qMotion.getBs().name);
                     createStatement.executeQuery();
                 } catch (Exception e) {
-                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                    e.printStackTrace();
                 }
                 lastNotification = System.currentTimeMillis();
             }
@@ -214,11 +234,11 @@ public class NorthQMotionHandler extends BaseThingHandler {
 
             if (qMotion != null && qMotion.getStatus()) { // Trigger state update
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
-                        StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
+                        StringType.valueOf(triggered ? "Triggered" : "Not Triggered"));
 
                 currentTriggered = triggered;
             } else {
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("Not Armed"));
                 currentTriggered = false;
             }
 
@@ -237,6 +257,31 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
                         DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
             }
+            // Update status of power on motion
+            if (powerOnMotion) {
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_POWER_ON_MOTION,
+                        StringType.valueOf(triggered ? "Power On" : "Not Triggered"));
+            } else {
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_POWER_ON_MOTION, StringType.valueOf("Not Enabled"));
+            }
+
+            // Update status of light percent
+            if (lightOnPercent) {
+                if ((lightTriggered + 900000) > System.currentTimeMillis()) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
+                            StringType.valueOf("Light On"));
+                } else if ((int) qMotion.getLight() < 20) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
+                            StringType.valueOf("Light On"));
+                    lightTriggered = System.currentTimeMillis();
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
+                            StringType.valueOf("Not Triggered"));
+                }
+            } else {
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT, StringType.valueOf("Not Enabled"));
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("An unexpected error occurred: {}", e.getMessage(), e);

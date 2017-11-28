@@ -27,6 +27,8 @@ public class NorthQConfig {
 
     private static String USERNAME = "";
     private static String PASSWORD = "";
+    private static String HOMELOCATION = "";
+
     private static boolean ISHOME = true;
     private static boolean POWERONLOCATION = false;
     private static boolean HEATONLOCATION = false;
@@ -37,6 +39,14 @@ public class NorthQConfig {
     private static NorthQMockNetwork MOCK_NETWORK;
 
     private static Map<String, Boolean> PHONE_MAP = new HashMap<String, Boolean>();
+
+    public static String getHOMELOCATION() {
+        return HOMELOCATION;
+    }
+
+    public static void setHOMELOCATION(String hOMELOCATION) {
+        HOMELOCATION = hOMELOCATION;
+    }
 
     public static boolean isPOWERONLOCATION() {
         return POWERONLOCATION;
