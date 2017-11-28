@@ -243,6 +243,7 @@
 			<channel id="channelisHomeTemp" typeId="isHomeTemp-channel"></channel>
 			<channel id="channelnotHomeTemp" typeId="notHomeTemp-channel"></channel>
 			<channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel"></channel>
+			<channel id="channelheatgpsstatus" typeId="gpslocationheatingstatus-channel"></channel>
 		</channels>
 	</thing-type>
 
@@ -252,11 +253,24 @@
 		<description>Toggle power off plugs based on location</description>
 	</channel-type>
 
-	<channel-type id="toggleHeatOnLocation-channel">
-		<item-type>Switch</item-type>
-		<label>ToggleHeat</label>
-		<description>Toggle heat based on location</description>
-	</channel-type>
+    <channel-type id="gpslocationheatingstatus-channel">
+        <item-type>String</item-type>
+        <label>GPS status</label>
+        <description>GPS status</description>
+        <state readOnly="true">
+            <options>
+                <option value="Home">Home</option>
+                <option value="Out">Out</option>
+                <option value="Inactive">Inactive</option>
+            </options>
+        </state>
+    </channel-type>
+    
+    <channel-type id="toggleHeatOnLocation-channel">
+        <item-type>Switch</item-type>
+        <label>ToggleHeat</label>
+        <description>Toggle heat based on location</description>
+    </channel-type>
 
 	<channel-type id="isHomeTemp-channel">
 		<item-type>Number</item-type>

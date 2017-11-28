@@ -13,6 +13,7 @@ import static org.openhab.binding.northq.NorthQBindingConstants.*;
 
 import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
+import org.eclipse.smarthome.core.library.types.StringType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
@@ -81,6 +82,23 @@ public class GatewayHandler extends BaseThingHandler {
 
                 } else if (command.toString().equals("OFF")) {
                     NorthQConfig.setPOWERONLOCATION(false);
+                }
+            }
+
+            // updating gps status string
+            if (channelUID.getId().equals(CHANNEL_SETTINGS_GPSSTATUS)) {
+                if (!NorthQConfig.isHEATONLOCATION()) {
+                    updateState(NorthQBindingConstants.CHANNEL_SETTINGS_GPSSTATUS, StringType.valueOf("Inactive"));
+                } else {
+                    Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
+                    boolean someoenHome = false;
+                    for (Boolean b : phoneHome) {
+                        if (b) {
+                            someoenHome = true;
+                        }
+                    }
+                    updateState(NorthQBindingConstants.CHANNEL_SETTINGS_GPSSTATUS,
+                            StringType.valueOf(someoenHome ? "Home" : "Out"));
                 }
             }
 
