@@ -105,7 +105,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             createStatement.setString(2, getThing().getConfiguration().get("homelocation").toString());
             createStatement.executeQuery();
         } catch (Exception e) {
-            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            logger.debug(e.getClass().getName() + ": " + e.getMessage());
         }
 
     }
@@ -148,7 +148,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             createStatement.setString(1, getThing().getConfiguration().get("name").toString());
             createStatement.executeQuery();
         } catch (Exception e) {
-            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            logger.debug(e.getClass().getName() + ": " + e.getMessage());
         }
 
         // remove thing
@@ -183,7 +183,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
      * Returns: updates the thing, when run
      */
     private void scheduleCode() {
-        System.out.println("Polling data for phone");
+        logger.debug("Polling data for phone");
 
         Form form = new Form();
         form.param("getGPS", NorthQConfig.getUSERNAME());
@@ -219,7 +219,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
                     }
                 } catch (Exception e) {
-                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                    logger.debug(e.getClass().getName() + ": " + e.getMessage());
                     updateStatus(ThingStatus.OFFLINE);
                 }
                 if (raw.equals("")) {

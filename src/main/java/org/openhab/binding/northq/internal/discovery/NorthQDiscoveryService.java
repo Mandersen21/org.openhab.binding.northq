@@ -158,9 +158,6 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService {
             if (rooms != null) {
                 for (int j = 0; j < rooms.size(); j++) {
                     Room r = rooms.get(j);
-                    System.out.println(r.name);
-                    System.out.println(r.uploaded_id);
-                    System.out.println(roomid);
                     if (r.uploaded_id == roomid) {
                         return r.name;
                     }
