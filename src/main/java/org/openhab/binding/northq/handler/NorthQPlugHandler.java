@@ -179,7 +179,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
     private void scheduleCode() {
         try {
             ReadWriteLock.getInstance().lockRead();
-            System.out.println("Polling data for plug");
+            logger.debug("Polling data for plug");
 
             String nodeId = getThing().getProperties().get("thingID");
             Qplug qplug = getPlug(nodeId);

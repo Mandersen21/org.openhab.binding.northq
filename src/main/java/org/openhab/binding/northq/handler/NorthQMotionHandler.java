@@ -196,7 +196,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
     public void ScheduledCode() {
         try {
             ReadWriteLock.getInstance().lockRead();
-            System.out.println("Polling data for q motion");
+            logger.debug("Polling data for q motion");
 
             String nodeId = getThing().getProperties().get("thingID");
             Qmotion qMotion = getQmotion(nodeId);
@@ -217,7 +217,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     createStatement.setString(1, qMotion.getBs().name);
                     createStatement.executeQuery();
                 } catch (Exception e) {
-                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                    logger.debug(e.getMessage());
                 }
                 lastNotification = System.currentTimeMillis();
             }
