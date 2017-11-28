@@ -15,6 +15,7 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 
 /**
@@ -40,10 +41,10 @@ public class MockNetworkHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_MOCKNETWORK)) {
-            System.out.println("---------------------------Mock network handler engaged!----------------------------");
-            if (command.toString().equals("ON")) {
+
+            if (command.toString().equals(NorthQStringConstants.ON)) {
                 NorthQConfig.setMOCK(true);
-            } else if (command.toString().equals("OFF")) {
+            } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                 NorthQConfig.setMOCK(false);
             }
         }

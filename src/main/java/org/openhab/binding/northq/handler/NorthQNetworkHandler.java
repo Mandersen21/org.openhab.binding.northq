@@ -17,6 +17,7 @@ import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseBridgeHandler;
 import org.eclipse.smarthome.core.types.Command;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
@@ -68,8 +69,8 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     @Override
     public void initialize() {
         // Get parameters from configuration
-        NorthQConfig.setUSERNAME(getThing().getConfiguration().get("username").toString());
-        NorthQConfig.setPASSWORD(getThing().getConfiguration().get("password").toString());
+        NorthQConfig.setUSERNAME(getThing().getConfiguration().get(NorthQStringConstants.USERNAME).toString());
+        NorthQConfig.setPASSWORD(getThing().getConfiguration().get(NorthQStringConstants.PASSWORD).toString());
 
         NorthNetwork network = null;
         try {

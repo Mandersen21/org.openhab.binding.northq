@@ -37,6 +37,7 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.services.NetworkUtils;
 import org.openhab.binding.northq.internal.services.NorthqServices;
@@ -232,11 +233,11 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                 String location = data[1];
 
                 boolean resBol;
-                if (!NorthQPhoneHandler.this.location.equals("Home")
-                        && NorthQPhoneHandler.this.locationStatus.equals("1") && !location.equals("home")
-                        && locationStatus.equals("0")) {
+                if (!NorthQPhoneHandler.this.location.equals(NorthQStringConstants.HOME)
+                        && NorthQPhoneHandler.this.locationStatus.equals("1")
+                        && !location.equals(NorthQStringConstants.HOME) && locationStatus.equals("0")) {
                     resBol = true;
-                } else if (location.equals("Home") && locationStatus.equals("1")) {
+                } else if (location.equals(NorthQStringConstants.HOME) && locationStatus.equals("1")) {
                     resBol = true;
                 } else {
                     resBol = false;
@@ -248,7 +249,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                 Boolean isHome = new Boolean(resBol);
                 // Updated displayed name
                 updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION,
-                        StringType.valueOf(isHome ? "Home" : "Out"));
+                        StringType.valueOf(isHome ? NorthQStringConstants.HOME : NorthQStringConstants.OUT));
 
                 NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), isHome);
 
@@ -271,7 +272,8 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     NorthQConfig.setISHOME(true);
                 }
             } else {
-                updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION, StringType.valueOf("Inactive"));
+                updateState(NorthQBindingConstants.CHANNEL_QPHONE_GPSLOCATION,
+                        StringType.valueOf(NorthQStringConstants.INACTIVE));
             }
 
         } catch (Exception e) {

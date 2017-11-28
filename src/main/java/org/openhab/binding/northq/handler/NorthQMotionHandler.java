@@ -28,6 +28,7 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
@@ -101,9 +102,9 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 String nodeId = getThing().getProperties().get("thingID");
                 Qmotion qMotion = getQmotion(nodeId);
                 if (qMotion != null) {
-                    if (command.toString().equals("ON")) {
+                    if (command.toString().equals(NorthQStringConstants.ON)) {
                         arm(gatewayID, qMotion);
-                    } else if (command.toString().equals("OFF")) {
+                    } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                         disarm(gatewayID, qMotion);
                     }
                 }
@@ -178,7 +179,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
             ReadWriteLock.getInstance().lockRead();
             System.out.println("Polling data for q motion");
 
-            String nodeId = getThing().getProperties().get("thingID");
+            String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qmotion qMotion = getQmotion(nodeId);
 
             boolean triggered = services.isTriggered(services.getNotificationArray(
@@ -213,12 +214,13 @@ public class NorthQMotionHandler extends BaseThingHandler {
             }
 
             if (qMotion != null && qMotion.getStatus()) { // Trigger state update
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
-                        StringType.valueOf(triggered ? "TRIGGERED" : "NOT_TRIGGERED"));
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType
+                        .valueOf(triggered ? NorthQStringConstants.TRIGGERED : NorthQStringConstants.NOT_TRIGGERED));
 
                 currentTriggered = triggered;
             } else {
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf("NOT_ARMED"));
+                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
+                        StringType.valueOf(NorthQStringConstants.NOT_ARMED));
                 currentTriggered = false;
             }
 

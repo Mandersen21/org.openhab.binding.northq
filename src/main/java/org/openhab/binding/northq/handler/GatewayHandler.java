@@ -18,6 +18,7 @@ import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
+import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
 
@@ -55,10 +56,10 @@ public class GatewayHandler extends BaseThingHandler {
 
             // updating ToggleHeatLocation variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_TOGGLEHEATLOCATION)) {
-                if (command.toString().equals("ON")) {
+                if (command.toString().equals(NorthQStringConstants.ON)) {
                     NorthQConfig.setHEATONLOCATION(true);
 
-                } else if (command.toString().equals("OFF")) {
+                } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                     NorthQConfig.setHEATONLOCATION(false);
                 }
             }
@@ -76,10 +77,10 @@ public class GatewayHandler extends BaseThingHandler {
             }
             // updating ToggleHeatLocation variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_GPSPOWEROFF)) {
-                if (command.toString().equals("ON")) {
+                if (command.toString().equals(NorthQStringConstants.ON)) {
                     NorthQConfig.setPOWERONLOCATION(true);
 
-                } else if (command.toString().equals("OFF")) {
+                } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                     NorthQConfig.setPOWERONLOCATION(false);
                 }
             }
