@@ -217,7 +217,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     createStatement.setString(1, qMotion.getBs().name);
                     createStatement.executeQuery();
                 } catch (Exception e) {
-                    logger.debug(e.getMessage());
+                    e.printStackTrace();
                 }
                 lastNotification = System.currentTimeMillis();
             }
