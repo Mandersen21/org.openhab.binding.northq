@@ -97,6 +97,12 @@
 			<channel id="channellight" typeId="motion-light-channel"></channel>
 			<channel id="channelhumidity" typeId="motion-humidity-channel"></channel>
 			<channel id="channelbattery" typeId="motion-battery-channel"></channel>
+			
+			<channel id="channelpoweronmotionswitch" typeId="motion-poweronmmotionswitch-channel"></channel>
+            <channel id="channelpoweronmotion" typeId="motion-poweronmmotion-channel"></channel>
+		    
+		    <channel id="channellightonpercentswitch" typeId="motion-lightonpercentswitch-channel"></channel>
+		    <channel id="channellightonpercent" typeId="motion-lightonpercent-channel"></channel>
 		</channels>
 	</thing-type>
 
@@ -105,6 +111,47 @@
 		<label>Arm/Disarm motion sensor</label>
 		<description>QMotion channel for NorthQ Binding</description>
 	</channel-type>
+
+    <channel-type id="motion-lightonpercentswitch-channel">
+        <item-type>Switch</item-type>
+        <label>Enable or disable light on percent</label>
+        <description>Light on percent</description>
+    </channel-type>
+    
+    <channel-type id="motion-lightonpercent-channel">
+        <item-type>String</item-type>
+        <label>LightOnPercent</label>
+        <description>Light on percent</description>
+
+        <state readOnly="true">
+            <options>
+                <option value="Triggered">Light On</option>
+                <option value="Not Triggered">Not Triggered</option>
+                <option value="Not Enabled">Not Enabled</option>
+            </options>
+        </state>
+    </channel-type>
+
+
+    <channel-type id="motion-poweronmmotionswitch-channel">
+        <item-type>Switch</item-type>
+        <label>Enable or disable power on motion</label>
+        <description>Power on motion</description>
+    </channel-type>
+
+    <channel-type id="motion-poweronmmotion-channel">
+        <item-type>String</item-type>
+        <label>PowerOnMotion</label>
+        <description>Power on room motion</description>
+
+        <state readOnly="true">
+            <options>
+                <option value="Triggered">Power On</option>
+                <option value="Not Triggered">Not Triggered</option>
+                <option value="Not Enabled">Not Enabled</option>
+            </options>
+        </state>
+    </channel-type>
 
 	<channel-type id="motion-notification-channel">
 		<item-type>String</item-type>
