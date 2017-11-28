@@ -99,7 +99,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
             try {
                 ReadWriteLock.getInstance().lockWrite();
                 String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
-                String nodeId = getThing().getProperties().get("thingID");
+                String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
                 Qmotion qMotion = getQmotion(nodeId);
                 if (qMotion != null) {
                     if (command.toString().equals(NorthQStringConstants.ON)) {

@@ -11,8 +11,12 @@ package org.openhab.binding.northq.handler;
 
 import static org.openhab.binding.northq.NorthQBindingConstants.*;
 
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
+import org.eclipse.smarthome.core.library.types.StringType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
@@ -30,11 +34,22 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
  */
 
 public class GatewayHandler extends BaseThingHandler {
+    private ScheduledFuture<?> pollingJob;
+    private Runnable pollingRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            scheduleCode();
+
+        }
+    };
+
     /**
      * Constructor
      */
     public GatewayHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
     /**
@@ -75,7 +90,7 @@ public class GatewayHandler extends BaseThingHandler {
                     NorthQConfig.setNOTHOMETEMP(Float.valueOf(command.toString()));
                 }
             }
-            // updating ToggleHeatLocation variable dependent on input from channel
+            // updating TogglePowerOnLocation variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_GPSPOWEROFF)) {
                 if (command.toString().equals(NorthQStringConstants.ON)) {
                     NorthQConfig.setPOWERONLOCATION(true);
@@ -100,6 +115,9 @@ public class GatewayHandler extends BaseThingHandler {
     @Override
     public void handleRemoval() {
         updateStatus(ThingStatus.REMOVED);
+        if (pollingJob != null && !pollingJob.isCancelled()) {
+            pollingJob.cancel(true);
+        }
     }
 
     /**
@@ -112,6 +130,43 @@ public class GatewayHandler extends BaseThingHandler {
         NorthQConfig.setHEATONLOCATION(false);
         updateStatus(ThingStatus.ONLINE);
         // set initial values
+
+    }
+
+    private void scheduleCode() {
+        try {
+
+            Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
+
+            NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
+
+            boolean allAway = true;
+            for (Boolean b : phoneHome) {
+                boolean bol = b.booleanValue();
+                if (bol) {
+                    allAway = false;
+                }
+            }
+
+            if (NorthQConfig.isHEATONLOCATION()) {
+                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
+                        StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
+            } else {
+
+                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
+                        StringType.valueOf(NorthQStringConstants.INACTIVE));
+            }
+
+            if (NorthQConfig.isPOWERONLOCATION()) {
+                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
+                        StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
+            } else {
+                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
+                        StringType.valueOf(NorthQStringConstants.INACTIVE));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

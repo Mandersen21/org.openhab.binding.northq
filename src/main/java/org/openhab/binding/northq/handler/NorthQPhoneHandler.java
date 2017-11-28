@@ -119,9 +119,9 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (channelUID.getId().equals(NorthQBindingConstants.CHANNEL_QPHONE)) {
-            if (command.toString().equals("ON")) {
+            if (command.toString().equals(NorthQStringConstants.ON)) {
                 phoneEnabledStatus = true;
-            } else if (command.toString().equals("OFF")) {
+            } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                 NorthQConfig.setISHOME(true);
                 phoneEnabledStatus = false;
             }
