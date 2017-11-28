@@ -97,6 +97,12 @@
 			<channel id="channellight" typeId="motion-light-channel"></channel>
 			<channel id="channelhumidity" typeId="motion-humidity-channel"></channel>
 			<channel id="channelbattery" typeId="motion-battery-channel"></channel>
+			
+			<channel id="channelpoweronmotionswitch" typeId="motion-poweronmmotionswitch-channel"></channel>
+            <channel id="channelpoweronmotion" typeId="motion-poweronmmotion-channel"></channel>
+		    
+		    <channel id="channellightonpercentswitch" typeId="motion-lightonpercentswitch-channel"></channel>
+		    <channel id="channellightonpercent" typeId="motion-lightonpercent-channel"></channel>
 		</channels>
 	</thing-type>
 
@@ -105,6 +111,47 @@
 		<label>Arm/Disarm motion sensor</label>
 		<description>QMotion channel for NorthQ Binding</description>
 	</channel-type>
+
+    <channel-type id="motion-lightonpercentswitch-channel">
+        <item-type>Switch</item-type>
+        <label>Enable or disable light on percent</label>
+        <description>Light on percent</description>
+    </channel-type>
+    
+    <channel-type id="motion-lightonpercent-channel">
+        <item-type>String</item-type>
+        <label>LightOnPercent</label>
+        <description>Light on percent</description>
+
+        <state readOnly="true">
+            <options>
+                <option value="Triggered">Light On</option>
+                <option value="Not Triggered">Not Triggered</option>
+                <option value="Not Enabled">Not Enabled</option>
+            </options>
+        </state>
+    </channel-type>
+
+
+    <channel-type id="motion-poweronmmotionswitch-channel">
+        <item-type>Switch</item-type>
+        <label>Enable or disable power on motion</label>
+        <description>Power on motion</description>
+    </channel-type>
+
+    <channel-type id="motion-poweronmmotion-channel">
+        <item-type>String</item-type>
+        <label>PowerOnMotion</label>
+        <description>Power on room motion</description>
+
+        <state readOnly="true">
+            <options>
+                <option value="Triggered">Power On</option>
+                <option value="Not Triggered">Not Triggered</option>
+                <option value="Not Enabled">Not Enabled</option>
+            </options>
+        </state>
+    </channel-type>
 
 	<channel-type id="motion-notification-channel">
 		<item-type>String</item-type>
@@ -169,11 +216,7 @@
 				<label>Name</label>
 				<description>name of the phone owner</description>
 			</parameter>
-			<parameter name="homelocation" type="text" required="true">
-				<label>Home</label>
-				<description>GPS location of home</description>
-			</parameter>
-		</config-description>
+	   </config-description>
 	</thing-type>
 
 	<channel-type id="gpslocation-channel">
@@ -245,6 +288,7 @@
 			<channel id="channelnotHomeTemp" typeId="notHomeTemp-channel"/>
 			<channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel"/>
 			<channel id="channlegpspowerstatus" typeId="gpslocationpowerstatus-channel"/>
+
 		</channels>
 	</thing-type>
 
@@ -280,11 +324,24 @@
         </state>
     </channel-type>
 
-	<channel-type id="toggleHeatOnLocation-channel">
-		<item-type>Switch</item-type>
-		<label>ToggleHeat</label>
-		<description>Toggle heat based on location</description>
-	</channel-type>
+    <channel-type id="gpslocationheatingstatus-channel">
+        <item-type>String</item-type>
+        <label>GPS status</label>
+        <description>GPS status</description>
+        <state readOnly="true">
+            <options>
+                <option value="Home">Home</option>
+                <option value="Out">Out</option>
+                <option value="Inactive">Inactive</option>
+            </options>
+        </state>
+    </channel-type>
+    
+    <channel-type id="toggleHeatOnLocation-channel">
+        <item-type>Switch</item-type>
+        <label>ToggleHeat</label>
+        <description>Toggle heat based on location</description>
+    </channel-type>
 
 	<channel-type id="isHomeTemp-channel">
 		<item-type>Number</item-type>

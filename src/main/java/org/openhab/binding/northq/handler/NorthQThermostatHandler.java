@@ -157,7 +157,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     public void ScheduleCode() {
         try {
             ReadWriteLock.getInstance().lockWrite();
-            System.out.println("Polling data for thermostat");
+            logger.debug("Polling data for thermostat");
 
             String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qthermostat qthermostat = getThermostat(nodeId);

@@ -27,6 +27,7 @@ public class NorthQStringConstants {
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String HOMELOCATION = "homelocation";
 
     public static final String THING_ID = "thingID";
     public static final String ROOM = "room";

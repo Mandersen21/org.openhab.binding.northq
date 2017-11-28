@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="org.openhab.binding.northq.internal.services.NorthqServices" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/services/NorthqServices.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="416" width="510" x="2181" y="1388"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="org.openhab.binding.northq.handler.NorthQPhoneHandler" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/handler/NorthQPhoneHandler.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="396" width="348" x="1405" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="org.openhab.binding.northq.handler.NorthQPlugHandler" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/handler/NorthQPlugHandler.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="316" width="348" x="1793" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="org.openhab.binding.northq.internal.mock.gui.MockGui.mockAddButtonListener" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/mock/gui/MockGui.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="116" width="297" x="4792" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="org.openhab.binding.northq.internal.model.json.UserNotification" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/UserNotification.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="309" x="4440" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="org.openhab.binding.northq.handler.NorthQNetworkHandler" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/handler/NorthQNetworkHandler.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="236" width="348" x="2957" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="org.openhab.binding.northq.internal.services.NetworkUtils" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/services/NetworkUtils.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="346" x="2181" y="1844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="org.openhab.binding.northq.handler.MockNetworkHandler" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/handler/MockNetworkHandler.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="348" x="288" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="org.openhab.binding.northq.internal.model.json.User" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/User.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="309" x="676" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="org.openhab.binding.northq.internal.model.json.VersionV2Model" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/VersionV2Model.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="196" width="309" x="2586" y="3168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="org.openhab.binding.northq.internal.model.json.BinarySensor" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/BinarySensor.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="496" width="309" x="2586" y="2632"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="org.openhab.binding.northq.internal.model.json.Sensor" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Sensor.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="309" x="2935" y="3168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="org.openhab.binding.northq.internal.model.json.Detail" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Detail.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="309" x="4091" y="1388"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" language="java" name="org.openhab.binding.northq.internal.model.IThing" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/IThing.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="279" x="3633" y="2632"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" language="java" name="org.openhab.binding.northq.internal.NorthQHandlerFactory" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/NorthQHandlerFactory.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="404" x="1025" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="org.openhab.binding.northq.internal.model.json.BinarySwitch" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/BinarySwitch.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="416" width="309" x="3284" y="2632"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="org.openhab.binding.northq.internal.mock.NorthQMockNetwork" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/mock/NorthQMockNetwork.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="116" width="274" x="3622" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="org.openhab.binding.northq.internal.model.NGateway" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/NGateway.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="256" width="384" x="3405" y="1844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="org.openhab.binding.northq.internal.model.json.GatewayStatus" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/GatewayStatus.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="309" x="2586" y="2336"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="org.openhab.binding.northq.internal.model.json.Room" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Room.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="309" x="3224" y="2140"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="org.openhab.binding.northq.internal.model.Qmotion" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/Qmotion.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="256" width="279" x="2935" y="2336"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="org.openhab.binding.northq.internal.discovery.NorthQDiscoveryService" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/discovery/NorthQDiscoveryService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="367" x="3345" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="org.openhab.binding.northq.handler.NorthQThermostatHandler" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/handler/NorthQThermostatHandler.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="276" width="348" x="2181" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="org.openhab.binding.northq.internal.model.json.House" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/House.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="236" width="309" x="3829" y="1844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="org.openhab.binding.northq.internal.model.json.Destination" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Destination.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="309" x="4440" y="1388"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="org.openhab.binding.northq.internal.model.NorthNetwork" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/NorthNetwork.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="336" width="429" x="3622" y="1388"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="org.openhab.binding.northq.internal.model.Qplug" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/Qplug.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="196" width="279" x="3573" y="2336"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="28" language="java" name="org.openhab.binding.northq.internal.NorthqDataListener" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/NorthqDataListener.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="237" x="3345" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="29" language="java" name="org.openhab.binding.northq.internal.model.Thing" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/Thing.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="116" width="279" x="3573" y="2140"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="org.openhab.binding.northq.internal.model.json.Notification" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Notification.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="176" width="309" x="4789" y="1388"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="org.openhab.binding.northq.internal.model.json.Thermostat" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Thermostat.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="416" width="309" x="2935" y="2632"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="org.openhab.binding.northq.handler.GatewayHandler" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/handler/GatewayHandler.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="348" x="1469" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="org.openhab.binding.northq.NorthQBindingConstants" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/NorthQBindingConstants.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="776" width="433" x="1857" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="org.openhab.binding.northq.internal.mock.MockFactory" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/mock/MockFactory.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="256" width="290" x="2330" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="org.openhab.binding.northq.internal.model.json.Gateway" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Gateway.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="309" x="2660" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="org.openhab.binding.northq.internal.model.json.Vacation" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/Vacation.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="309" x="3284" y="3168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="org.openhab.binding.northq.internal.model.Qthermostat" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/Qthermostat.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="196" width="279" x="3254" y="2336"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="org.openhab.binding.northq.internal.model.json.OverrideObject" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/OverrideObject.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="309" x="3633" y="3168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="org.openhab.binding.northq.internal.common.NorthQConfig" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/common/NorthQConfig.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="716" width="371" x="3917" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="org.openhab.binding.northq.handler.NorthQMotionHandler" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/handler/NorthQMotionHandler.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="396" width="348" x="2569" y="952"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="org.openhab.binding.northq.internal.services.CredentialsService" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/services/CredentialsService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="116" width="296" x="3009" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="42" language="java" name="org.openhab.binding.northq.internal.model.json.UserNotificationHolder" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/model/json/UserNotificationHolder.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="116" width="309" x="4440" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="43" language="java" name="org.openhab.binding.northq.internal.mock.gui.MockGui" 
+    project="org.openhab.binding.northq" 
+    file="/org.openhab.binding.northq/src/main/java/org/openhab/binding/northq/internal/mock/gui/MockGui.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="356" width="297" x="4792" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="44">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="45" name="BinarySensors"/>      
+      <multiplicity id="46" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="48" name="bs"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="51" name="mockNetwork"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="54" name="versionV2"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="57" name="versionV2"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="60" name="services"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="63" name="MOCK_NETWORK"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="66" name="networkUtils"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="69" name="services"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="72" name="details"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="75" name="BinarySwitches"/>      
+      <multiplicity id="76" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="77">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="78">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="79" name="notification"/>      
+      <multiplicity id="80" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="81">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="82" name="ther"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="84">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="85" name="override"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="88" name="sensors"/>      
+      <multiplicity id="89" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="90">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="91" name="Thermostats"/>      
+      <multiplicity id="92" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="93">    
+    <end type="SOURCE" refId="40" navigable="false">      
+      <attribute id="94" name="services"/>      
+      <multiplicity id="95" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="96">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="97" name="services"/>      
+      <multiplicity id="98" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="99">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="100" name="bridgeHandler"/>      
+      <multiplicity id="101" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="102">    
+    <bendpoint x="3882" y="2336"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="103">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="104" name="vacation"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="106">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="107">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="108" name="things"/>      
+      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="111" name="gateways"/>      
+      <multiplicity id="112" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="114" name="versionV2"/>      
+      <multiplicity id="115" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="116">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <association id="117">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="118" name="bs"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="121" name="services"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="123">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="29"/>  
+  </generalization>  
+  <association id="124">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="125" name="UserNotifications"/>      
+      <multiplicity id="126" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="128" name="sensors"/>      
+      <multiplicity id="129" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="130">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <generalization id="131">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="29"/>  
+  </generalization>  
+  <association id="132">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="133" name="houses"/>      
+      <multiplicity id="134" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="135">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="136">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="137" name="rooms"/>      
+      <multiplicity id="138" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="140" name="destination"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="143" name="sensors"/>      
+      <multiplicity id="144" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <bendpoint x="3926" y="952"/>    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="146" name="NETWORK"/>      
+      <multiplicity id="147" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="148">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="29"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
