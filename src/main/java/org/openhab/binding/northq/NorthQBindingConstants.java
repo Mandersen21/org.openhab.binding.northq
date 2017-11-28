@@ -66,6 +66,12 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_SETTINGS_GPSPOWEROFF = "channelgpspoweroff";
     public static final String CHANNEL_SETTINGS_GPSSTATUS = "channelheatgpsstatus";
 
+    public static final String CHANNEL_QMOTION_POWER_ON_MOTION = "channelpoweronmotion";
+    public static final String CHANNEL_QMOTION_LIGHT_ON_PERCENT = "channellightonpercent";
+
+    public static final String CHANNEL_QMOTION_POWER_ON_MOTION_SWITCH = "channelpoweronmotionswitch";
+    public static final String CHANNEL_QMOTION_LIGHT_ON_PERCENT_SWITCH = "channellightonpercentswitch";
+
     // Event Channel IDs
     public static final String CHANNEL_QSTICK_SCAN = "qStickScanning";
 }
