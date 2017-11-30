@@ -39,8 +39,8 @@ import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
+import org.openhab.binding.northq.internal.services.CredentialsService;
 import org.openhab.binding.northq.internal.services.NetworkUtils;
-import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,17 +54,18 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQPhoneHandler extends BaseThingHandler {
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPhoneHandler.class);
 
-    private NorthqServices services;
+    private CredentialsService credentialsService;
     private boolean phoneEnabledStatus;
     public String location = "0";
     public String locationStatus = "home";
 
-    private String sqlUser = "root";
-    private String sqlPassword = "changeme";
+    private String sqlUser;
+    private String sqlPassword;
 
-    private final byte[] keyValue = "Beercalc12DTU123".getBytes(); // TODO: move to password file
+    private final byte[] keyValue;
 
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
@@ -72,17 +73,21 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         @Override
         public void run() {
             scheduleCode();
-
         }
     };
 
+    @SuppressWarnings("null")
     public NorthQPhoneHandler(Thing thing) {
         super(thing);
 
-        phoneEnabledStatus = false;
-        services = new NorthqServices();
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+        credentialsService = new CredentialsService();
 
+        sqlUser = NorthQConfig.getSQL_USERNAME();
+        sqlPassword = NorthQConfig.getSQL_PASSWORD();
+        keyValue = NorthQConfig.getSECRET_KEY().getBytes();
+
+        phoneEnabledStatus = false;
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
     /**
@@ -93,9 +98,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     @Override
     public void initialize() {
         updateStatus(ThingStatus.ONLINE);
-
         createDbUser();
-
     }
 
     /**

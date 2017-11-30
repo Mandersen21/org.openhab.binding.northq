@@ -47,7 +47,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         @Override
         public void run() {
             scheduleCode();
-
         }
     };
 

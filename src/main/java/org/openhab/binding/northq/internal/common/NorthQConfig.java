@@ -29,6 +29,11 @@ public class NorthQConfig {
     private static String PASSWORD = "";
     private static String HOMELOCATION = "";
 
+    private static String SQL_USERNAME = "";
+    private static String SQL_PASSWORD = "";
+
+    private static String SECRET_KEY = "";
+
     private static boolean ISHOME = true;
     private static boolean POWERONLOCATION = false;
     private static boolean HEATONLOCATION = false;
@@ -134,6 +139,30 @@ public class NorthQConfig {
 
     public static void setPHONE_MAP(Map<String, Boolean> pHONE_MAP) {
         PHONE_MAP = pHONE_MAP;
+    }
+
+    public static String getSQL_USERNAME() {
+        return SQL_USERNAME;
+    }
+
+    public static void setSQL_USERNAME(String username) {
+        SQL_USERNAME = username;
+    }
+
+    public static String getSQL_PASSWORD() {
+        return SQL_PASSWORD;
+    }
+
+    public static void setSQL_PASSWORD(String password) {
+        SQL_PASSWORD = password;
+    }
+
+    public static String getSECRET_KEY() {
+        return SECRET_KEY;
+    }
+
+    public static void setSECRET_KEY(String key) {
+        SECRET_KEY = key;
     }
 
 }

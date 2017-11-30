@@ -34,6 +34,7 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.Qmotion;
 import org.openhab.binding.northq.internal.model.Thing;
+import org.openhab.binding.northq.internal.services.CredentialsService;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,20 +48,23 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQMotionHandler extends BaseThingHandler {
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
 
     private NorthqServices services;
+    private CredentialsService credentialsService;
+
     private boolean currentStatus;
     private boolean currentTriggered;
-
     private boolean powerOnMotion;
     private boolean lightOnPercent;
+
     private long lightTriggered;
 
     private ScheduledFuture<?> pollingJob;
 
-    private String sqlUser = "root";
-    private String sqlPassword = "changeme";
+    private String sqlUser;
+    private String sqlPassword;
 
     private long lastNotification = 0;
 
@@ -74,14 +78,21 @@ public class NorthQMotionHandler extends BaseThingHandler {
     /**
      * Constructor
      */
+    @SuppressWarnings("null")
     public NorthQMotionHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
         services = new NorthqServices();
+        credentialsService = new CredentialsService();
+
+        sqlUser = NorthQConfig.getSQL_USERNAME();
+        sqlPassword = NorthQConfig.getSQL_PASSWORD();
+
         currentStatus = false;
         powerOnMotion = false;
         lightOnPercent = false;
         lightTriggered = 1;
+
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
