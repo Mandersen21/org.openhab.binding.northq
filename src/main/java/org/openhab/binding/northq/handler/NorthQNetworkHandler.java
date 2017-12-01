@@ -76,8 +76,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         // Get parameters from configuration
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get(NorthQStringConstants.USERNAME).toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get(NorthQStringConstants.PASSWORD).toString());
-        NorthQConfig.setSQL_USERNAME(getThing().getConfiguration().get(NorthQStringConstants.SQL_USERNAME).toString());
-        NorthQConfig.setSQL_PASSWORD(getThing().getConfiguration().get(NorthQStringConstants.SQL_PASSWORD).toString());
         NorthQConfig.setHOMELOCATION(getThing().getConfiguration().get(NorthQStringConstants.HOMELOCATION).toString());
 
         NorthNetwork network = null;
