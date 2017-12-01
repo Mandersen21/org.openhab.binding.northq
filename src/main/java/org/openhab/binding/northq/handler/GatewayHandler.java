@@ -40,7 +40,6 @@ public class GatewayHandler extends BaseThingHandler {
         @Override
         public void run() {
             scheduleCode();
-
         }
     };
 
@@ -129,15 +128,12 @@ public class GatewayHandler extends BaseThingHandler {
     public void initialize() {
         NorthQConfig.setHEATONLOCATION(false);
         updateStatus(ThingStatus.ONLINE);
-        // set initial values
-
     }
 
     private void scheduleCode() {
         try {
 
             Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
-
             NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
 
             boolean allAway = true;
@@ -152,11 +148,9 @@ public class GatewayHandler extends BaseThingHandler {
                 updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
                         StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
             } else {
-
                 updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
                         StringType.valueOf(NorthQStringConstants.INACTIVE));
             }
-
             if (NorthQConfig.isPOWERONLOCATION()) {
                 updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
                         StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
@@ -167,7 +161,5 @@ public class GatewayHandler extends BaseThingHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 }
