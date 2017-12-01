@@ -18,15 +18,6 @@
 				<label>Password to be used</label>
 				<description>Specifies the password that is working with the q stick.</description>
 			</parameter>
-			<parameter name="sql_username" type="text" required="true">
-				<label>Sql username to your database</label>
-				<description>Specifies the sql username for the database used for persistence</description>
-			</parameter>
-			<parameter name="sql_password" type="text" required="true">
-				<context>password</context>
-				<label>Sql password to be used</label>
-				<description>Specifies the sql password for the database used for persistence.</description>
-			</parameter>
 			<parameter name="homelocation" type="text" required="true">
 				<label>Home</label>
 				<description>GPS location of home</description>

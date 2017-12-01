@@ -23,6 +23,7 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
 import org.openhab.binding.northq.internal.mock.gui.MockGui;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
+import org.openhab.binding.northq.internal.services.CredentialsService;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     private final Logger logger = LoggerFactory.getLogger(NorthQNetworkHandler.class);
 
     private NorthqServices services;
+    private CredentialsService credentialsService;
     private ScheduledFuture<?> pollingJob;
 
     private Runnable pollingRunnable = new Runnable() {
@@ -59,6 +61,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
         super(bridge);
 
         services = new NorthqServices();
+        credentialsService = new CredentialsService();
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
