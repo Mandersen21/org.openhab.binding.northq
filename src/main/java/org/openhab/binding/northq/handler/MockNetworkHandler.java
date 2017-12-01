@@ -26,6 +26,7 @@ import org.openhab.binding.northq.internal.common.NorthQConfig;
  */
 @NonNullByDefault
 public class MockNetworkHandler extends BaseThingHandler {
+
     /**
      * Constructor
      */

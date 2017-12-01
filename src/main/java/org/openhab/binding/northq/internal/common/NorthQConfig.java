@@ -25,14 +25,14 @@ public class NorthQConfig {
     // North network
     private static NorthNetwork NETWORK = null;
 
-    private static String USERNAME = "";
-    private static String PASSWORD = "";
-    private static String HOMELOCATION = "";
+    private static String USERNAME;
+    private static String PASSWORD;
+    private static String HOMELOCATION;
 
-    private static String SQL_USERNAME = "";
-    private static String SQL_PASSWORD = "";
+    private static String SQL_USERNAME;
+    private static String SQL_PASSWORD;
 
-    private static String SECRET_KEY = "";
+    private static String SECRET_KEY = "Beercalc12DTU123";
 
     private static boolean ISHOME = true;
     private static boolean POWERONLOCATION = false;

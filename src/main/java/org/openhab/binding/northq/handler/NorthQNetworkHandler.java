@@ -37,10 +37,11 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQNetworkHandler extends BaseBridgeHandler {
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQNetworkHandler.class);
 
-    private ScheduledFuture<?> pollingJob;
     private NorthqServices services;
+    private ScheduledFuture<?> pollingJob;
 
     private Runnable pollingRunnable = new Runnable() {
 
@@ -53,6 +54,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     /**
      * Constructor
      */
+    @SuppressWarnings("null")
     public NorthQNetworkHandler(Bridge bridge) {
         super(bridge);
 
@@ -67,10 +69,12 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
      */
     @Override
     public void initialize() {
-        // Get parameters from configuration
 
+        // Get parameters from configuration
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get(NorthQStringConstants.USERNAME).toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get(NorthQStringConstants.PASSWORD).toString());
+        NorthQConfig.setSQL_USERNAME(getThing().getConfiguration().get(NorthQStringConstants.SQL_USERNAME).toString());
+        NorthQConfig.setSQL_PASSWORD(getThing().getConfiguration().get(NorthQStringConstants.SQL_PASSWORD).toString());
         NorthQConfig.setHOMELOCATION(getThing().getConfiguration().get(NorthQStringConstants.HOMELOCATION).toString());
 
         NorthNetwork network = null;

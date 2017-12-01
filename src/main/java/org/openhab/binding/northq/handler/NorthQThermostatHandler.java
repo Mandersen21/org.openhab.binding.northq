@@ -41,29 +41,27 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQThermostatHandler extends BaseThingHandler {
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQThermostatHandler.class);
 
     private NorthqServices services;
-    private boolean currentStatus;
 
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
-
         @Override
         public void run() {
             ScheduleCode();
         }
-
     };
 
     /**
      * Constructor
      */
+    @SuppressWarnings("null")
     public NorthQThermostatHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
         services = new NorthqServices();
-        currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
@@ -99,8 +97,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 }
 
                 // Configurations
-                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();// TODO: make this
-                                                                                                 // dynamic
+                String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (command.toString() != null) {
@@ -128,6 +125,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
         if (pollingJob != null && !pollingJob.isCancelled()) {
             pollingJob.cancel(true);
         }
+
         // remove thing
         updateStatus(ThingStatus.REMOVED);
     }
@@ -182,7 +180,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             }
             if (NorthQConfig.isHEATONLOCATION()) {
                 if (!NorthQConfig.ISHOME()) {
-                    // When noone is home maximum temp is 30
+                    // When none is home maximum temp is 30
                     int temp = (int) NorthQConfig.getNOTHOMETEMP();
                     if (temp > 30) {
                         temp = 30;
@@ -190,7 +188,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
                             qthermostat);
 
-                } // When someone it home the minimum temp is 5
+                }
+                // When someone it home the minimum temp is 5
                 else if (NorthQConfig.ISHOME()) {
                     int temp = (int) NorthQConfig.getISHOMETEMP();
                     if (temp < 5) {
@@ -206,8 +205,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
         } finally {
             ReadWriteLock.getInstance().unlockWrite();
         }
-        Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
 
+        Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
         NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
     }
 }

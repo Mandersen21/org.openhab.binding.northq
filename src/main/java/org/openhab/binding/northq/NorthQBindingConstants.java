@@ -35,6 +35,7 @@ public class NorthQBindingConstants {
     public static final ThingTypeUID THING_TYPE_GATEWAY = new ThingTypeUID(BINDING_ID, "gateway");
     public static final ThingTypeUID THING_TYPE_MOCKNETWORK = new ThingTypeUID(BINDING_ID, "mocknetwork");
 
+    @SuppressWarnings("null")
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(THING_TYPE_QPLUG,
             THING_TYPE_QMOTION, THING_TYPE_NETWORK, THING_TYPE_QPHONE, THING_TYPE_QTHERMOSTAT, THING_TYPE_GATEWAY,
             THING_TYPE_MOCKNETWORK);
