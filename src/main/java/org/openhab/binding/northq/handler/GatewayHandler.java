@@ -46,6 +46,7 @@ public class GatewayHandler extends BaseThingHandler {
     /**
      * Constructor
      */
+    @SuppressWarnings("null")
     public GatewayHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);

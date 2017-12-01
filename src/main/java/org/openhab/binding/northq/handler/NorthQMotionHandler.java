@@ -34,7 +34,6 @@ import org.openhab.binding.northq.internal.common.ReadWriteLock;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.Qmotion;
 import org.openhab.binding.northq.internal.model.Thing;
-import org.openhab.binding.northq.internal.services.CredentialsService;
 import org.openhab.binding.northq.internal.services.NorthqServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,21 +51,18 @@ public class NorthQMotionHandler extends BaseThingHandler {
     private final Logger logger = LoggerFactory.getLogger(NorthQMotionHandler.class);
 
     private NorthqServices services;
-    private CredentialsService credentialsService;
 
-    private boolean currentStatus;
-    private boolean currentTriggered;
-    private boolean powerOnMotion;
-    private boolean lightOnPercent;
+    private boolean currentStatus = false;
+    private boolean powerOnMotion = false;
+    private boolean lightOnPercent = false;
 
     private long lightTriggered;
+    private long lastNotification = 0;
 
     private ScheduledFuture<?> pollingJob;
 
     private String sqlUser;
     private String sqlPassword;
-
-    private long lastNotification = 0;
 
     private Runnable pollingRunnable = new Runnable() {
         @Override
@@ -83,16 +79,11 @@ public class NorthQMotionHandler extends BaseThingHandler {
         super(thing);
 
         services = new NorthqServices();
-        credentialsService = new CredentialsService();
 
         sqlUser = NorthQConfig.getSQL_USERNAME();
         sqlPassword = NorthQConfig.getSQL_PASSWORD();
 
-        currentStatus = false;
-        powerOnMotion = false;
-        lightOnPercent = false;
         lightTriggered = 1;
-
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
@@ -216,6 +207,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
             boolean triggered = services.isTriggered(services.getNotificationArray(
                     NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
                     NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
+
             // Moved here
             if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
                 // unregister database tracking
@@ -248,13 +240,9 @@ public class NorthQMotionHandler extends BaseThingHandler {
 
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType
                         .valueOf(triggered ? NorthQStringConstants.TRIGGERED : NorthQStringConstants.NOT_TRIGGERED));
-
-                currentTriggered = triggered;
             } else {
                 updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
                         StringType.valueOf(NorthQStringConstants.NOT_ARMED));
-
-                currentTriggered = false;
             }
 
             if (qMotion != null && qMotion.getStatus() != currentStatus) { // Check if external change occurs

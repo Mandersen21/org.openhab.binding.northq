@@ -43,13 +43,13 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
 
     private NorthqServices services;
     private ScheduledFuture<?> pollingJob;
-    private boolean currentStatus;
-    private Runnable pollingRunnable = new Runnable() {
 
+    private Runnable pollingRunnable = new Runnable() {
         @Override
         public void run() {
             scheduleCode();
@@ -64,7 +64,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
         super(thing);
 
         services = new NorthqServices();
-        currentStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
@@ -127,6 +126,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
         if (pollingJob != null && !pollingJob.isCancelled()) {
             pollingJob.cancel(true);
         }
+
         // remove thing
         updateStatus(ThingStatus.REMOVED);
     }
@@ -138,7 +138,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOffPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
         if (res) {
-            currentStatus = false;
             qPlug.getBs().pos = 0;
         }
     }
@@ -150,7 +149,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOnPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
         if (res) {
-            currentStatus = true;
             qPlug.getBs().pos = 1;
         }
     }
@@ -161,6 +159,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
      */
     public @Nullable Qplug getPlug(String nodeID) {
         ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
+
         for (NGateway gw : gateways) {
             ArrayList<Thing> things = gw.getThings();
             for (int i = 0; i < things.size(); i++) {
@@ -203,13 +202,11 @@ public class NorthQPlugHandler extends BaseThingHandler {
                     boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
                     qplug.getBs().pos = 0;
                     updateState("channelplug", OnOffType.OFF);
-                    currentStatus = false;
                     updateStatus(ThingStatus.ONLINE);
                 } catch (Exception e) {
                     e.printStackTrace();
                     updateStatus(ThingStatus.OFFLINE);
                 }
-
             }
 
             updateState(NorthQBindingConstants.CHANNEL_QPLUG, qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);

@@ -39,8 +39,6 @@ import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
-import org.openhab.binding.northq.internal.services.CredentialsService;
-import org.openhab.binding.northq.internal.services.NetworkUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,11 +55,10 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPhoneHandler.class);
 
-    private CredentialsService credentialsService;
     private boolean phoneEnabledStatus;
+
     public String location = "0";
     public String locationStatus = "home";
-
     private String sqlUser;
     private String sqlPassword;
 
@@ -79,8 +76,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     @SuppressWarnings("null")
     public NorthQPhoneHandler(Thing thing) {
         super(thing);
-
-        credentialsService = new CredentialsService();
 
         sqlUser = NorthQConfig.getSQL_USERNAME();
         sqlPassword = NorthQConfig.getSQL_PASSWORD();
@@ -128,9 +123,8 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         if (pollingJob != null && !pollingJob.isCancelled()) {
             pollingJob.cancel(true);
         }
-        removeUserFromDb();
 
-        // remove thing
+        removeUserFromDb();
         updateStatus(ThingStatus.REMOVED);
     }
 
@@ -167,7 +161,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         Form form = new Form();
         form.param("getGPS", NorthQConfig.getUSERNAME());
         form.param("name", getThing().getConfiguration().get("name").toString());
-        NetworkUtils nu = new NetworkUtils();
 
         try {
             if (phoneEnabledStatus) {
