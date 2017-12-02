@@ -9,9 +9,10 @@
 
 package org.openhab.binding.northq.internal.services;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
@@ -25,7 +26,11 @@ import org.openhab.binding.northq.internal.common.NorthQConfig;
 
 public class CredentialsService {
 
+    private String configFilePath;
+
     public CredentialsService() {
+
+        configFilePath = new File(System.getProperty("user.dir")).getParentFile() + "";
 
         // Set user credentials
         ArrayList<String> userCre = getUserCredentials();
@@ -44,86 +49,61 @@ public class CredentialsService {
     public ArrayList<String> getUserCredentials() {
 
         ArrayList<String> credentials = new ArrayList<>();
-        File file = readFile("../config.txt");
 
-        if (file != null) {
-            try {
-                Scanner scanner = new Scanner(file);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(configFilePath + "/config.txt"));
 
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    if (line.substring(0, line.indexOf("#")).equals("user")) {
-                        credentials.add(line.substring(line.indexOf("#") + 1));
-                    }
-                    if (line.substring(0, line.indexOf("#")).equals("password")) {
-                        credentials.add(line.substring(line.indexOf("#") + 1));
-                    }
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.substring(0, line.indexOf("#")).equals("user")) {
+                    credentials.add(line.substring(line.indexOf("#") + 1));
                 }
-                scanner.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+                if (line.substring(0, line.indexOf("#")).equals("password")) {
+                    credentials.add(line.substring(line.indexOf("#") + 1));
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return credentials;
     }
 
     public ArrayList<String> getDatabaseCredentials() {
         ArrayList<String> credentials = new ArrayList<>();
-        File file = readFile("../config.txt");
 
-        if (file != null) {
-            try {
-                Scanner scanner = new Scanner(file);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(configFilePath + "/config.txt"));
 
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    if (line.substring(0, line.indexOf("#")).equals("sqlUser")) {
-                        credentials.add(line.substring(line.indexOf("#") + 1));
-                    }
-                    if (line.substring(0, line.indexOf("#")).equals("sqlPassword")) {
-                        credentials.add(line.substring(line.indexOf("#") + 1));
-                    }
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.substring(0, line.indexOf("#")).equals("sqlUser")) {
+                    credentials.add(line.substring(line.indexOf("#") + 1));
                 }
-                scanner.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+                if (line.substring(0, line.indexOf("#")).equals("sqlPassword")) {
+                    credentials.add(line.substring(line.indexOf("#") + 1));
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return credentials;
     }
 
     public String getSecretKey() {
-        File file = readFile("../config.txt");
-        String key = null;
-
-        if (file != null) {
-            try {
-                Scanner scanner = new Scanner(file);
-
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    if (line.substring(0, line.indexOf("#")).equals("secretKey")) {
-                        key = line.substring(line.indexOf("#") + 1);
-                    }
-                }
-                scanner.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return key;
-    }
-
-    public File readFile(String filename) {
-        File file = null;
 
         try {
-            file = new File(filename);
+            BufferedReader br = new BufferedReader(new FileReader(configFilePath + "/config.txt"));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.substring(0, line.indexOf("#")).equals("secretKey")) {
+                    return line.substring(line.indexOf("#") + 1);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
         }
-        return file;
+        return null;
     }
 
 }
