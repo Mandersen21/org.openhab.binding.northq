@@ -30,7 +30,8 @@ public class CredentialsService {
 
     public CredentialsService() {
 
-        configFilePath = new File(System.getProperty("user.dir")).getParentFile() + "";
+        configFilePath = new File(System.getProperty("user.dir")).getParent() + "";
+        System.out.println(configFilePath);
 
         // Set user credentials
         ArrayList<String> userCre = getUserCredentials();
@@ -63,7 +64,7 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Exception happened, file config.txt could not be read, path is: " + configFilePath);
         }
         return credentials;
     }
@@ -84,7 +85,7 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Exception happened, file config.txt could not be read, path is: " + configFilePath);
         }
         return credentials;
     }
@@ -101,7 +102,7 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Exception happened, file config.txt could not be read, path is: " + configFilePath);
         }
         return null;
     }
