@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
@@ -26,12 +28,11 @@ import org.openhab.binding.northq.internal.common.NorthQConfig;
 
 public class CredentialsService {
 
-    private String configFilePath;
+    @SuppressWarnings("null")
+    private final Logger logger = LoggerFactory.getLogger(CredentialsService.class);
+    private final String PATH = new File(System.getProperty("user.dir")) + "";
 
     public CredentialsService() {
-
-        configFilePath = new File(System.getProperty("user.dir")).getParent() + "";
-        System.out.println(configFilePath);
 
         // Set user credentials
         ArrayList<String> userCre = getUserCredentials();
@@ -52,7 +53,7 @@ public class CredentialsService {
         ArrayList<String> credentials = new ArrayList<>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(configFilePath + "/config.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(PATH + "/config.txt"));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -64,7 +65,7 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Exception happened, file config.txt could not be read, path is: " + configFilePath);
+            logger.error("Could not read file config.txt");
         }
         return credentials;
     }
@@ -73,7 +74,7 @@ public class CredentialsService {
         ArrayList<String> credentials = new ArrayList<>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(configFilePath + "/config.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(PATH + "/config.txt"));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -85,7 +86,7 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Exception happened, file config.txt could not be read, path is: " + configFilePath);
+            logger.error("Could not read file config.txt");
         }
         return credentials;
     }
@@ -93,7 +94,7 @@ public class CredentialsService {
     public String getSecretKey() {
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(configFilePath + "/config.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(PATH + "/config.txt"));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -102,7 +103,7 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Exception happened, file config.txt could not be read, path is: " + configFilePath);
+            logger.error("Could not read file config.txt");
         }
         return null;
     }
