@@ -12,17 +12,17 @@
 
 		<label>HomePlug</label>
 		<description>QPlug thing for NorthQ Binding</description>
-        
-        <channels>
-            <channel id="channelPlug" typeId="plugChannel" />
-            <channel id="channelPlugPower" typeId="plugPowerChannel" />
-            <channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
-            <channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
-            <channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
-            <channel id="channelPlugPowerEndOfDay" typeId="plugPowerEndOfDayChannel" />
-            <channel id="channelPlugPowerEndOfWeek" typeId="plugPowerEndOfWeekChannel" />
-            <channel id="channelPlugPowerEndOfMonth" typeId="plugPowerEndOfMonthChannel" />
-        </channels>
+
+		<channels>
+			<channel id="channelPlug" typeId="plugChannel" />
+			<channel id="channelPlugPower" typeId="plugPowerChannel" />
+			<channel id="channelPlugPowerDay" typeId="plugPowerDayChannel" />
+			<channel id="channelPlugPowerWeek" typeId="plugPowerWeekChannel" />
+			<channel id="channelPlugPowerMonth" typeId="plugPowerMonthChannel" />
+			<channel id="channelPlugPowerEndOfDay" typeId="plugPowerEndOfDayChannel" />
+			<channel id="channelPlugPowerEndOfWeek" typeId="plugPowerEndOfWeekChannel" />
+			<channel id="channelPlugPowerEndOfMonth" typeId="plugPowerEndOfMonthChannel" />
+		</channels>
 	</thing-type>
 
 	<channel-type id="plugChannel">
@@ -58,27 +58,27 @@
 		<description>Power consumption month of QPlug</description>
 		<state pattern="%.1d kWh" readOnly="true" />
 	</channel-type>
-	
+
 	<channel-type id="plugPowerEndOfDayChannel">
-        <item-type>Number</item-type>
-        <label>Power Consumption end of current day</label>
-        <description>Power consumption end of current day for Q-Plug</description>
-        <state pattern="%.1d kWh" readOnly="true" />
-    </channel-type>
+		<item-type>Number</item-type>
+		<label>Power Consumption end of current day</label>
+		<description>Power consumption end of current day for Q-Plug</description>
+		<state pattern="%.1d kWh" readOnly="true" />
+	</channel-type>
 
-    <channel-type id="plugPowerEndOfWeekChannel">
-        <item-type>Number</item-type>
-        <label>Power Consumption end of current week</label>
-        <description>Power consumption end of current week of Q-Plug</description>
-        <state pattern="%.1d kWh" readOnly="true" />
-    </channel-type>
+	<channel-type id="plugPowerEndOfWeekChannel">
+		<item-type>Number</item-type>
+		<label>Power Consumption end of current week</label>
+		<description>Power consumption end of current week of Q-Plug</description>
+		<state pattern="%.1d kWh" readOnly="true" />
+	</channel-type>
 
-    <channel-type id="plugPowerEndOfMonthChannel">
-        <item-type>Number</item-type>
-        <label>Power Consumption end of current month</label>
-        <description>Power consumption end of current month of Q-Plug</description>
-        <state pattern="%.1d kWh" readOnly="true" />
-    </channel-type>
+	<channel-type id="plugPowerEndOfMonthChannel">
+		<item-type>Number</item-type>
+		<label>Power Consumption end of current month</label>
+		<description>Power consumption end of current month of Q-Plug</description>
+		<state pattern="%.1d kWh" readOnly="true" />
+	</channel-type>
 
 	<!-- qmotion thing -->
 	<thing-type id="qMotion">
@@ -97,12 +97,12 @@
 			<channel id="channellight" typeId="motion-light-channel"></channel>
 			<channel id="channelhumidity" typeId="motion-humidity-channel"></channel>
 			<channel id="channelbattery" typeId="motion-battery-channel"></channel>
-			
+
 			<channel id="channelpoweronmotionswitch" typeId="motion-poweronmmotionswitch-channel"></channel>
-            <channel id="channelpoweronmotion" typeId="motion-poweronmmotion-channel"></channel>
-		    
-		    <channel id="channellightonpercentswitch" typeId="motion-lightonpercentswitch-channel"></channel>
-		    <channel id="channellightonpercent" typeId="motion-lightonpercent-channel"></channel>
+			<channel id="channelpoweronmotion" typeId="motion-poweronmmotion-channel"></channel>
+
+			<channel id="channellightonpercentswitch" typeId="motion-lightonpercentswitch-channel"></channel>
+			<channel id="channellightonpercent" typeId="motion-lightonpercent-channel"></channel>
 		</channels>
 	</thing-type>
 
@@ -112,46 +112,46 @@
 		<description>QMotion channel for NorthQ Binding</description>
 	</channel-type>
 
-    <channel-type id="motion-lightonpercentswitch-channel">
-        <item-type>Switch</item-type>
-        <label>Enable or disable light on percent</label>
-        <description>Light on percent</description>
-    </channel-type>
-    
-    <channel-type id="motion-lightonpercent-channel">
-        <item-type>String</item-type>
-        <label>LightOnPercent</label>
-        <description>Light on percent</description>
+	<channel-type id="motion-lightonpercentswitch-channel">
+		<item-type>Switch</item-type>
+		<label>Enable or disable light on percent</label>
+		<description>Light on percent</description>
+	</channel-type>
 
-        <state readOnly="true">
-            <options>
-                <option value="Triggered">Light On</option>
-                <option value="Not Triggered">Not Triggered</option>
-                <option value="Not Enabled">Not Enabled</option>
-            </options>
-        </state>
-    </channel-type>
+	<channel-type id="motion-lightonpercent-channel">
+		<item-type>String</item-type>
+		<label>LightOnPercent</label>
+		<description>Light on percent</description>
+
+		<state readOnly="true">
+			<options>
+				<option value="Triggered">Light On</option>
+				<option value="Not Triggered">Not Triggered</option>
+				<option value="Not Enabled">Not Enabled</option>
+			</options>
+		</state>
+	</channel-type>
 
 
-    <channel-type id="motion-poweronmmotionswitch-channel">
-        <item-type>Switch</item-type>
-        <label>Enable or disable power on motion</label>
-        <description>Power on motion</description>
-    </channel-type>
+	<channel-type id="motion-poweronmmotionswitch-channel">
+		<item-type>Switch</item-type>
+		<label>Enable or disable power on motion</label>
+		<description>Power on motion</description>
+	</channel-type>
 
-    <channel-type id="motion-poweronmmotion-channel">
-        <item-type>String</item-type>
-        <label>PowerOnMotion</label>
-        <description>Power on room motion</description>
+	<channel-type id="motion-poweronmmotion-channel">
+		<item-type>String</item-type>
+		<label>PowerOnMotion</label>
+		<description>Power on room motion</description>
 
-        <state readOnly="true">
-            <options>
-                <option value="Triggered">Power On</option>
-                <option value="Not Triggered">Not Triggered</option>
-                <option value="Not Enabled">Not Enabled</option>
-            </options>
-        </state>
-    </channel-type>
+		<state readOnly="true">
+			<options>
+				<option value="Triggered">Power On</option>
+				<option value="Not Triggered">Not Triggered</option>
+				<option value="Not Enabled">Not Enabled</option>
+			</options>
+		</state>
+	</channel-type>
 
 	<channel-type id="motion-notification-channel">
 		<item-type>String</item-type>
@@ -216,7 +216,7 @@
 				<label>Name</label>
 				<description>name of the phone owner</description>
 			</parameter>
-	   </config-description>
+		</config-description>
 	</thing-type>
 
 	<channel-type id="gpslocation-channel">
@@ -254,6 +254,9 @@
 		<channels>
 			<channel id="channelthermostat" typeId="thermostat-channel" />
 			<channel id="channelthermostatbattery" typeId="thermostat-battery-channel" />
+			<channel id="channel-thermostat-scheduler" typeId="channel-thermostat-scheduler" />
+			<channel id="channel-thermostat-day" typeId="channel-thermostat-day" />
+			<channel id="channel-thermostat-night" typeId="channel-thermostat-night" />
 		</channels>
 	</thing-type>
 
@@ -271,6 +274,26 @@
 		<state pattern="%.1d %%" readOnly="true" />
 	</channel-type>
 
+	<channel-type id="channel-thermostat-scheduler">
+		<item-type>Switch</item-type>
+		<label>Temperature scheduler</label>
+		<description>Turn temperature scheduling on or off</description>
+	</channel-type>
+
+	<channel-type id="channel-thermostat-day">
+		<item-type>Number</item-type>
+		<label>Day temperature</label>
+		<description>Temperature at day</description>
+		<state pattern="%.1d °C" />
+	</channel-type>
+
+	<channel-type id="channel-thermostat-night">
+		<item-type>Number</item-type>
+		<label>Night temperature</label>
+		<description>Temperature at night</description>
+		<state pattern="%.1d °C" />
+	</channel-type>
+
 	<!-- gateway thing -->
 	<thing-type id="gateway">
 
@@ -283,12 +306,16 @@
 
 		<channels>
 			<channel id="channeltoggleHeatOnLocation" typeId="toggleHeatOnLocation-channel" />
-			<channel id="channlegpsheatingtatus" typeId="gpslocationheatingstatus-channel"/>
-			<channel id="channelisHomeTemp" typeId="isHomeTemp-channel"/>
-			<channel id="channelnotHomeTemp" typeId="notHomeTemp-channel"/>
-			<channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel"/>
-			<channel id="channlegpspowerstatus" typeId="gpslocationpowerstatus-channel"/>
-
+			<channel id="channlegpsheatingtatus" typeId="gpslocationheatingstatus-channel" />
+			<channel id="channelisHomeTemp" typeId="isHomeTemp-channel" />
+			<channel id="channelnotHomeTemp" typeId="notHomeTemp-channel" />
+			
+			<channel id="channelScheduleTemp" typeId="channelScheduleTemp" />
+			<channel id="channelScheduleTempDay" typeId="channelScheduleTempDay" />
+			<channel id="channelScheduleTempNight" typeId="channelScheduleTempNight" />
+			
+			<channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel" />
+			<channel id="channlegpspowerstatus" typeId="gpslocationpowerstatus-channel" />
 		</channels>
 	</thing-type>
 
@@ -297,51 +324,51 @@
 		<label>GPS service</label>
 		<description>Toggle power off plugs based on location</description>
 	</channel-type>
-	
-	<channel-type id="gpslocationheatingstatus-channel">
-        <item-type>String</item-type>
-        <label>GPS status</label>
-        <description>GPS status</description>
-        <state readOnly="true">
-            <options>
-                <option value="Home">Home</option>
-                <option value="Out">Out</option>
-                <option value="Inactive">Inactive</option>
-            </options>
-        </state>
-    </channel-type>
-    
-   <channel-type id="gpslocationpowerstatus-channel">
-        <item-type>String</item-type>
-        <label>GPS status</label>
-        <description>GPS status</description>
-        <state readOnly="true">
-            <options>
-                <option value="Home">Home</option>
-                <option value="Out">Out</option>
-                <option value="Inactive">Inactive</option>
-            </options>
-        </state>
-    </channel-type>
 
-    <channel-type id="gpslocationheatingstatus-channel">
-        <item-type>String</item-type>
-        <label>GPS status</label>
-        <description>GPS status</description>
-        <state readOnly="true">
-            <options>
-                <option value="Home">Home</option>
-                <option value="Out">Out</option>
-                <option value="Inactive">Inactive</option>
-            </options>
-        </state>
-    </channel-type>
-    
-    <channel-type id="toggleHeatOnLocation-channel">
-        <item-type>Switch</item-type>
-        <label>ToggleHeat</label>
-        <description>Toggle heat based on location</description>
-    </channel-type>
+	<channel-type id="gpslocationheatingstatus-channel">
+		<item-type>String</item-type>
+		<label>GPS status</label>
+		<description>GPS status</description>
+		<state readOnly="true">
+			<options>
+				<option value="Home">Home</option>
+				<option value="Out">Out</option>
+				<option value="Inactive">Inactive</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="gpslocationpowerstatus-channel">
+		<item-type>String</item-type>
+		<label>GPS status</label>
+		<description>GPS status</description>
+		<state readOnly="true">
+			<options>
+				<option value="Home">Home</option>
+				<option value="Out">Out</option>
+				<option value="Inactive">Inactive</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="gpslocationheatingstatus-channel">
+		<item-type>String</item-type>
+		<label>GPS status</label>
+		<description>GPS status</description>
+		<state readOnly="true">
+			<options>
+				<option value="Home">Home</option>
+				<option value="Out">Out</option>
+				<option value="Inactive">Inactive</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="toggleHeatOnLocation-channel">
+		<item-type>Switch</item-type>
+		<label>Temperature based on location</label>
+		<description>Toggle heat based on location</description>
+	</channel-type>
 
 	<channel-type id="isHomeTemp-channel">
 		<item-type>Number</item-type>
@@ -354,7 +381,24 @@
 		<label>NotHomeTemp</label>
 		<description>Temperature when not home</description>
 	</channel-type>
-
+    
+    <channel-type id="channelScheduleTemp">
+        <item-type>Switch</item-type>
+        <label>Temperature scheduler</label>
+        <description>Enable temperature scheduler</description>
+    </channel-type>
+    
+    <channel-type id="channelScheduleTempDay">
+        <item-type>Number</item-type>
+        <label>Temperature Day</label>
+        <description>Temperature in the day</description>
+    </channel-type>
+    
+    <channel-type id="channelScheduleTempNight">
+        <item-type>Number</item-type>
+        <label>Temperature Night</label>
+        <description>Temperature in the night</description>
+    </channel-type>
 
 	<!-- mock network on/off -->
 	<thing-type id="mocknetwork">
