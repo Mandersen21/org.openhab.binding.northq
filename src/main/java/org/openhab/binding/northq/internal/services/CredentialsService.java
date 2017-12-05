@@ -38,7 +38,7 @@ public class CredentialsService {
         NorthQConfig.setPASSWORD(userCre.get(1));
 
         // Set database credentials
-        ArrayList<String> databaseCre = getUserCredentials();
+        ArrayList<String> databaseCre = getDatabaseCredentials();
         NorthQConfig.setSQL_USERNAME(databaseCre.get(0));
         NorthQConfig.setSQL_PASSWORD(databaseCre.get(1));
 
