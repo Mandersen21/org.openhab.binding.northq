@@ -239,7 +239,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     "insert ignore into gpsapp.registeredgpsusers (`username`, `homelocation`) values (?,?);");
             createStatement.setString(1, getThing().getConfiguration().get("name").toString());
             createStatement.setString(2, NorthQConfig.getHOMELOCATION());
-            createStatement.executeQuery();
+            createStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -285,7 +285,7 @@ public class NorthQPhoneHandler extends BaseThingHandler {
             createStatement = conn
                     .prepareStatement("delete from gpsapp.registeredgpsusers where registeredgpsusers.Username = ?;");
             createStatement.setString(1, getThing().getConfiguration().get("name").toString());
-            createStatement.executeQuery();
+            createStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
