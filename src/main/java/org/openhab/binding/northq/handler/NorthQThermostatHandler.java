@@ -11,7 +11,6 @@ package org.openhab.binding.northq.handler;
 import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QTHERMOSTAT;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -48,27 +47,10 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     private NorthqServices services;
 
     private ScheduledFuture<?> pollingJob;
-    private ScheduledFuture<?> pollingJobNightly;
-    private ScheduledFuture<?> pollingJobDaily;
-
     private Runnable pollingRunnable = new Runnable() {
         @Override
         public void run() {
             ScheduleCode();
-        }
-    };
-
-    private Runnable pollingNightlyRunnable = new Runnable() {
-        @Override
-        public void run() {
-            NightlySchedule();
-        }
-    };
-
-    private Runnable pollingDailyRunnable = new Runnable() {
-        @Override
-        public void run() {
-            DaylySchedule();
         }
     };
 
@@ -81,18 +63,6 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
         services = new NorthqServices();
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
-
-        Calendar dayly = Calendar.getInstance();
-        dayly.set(Calendar.HOUR_OF_DAY, 7);
-        dayly.set(Calendar.MINUTE, 0);
-        dayly.set(Calendar.SECOND, 0);
-        pollingJobDaily = scheduler.scheduleWithFixedDelay(pollingDailyRunnable, 1, 200, TimeUnit.SECONDS);
-
-        Calendar nightly = Calendar.getInstance();
-        nightly.set(Calendar.HOUR_OF_DAY, 0);
-        nightly.set(Calendar.MINUTE, 0);
-        nightly.set(Calendar.SECOND, 0);
-        pollingJobNightly = scheduler.scheduleWithFixedDelay(pollingNightlyRunnable, 1, 200, TimeUnit.SECONDS);
     }
 
     /**
@@ -131,6 +101,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (command.toString() != null) {
+                    // Stop polling job for a moment when temperature is changed
+                    pollingJob.wait(30000);
                     String temperature = command.toString();
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
@@ -176,30 +148,6 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             }
         }
         return null;
-    }
-
-    /**
-     * Requires:
-     * Returns: updates thermostat if schedule temperature is active and time is between 00 - 07
-     */
-    public void NightlySchedule() {
-
-        // Temperature scheduler activated
-        if (NorthQConfig.isTEMP_SCHEDULER()) {
-            // TODO - make is for specific time of day
-        }
-    }
-
-    /**
-     * Requires:
-     * Returns: updates thermostat if schedule temperature is active and time is between 07 - 00
-     */
-    public void DaylySchedule() {
-
-        // Temperature scheduler activated
-        if (NorthQConfig.isTEMP_SCHEDULER()) {
-            // TODO - make is for specific time of day
-        }
     }
 
     /**
