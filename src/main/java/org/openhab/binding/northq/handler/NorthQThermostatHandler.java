@@ -101,8 +101,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (command.toString() != null) {
-                    // Stop polling job for a moment when temperature is changed
-                    pollingJob.wait(30000);
+                    // Stop polling job for a moment when temperature is changed for better userexperience.
+
                     String temperature = command.toString();
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
