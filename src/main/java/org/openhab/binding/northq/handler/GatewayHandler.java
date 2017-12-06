@@ -62,19 +62,6 @@ public class GatewayHandler extends BaseThingHandler {
         try {
             ReadWriteLock.getInstance().lockWrite();
 
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
-                    NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE,
-                    NorthQConfig.isTEMP_SCHEDULER() ? OnOffType.ON : OnOffType.OFF);
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_DAY,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getDAYTEMP())));
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_NIGHT,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNIGHTTEMP())));
-
             // updating ToggleHeatLocation variable dependent on input from channel
             if (channelUID.getId().equals(CHANNEL_SETTINGS_TOGGLEHEATLOCATION)) {
                 if (command.toString().equals(NorthQStringConstants.ON)) {
@@ -126,6 +113,19 @@ public class GatewayHandler extends BaseThingHandler {
                     NorthQConfig.setNIGHTTEMP(Float.valueOf(command.toString()));
                 }
             }
+
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
+                    NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE,
+                    NorthQConfig.isTEMP_SCHEDULER() ? OnOffType.ON : OnOffType.OFF);
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_DAY,
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getDAYTEMP())));
+            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_NIGHT,
+                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNIGHTTEMP())));
 
         } catch (Exception e) {
             e.printStackTrace();
