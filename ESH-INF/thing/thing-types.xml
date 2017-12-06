@@ -366,19 +366,19 @@
 
 	<channel-type id="toggleHeatOnLocation-channel">
 		<item-type>Switch</item-type>
-		<label>Temperature based on location</label>
+		<label>User location temperature</label>
 		<description>Toggle heat based on location</description>
 	</channel-type>
 
 	<channel-type id="isHomeTemp-channel">
 		<item-type>Number</item-type>
-		<label>IsHomeTemp</label>
+		<label>Is home temperature</label>
 		<description>Temperature when home</description>
 	</channel-type>
 
 	<channel-type id="notHomeTemp-channel">
 		<item-type>Number</item-type>
-		<label>NotHomeTemp</label>
+		<label>Not home temperature</label>
 		<description>Temperature when not home</description>
 	</channel-type>
     
