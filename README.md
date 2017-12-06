@@ -1,3 +1,4 @@
+
 # <bindingName> Binding
 
 This is a NorthQ binding for openhab

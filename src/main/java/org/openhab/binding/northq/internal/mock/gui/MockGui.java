@@ -16,20 +16,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.mock.MockFactory;
 import org.openhab.binding.northq.internal.mock.NorthQMockNetwork;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
+import org.openhab.binding.northq.internal.model.Qmotion;
+import org.openhab.binding.northq.internal.model.Qplug;
+import org.openhab.binding.northq.internal.model.Qthermostat;
 import org.openhab.binding.northq.internal.model.Thing;
 
 /**
@@ -41,6 +49,7 @@ import org.openhab.binding.northq.internal.model.Thing;
 public class MockGui extends JFrame {
     // MainPanel
     private JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+
     // OverviewPanel
     private JPanel overviewPanel = new JPanel(new BorderLayout());
     private DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -49,35 +58,95 @@ public class MockGui extends JFrame {
     // ConfigPanels
     private JPanel configPanel = new JPanel(new BorderLayout());
     private JPanel addPanel = new JPanel(new GridBagLayout());
-    private JPanel settingsPanel = new JPanel(new GridBagLayout());
+    private JPanel settingsPanel = new JPanel();
 
-    private String[] deviceNames = { "Q Plug", "Q Motion", "Q Thermostat", "Gateway" };
+    // Add Panel
+    private String[] deviceNames = { "Q Plug", "Q Motion", "Q Thermostat", "NGateway" };
     private JComboBox<String> addDropDown = new JComboBox<String>(deviceNames);
-    private String[] gatewaysChoice = NorthQConfig.getMOCK_NETWORK().getNetwork().toStringArray();
-    private JComboBox<String> chooseGateway = new JComboBox<String>(gatewaysChoice);
+    private String[] gatewaysChoice;
+    private JComboBox<String> chooseGateway;
     private JButton addButton = new JButton("Add Selection");
 
-    public MockGui() {
+    // Settings Panels
 
+    // plug Panel
+    private JPanel plugPanel = new JPanel();
+    private JTextField statusField = new JTextField();
+    private JLabel statusLabel = new JLabel("Plug Status:");
+    private JTextField powerconField = new JTextField();
+    private JLabel powerconLabel = new JLabel("Power consumption:");
+    private JButton submitPlugButton = new JButton("Submit");
+
+    // motion Panel
+    private JPanel motionPanel = new JPanel();
+    private JTextField armedField = new JTextField();
+    private JLabel armedLabel = new JLabel("Armed/Disarmed:");
+    private JTextField temperatureField = new JTextField();
+    private JLabel temperatureLabel = new JLabel("Temperature:");
+    private JTextField humidityField = new JTextField();
+    private JLabel humidityLabel = new JLabel("Humidity:");
+    private JTextField lightField = new JTextField();
+    private JLabel lightLabel = new JLabel("Light:");
+    private JTextField batteryMotionField = new JTextField();
+    private JLabel batteryMotionLabel = new JLabel("Battery:");
+    private JButton submitMotionButton = new JButton("Submit");
+
+    // Thermostat Panel
+    private JPanel thermostatPanel = new JPanel();
+    private JTextField temperatureTherField = new JTextField();
+    private JLabel temperatureTherLabel = new JLabel("Temperature:");
+    private JTextField batteryTherField = new JTextField();
+    private JLabel batteryTherLabel = new JLabel("Battery:");
+    private JButton submitThermostatButton = new JButton("Submit");
+
+    public MockGui() {
         super();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(500, 500));
-        setResizable(true);
+        setResizable(false);
 
+        // The list panel
+        overviewPanel();
+
+        // The panel to add new things
+        addPanel();
+
+        // The different thing panels for selection of a thing in the list
+        plugPanel();
+        motionPanel();
+        thermostatPanel();
+
+        // The two main panels of the left part of the gui
+        settingsPanel();
+        configPanel();
+
+        // The main panel
+        mainPanel();
+    }
+
+    // Panels configuration -- Start
+
+    public void overviewPanel() {
+        // OverviewPanel Adds
         overviewList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         overviewList.setLayoutOrientation(JList.VERTICAL);
         overviewList.setVisible(true);
+        overviewList.addListSelectionListener(new mockListSelectionlistener());
+
         addNetworkToOverview();
 
-        // OverviewPanel Adds
         overviewPanel.setPreferredSize(new Dimension(250, 500));
         overviewPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         overviewPanel.add(overviewList);
+    }
 
+    public void addPanel() {
         // AddPanel
         addPanel.setPreferredSize(new Dimension(250, 250));
         addPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        gatewaysChoice = NorthQConfig.getMOCK_NETWORK().getNetwork().toStringArray();
+        chooseGateway = new JComboBox<String>(gatewaysChoice);
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -96,26 +165,98 @@ public class MockGui extends JFrame {
         constraints.gridx = 1;
         constraints.gridy = 1;
         addPanel.add(chooseGateway, constraints);
+    }
 
+    public void plugPanel() {
+        // PlugPanel
+        plugPanel.setLayout(new BoxLayout(plugPanel, BoxLayout.Y_AXIS));
+
+        statusLabel.setLabelFor(statusField);
+        plugPanel.add(statusLabel);
+        plugPanel.add(statusField);
+
+        powerconLabel.setLabelFor(powerconField);
+        plugPanel.add(powerconLabel);
+        plugPanel.add(powerconField);
+
+        submitPlugButton.addActionListener(new mockSubmitButtonListener());
+        plugPanel.add(submitPlugButton);
+
+    }
+
+    public void motionPanel() {
+        // Motion panel
+        motionPanel.setLayout(new BoxLayout(motionPanel, BoxLayout.Y_AXIS));
+
+        armedLabel.setLabelFor(armedField);
+        motionPanel.add(armedLabel);
+        motionPanel.add(armedField);
+
+        temperatureLabel.setLabelFor(temperatureField);
+        motionPanel.add(temperatureLabel);
+        motionPanel.add(temperatureField);
+
+        lightLabel.setLabelFor(lightField);
+        motionPanel.add(lightLabel);
+        motionPanel.add(lightField);
+
+        humidityLabel.setLabelFor(humidityField);
+        motionPanel.add(humidityLabel);
+        motionPanel.add(humidityField);
+
+        batteryMotionLabel.setLabelFor(batteryMotionField);
+        motionPanel.add(batteryMotionLabel);
+        motionPanel.add(batteryMotionField);
+
+        submitMotionButton.addActionListener(new mockSubmitButtonListener());
+        motionPanel.add(submitMotionButton);
+    }
+
+    public void thermostatPanel() {
+        // Thermostat panel
+        thermostatPanel.setLayout(new BoxLayout(thermostatPanel, BoxLayout.Y_AXIS));
+
+        temperatureTherLabel.setLabelFor(temperatureTherField);
+        thermostatPanel.add(temperatureTherLabel);
+        thermostatPanel.add(temperatureTherField);
+
+        batteryTherLabel.setLabelFor(batteryTherField);
+        thermostatPanel.add(batteryTherLabel);
+        thermostatPanel.add(batteryTherField);
+
+        submitThermostatButton.addActionListener(new mockSubmitButtonListener());
+        thermostatPanel.add(submitThermostatButton);
+    }
+
+    public void gatewayPanel() {
+
+    }
+
+    public void settingsPanel() {
         // SettingsPanel
         settingsPanel.setPreferredSize(new Dimension(250, 250));
         settingsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    }
 
+    public void configPanel() {
         // Config Panel
         configPanel.setPreferredSize(new Dimension(250, 500));
         configPanel.add(addPanel, BorderLayout.NORTH);
         configPanel.add(settingsPanel, BorderLayout.SOUTH);
+    }
 
+    public void mainPanel() {
         // MainPanel Adds
         mainPanel.add(overviewPanel, BorderLayout.EAST);
         mainPanel.add(configPanel, BorderLayout.WEST);
         add(mainPanel);
-
     }
+    // Panels configuration -- End
 
     private void addNetworkToOverview() {
         NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
         ArrayList<NGateway> gateways = network.getGateways();
+
         if (network != null) {
             for (int i = 0; i < gateways.size(); i++) {
                 listModel.addElement(
@@ -133,12 +274,144 @@ public class MockGui extends JFrame {
         }
     }
 
+    // ActionListener to change values in the mock network
+    class mockSubmitButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
+            String thingSelection = overviewList.getSelectedValue();
+            ArrayList<NGateway> gateways = network.getGateways();
+
+            int gatewayNumber = -1;
+            int thingNumber = -1;
+
+            if (network != null) {
+                gatewayNumber = Integer.valueOf(
+                        thingSelection.substring(thingSelection.indexOf(" ") + 1, thingSelection.indexOf("."))) - 1;
+
+                thingNumber = Integer.valueOf(thingSelection.substring(thingSelection.indexOf(".") + 1)) - 1;
+
+                if (gateways.size() > gatewayNumber) {
+
+                    NGateway ngate = gateways.get(gatewayNumber);
+                    Thing thing = ngate.getThings().get(thingNumber);
+
+                    String thingtype = thing.toString().substring(42, thing.toString().length() - 1).split("@")[0];
+
+                    if (thingtype.equals("Qplug")) {
+                        Qplug plug = (Qplug) ngate.getThings().get(thingNumber);
+
+                        plug.getBs().pos = Integer.valueOf(statusField.getText());
+                        plug.getBs().wattage = Float.valueOf(powerconField.getText());
+                    }
+                    if (thingtype.equals("Qmotion")) {
+                        Qmotion motion = (Qmotion) ngate.getThings().get(thingNumber);
+
+                        motion.getBs().pos = Integer.valueOf(armedField.getText());
+                        motion.getBs().battery = Integer.valueOf(batteryMotionField.getText());
+                        motion.getBs().sensors.get(0).value = Float.valueOf(temperatureField.getText());
+                        motion.getBs().sensors.get(1).value = Float.valueOf(lightField.getText());
+                        motion.getBs().sensors.get(2).value = Float.valueOf(humidityField.getText());
+                    }
+                    if (thingtype.equals("Qthermostat")) {
+                        Qthermostat thermostat = (Qthermostat) ngate.getThings().get(thingNumber);
+
+                        thermostat.getTher().temperature = Float.valueOf(temperatureTherField.getText());
+                        thermostat.getTher().battery = Integer.valueOf(batteryTherField.getText());
+                    }
+                }
+            }
+        }
+    }
+
+    // Add ButtonListener for the list on the right. Each item.
+    class mockListSelectionlistener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
+            String thingSelection = overviewList.getSelectedValue();
+            ArrayList<NGateway> gateways = network.getGateways();
+
+            int gatewayNumber = -1;
+            int thingNumber = -1;
+
+            if (network != null && thingSelection != null) {
+                System.out.println("THING SELECTION:" + thingSelection.substring(0, thingSelection.indexOf(" ")));
+
+                if (thingSelection.substring(0, thingSelection.indexOf(" ")).equals("NGateway")) {
+                    // gatewayNumber = Integer.valueOf(thingSelection.split(" ")[1]);
+                    //
+                    // if (gateways.size() > gatewayNumber) {
+                    // NGateway gateway = gateways.get(gatewayNumber);
+                    // }
+                } else {
+                    gatewayNumber = Integer.valueOf(
+                            thingSelection.substring(thingSelection.indexOf(" ") + 1, thingSelection.indexOf("."))) - 1;
+
+                    thingNumber = Integer.valueOf(thingSelection.substring(thingSelection.indexOf(".") + 1)) - 1;
+
+                    System.out.println("THINGNUMBER: " + thingNumber);
+
+                    if (gateways.size() > gatewayNumber) {
+                        NGateway ngate = gateways.get(gatewayNumber);
+                        Thing thing = ngate.getThings().get(thingNumber);
+
+                        String thingtype = thing.toString().substring(42, thing.toString().length() - 1).split("@")[0];
+
+                        System.out.println("THINGTYPE SELECTED: " + thingtype);
+
+                        if (thingtype.equals("Qplug")) {
+                            Qplug plug = (Qplug) ngate.getThings().get(thingNumber);
+
+                            statusField.setText(String.valueOf(plug.getBs().pos));
+                            powerconField.setText(String.valueOf(plug.getPowerConsumption()));
+
+                            settingsPanel.removeAll();
+                            settingsPanel.add(plugPanel);
+                            settingsPanel.revalidate();
+                            settingsPanel.repaint();
+
+                        }
+                        if (thingtype.equals("Qmotion")) {
+                            Qmotion motion = (Qmotion) ngate.getThings().get(thingNumber);
+
+                            armedField.setText(String.valueOf(motion.getBs().pos));
+                            batteryMotionField.setText(String.valueOf(motion.getBattery()));
+                            temperatureField.setText(String.valueOf(motion.getTmp()));
+                            lightField.setText(String.valueOf(motion.getLight()));
+                            humidityField.setText(String.valueOf(motion.getHumidity()));
+
+                            settingsPanel.removeAll();
+                            settingsPanel.add(motionPanel);
+                            settingsPanel.revalidate();
+                            settingsPanel.repaint();
+                        }
+                        if (thingtype.equals("Qthermostat")) {
+                            Qthermostat thermostat = (Qthermostat) ngate.getThings().get(thingNumber);
+
+                            batteryTherField.setText(String.valueOf(thermostat.getBattery()));
+                            temperatureTherField.setText(String.valueOf(thermostat.getTemp()));
+
+                            settingsPanel.removeAll();
+                            settingsPanel.add(thermostatPanel);
+                            settingsPanel.revalidate();
+                            settingsPanel.repaint();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // ActionListener to add things to the mock network
     class mockAddButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
+
             String thingSelection = addDropDown.getSelectedItem().toString();
             String gatewaySelection = chooseGateway.getSelectedItem().toString();
 
@@ -153,9 +426,14 @@ public class MockGui extends JFrame {
                 } else if (thingSelection.equals("Q Thermostat")) {
                     gateway.addThing(MockFactory.createQthermostat());
 
-                } else if (thingSelection.equals("Gateway")) {
+                } else if (thingSelection.equals("N Gateway")) {
                     int newGatewayId = Integer.valueOf(gateway.getGatewayId()) + 1111;
-                    MockFactory.createGateway("000000" + newGatewayId + "");
+
+                    NGateway gatewayAdd = MockFactory.createGateway("000000" + newGatewayId + "");
+                    ArrayList<NGateway> gatewaysAdd = network.getGateways();
+                    gatewaysAdd.add(gatewayAdd);
+
+                    NorthQConfig.getMOCK_NETWORK().getNetwork().setGateways(gatewaysAdd);
                 }
             }
             overviewPanel.removeAll();
@@ -165,7 +443,10 @@ public class MockGui extends JFrame {
             overviewPanel.revalidate();
             overviewPanel.repaint();
 
+            addPanel.removeAll();
+            addPanel();
+            addPanel.revalidate();
+            addPanel.repaint();
         }
-
     }
 }

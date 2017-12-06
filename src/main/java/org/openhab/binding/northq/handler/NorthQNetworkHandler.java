@@ -72,7 +72,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
      */
     @Override
     public void initialize() {
-
         // Get parameters from configuration
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get(NorthQStringConstants.USERNAME).toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get(NorthQStringConstants.PASSWORD).toString());
