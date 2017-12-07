@@ -101,10 +101,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (command.toString() != null && command.toString() != "REFRESH") {
-                    System.out.println("Temperature in config before: " + NorthQConfig.getTHERMOSTAT_TEMPERATURE());
                     String temperature = command.toString();
                     NorthQConfig.setTHERMOSTAT_TEMPERATURE(temperature);
-                    System.out.println("Temperature in config: " + NorthQConfig.getTHERMOSTAT_TEMPERATURE());
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
                     qThermostat.getTher().temperature = Float.valueOf(temperature);
