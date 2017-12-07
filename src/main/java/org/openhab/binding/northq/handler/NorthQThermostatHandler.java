@@ -47,7 +47,6 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     private NorthqServices services;
 
     private float currentTemperature;
-
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
         @Override
@@ -65,6 +64,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
         currentTemperature = 0;
         services = new NorthqServices();
+
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 10, TimeUnit.SECONDS);
     }
 
@@ -117,6 +117,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 ReadWriteLock.getInstance().unlockRead();
             }
         }
+
     }
 
     /**
@@ -202,6 +203,11 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                     }
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
                             qthermostat);
+                }
+
+                // Temperature scheduler activated
+                if (NorthQConfig.isTEMP_SCHEDULER()) {
+                    System.out.println("Daily temp scheduler");
                 }
             }
 
