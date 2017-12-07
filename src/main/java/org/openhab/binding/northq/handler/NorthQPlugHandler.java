@@ -90,7 +90,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 ReadWriteLock.getInstance().lockWrite();
                 String nodeId = getThing().getProperties().get("thingID");
                 Qplug qPlug = getPlug(nodeId);
-                System.out.println("Just a test");
+
                 if (qPlug == null) {
                     updateStatus(ThingStatus.OFFLINE);
                     return;
@@ -102,7 +102,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
 
                 // Check if plug should be turned on or off
                 if (command.toString().equals(NorthQStringConstants.ON)) {
-                    System.out.println("SHOULD BE TURNING ON NOW");
                     turnPlugOn(qPlug, gatewayID, userID);
                 } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                     turnPlugOff(qPlug, gatewayID, userID);
