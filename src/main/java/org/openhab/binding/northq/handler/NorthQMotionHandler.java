@@ -219,7 +219,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     createStatement = conn.prepareStatement(
                             "insert into gpsapp.notifications (`TimeStamp`,`Device`) values (NOW(),?);");
                     createStatement.setString(1, qMotion.getBs().name);
-                    createStatement.executeQuery();
+                    createStatement.executeUpdate();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
