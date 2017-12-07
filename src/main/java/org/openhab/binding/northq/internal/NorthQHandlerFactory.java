@@ -19,7 +19,7 @@ import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.northq.NorthQBindingConstants;
-import org.openhab.binding.northq.handler.GatewayHandler;
+import org.openhab.binding.northq.handler.NorthQGatewayHandler;
 import org.openhab.binding.northq.handler.MockNetworkHandler;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
@@ -73,7 +73,7 @@ public class NorthQHandlerFactory extends BaseThingHandlerFactory {
         }
         // New settings
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_GATEWAY)) {
-            return new GatewayHandler(thing);
+            return new NorthQGatewayHandler(thing);
         }
         // New Mock thing
         if (thingTypeUID.equals(NorthQBindingConstants.THING_TYPE_MOCKNETWORK)) {
