@@ -11,9 +11,11 @@ package org.openhab.binding.northq.handler;
 
 import static org.openhab.binding.northq.NorthQBindingConstants.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.library.types.StringType;
@@ -25,15 +27,17 @@ import org.openhab.binding.northq.NorthQBindingConstants;
 import org.openhab.binding.northq.NorthQStringConstants;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.openhab.binding.northq.internal.common.ReadWriteLock;
+import org.openhab.binding.northq.internal.model.NGateway;
+import org.openhab.binding.northq.internal.model.Thing;
 
 /**
- * The {@link GatewayHandler} is responsible for handling commands, which are
+ * The {@link NorthQGatewayHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
  * @author DTU_02162_group03 - Initial contribution
  */
 
-public class GatewayHandler extends BaseThingHandler {
+public class NorthQGatewayHandler extends BaseThingHandler {
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
 
@@ -47,8 +51,9 @@ public class GatewayHandler extends BaseThingHandler {
      * Constructor
      */
     @SuppressWarnings("null")
-    public GatewayHandler(org.eclipse.smarthome.core.thing.Thing thing) {
+    public NorthQGatewayHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
+
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
 
@@ -59,6 +64,7 @@ public class GatewayHandler extends BaseThingHandler {
      */
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
+
         try {
             ReadWriteLock.getInstance().lockWrite();
 
@@ -150,7 +156,7 @@ public class GatewayHandler extends BaseThingHandler {
     /**
      * Abstract method overwritten
      * Requires:
-     * Returns: Initialiser
+     * Returns: Initializer
      */
     @Override
     public void initialize() {
@@ -158,33 +164,64 @@ public class GatewayHandler extends BaseThingHandler {
         updateStatus(ThingStatus.ONLINE);
     }
 
+    /**
+     * Requires: a nodeId
+     * Returns: gets the Qplug with nodeId
+     *
+     * @param nodeId
+     */
+    public @Nullable NGateway getGateway(String nodeId) {
+        ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
+
+        for (NGateway gw : gateways) {
+            for (int i = 0; i < gateways.size(); i++) {
+                ArrayList<Thing> things = gateways.get(i).getThings();
+                String thingID = gateways.get(i).getGatewayId();
+                if (thingID.equals(nodeId)) {
+                    return gw;
+                }
+            }
+        }
+        return null;
+    }
+
     private void scheduleCode() {
         try {
 
-            Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
-            NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
+            String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
+            NGateway gateway = getGateway(nodeId);
 
-            boolean allAway = true;
-            for (Boolean b : phoneHome) {
-                boolean bol = b.booleanValue();
-                if (bol) {
-                    allAway = false;
+            if (gateway != null) {
+                updateStatus(ThingStatus.ONLINE);
+
+                Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
+                NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
+
+                boolean allAway = true;
+                for (Boolean b : phoneHome) {
+                    boolean bol = b.booleanValue();
+                    if (bol) {
+                        allAway = false;
+                    }
                 }
-            }
 
-            if (NorthQConfig.isHEATONLOCATION()) {
-                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
-                        StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
+                if (NorthQConfig.isHEATONLOCATION()) {
+                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
+                            StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
+                            StringType.valueOf(NorthQStringConstants.INACTIVE));
+                }
+                if (NorthQConfig.isPOWERONLOCATION()) {
+                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
+                            StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
+                            StringType.valueOf(NorthQStringConstants.INACTIVE));
+                }
+
             } else {
-                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
-                        StringType.valueOf(NorthQStringConstants.INACTIVE));
-            }
-            if (NorthQConfig.isPOWERONLOCATION()) {
-                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
-                        StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
-            } else {
-                updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
-                        StringType.valueOf(NorthQStringConstants.INACTIVE));
+                updateStatus(ThingStatus.OFFLINE);
             }
         } catch (Exception e) {
             e.printStackTrace();
