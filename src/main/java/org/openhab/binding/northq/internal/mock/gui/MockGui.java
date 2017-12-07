@@ -14,6 +14,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -70,7 +72,7 @@ public class MockGui extends JFrame {
 
     // Settings Panels
 
-    // plug Panel
+    // Plug Panel
     private JPanel plugPanel = new JPanel();
     private JTextField statusField = new JTextField();
     private JLabel statusLabel = new JLabel("Plug Status:");
@@ -78,7 +80,7 @@ public class MockGui extends JFrame {
     private JLabel powerconLabel = new JLabel("Power consumption:");
     private JButton submitPlugButton = new JButton("Submit");
 
-    // motion Panel
+    // Motion Panel
     private JPanel motionPanel = new JPanel();
     private JTextField armedField = new JTextField();
     private JLabel armedLabel = new JLabel("Armed/Disarmed:");
@@ -102,6 +104,18 @@ public class MockGui extends JFrame {
 
     public MockGui() {
         super();
+        // Change Mock to false when gui is closed
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                NorthQConfig.setMOCK(false);
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                NorthQConfig.setMOCK(false);
+            }
+        });
 
         setSize(new Dimension(500, 500));
         setResizable(false);
@@ -230,6 +244,10 @@ public class MockGui extends JFrame {
 
         submitThermostatButton.addActionListener(new mockSubmitButtonListener());
         thermostatPanel.add(submitThermostatButton);
+    }
+
+    public void phonePanel() {
+
     }
 
     public void settingsPanel() {
