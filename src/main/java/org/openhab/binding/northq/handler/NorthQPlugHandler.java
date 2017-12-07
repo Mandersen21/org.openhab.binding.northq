@@ -90,19 +90,19 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 ReadWriteLock.getInstance().lockWrite();
                 String nodeId = getThing().getProperties().get("thingID");
                 Qplug qPlug = getPlug(nodeId);
-
+                System.out.println("Just a test");
                 if (qPlug == null) {
                     updateStatus(ThingStatus.OFFLINE);
                     return;
-                } else {
-                    updateStatus(ThingStatus.ONLINE);
                 }
+                updateStatus(ThingStatus.ONLINE);
 
                 String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 // Check if plug should be turned on or off
                 if (command.toString().equals(NorthQStringConstants.ON)) {
+                    System.out.println("SHOULD BE TURNING ON NOW");
                     turnPlugOn(qPlug, gatewayID, userID);
                 } else if (command.toString().equals(NorthQStringConstants.OFF)) {
                     turnPlugOff(qPlug, gatewayID, userID);
@@ -137,7 +137,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
      */
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOffPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
-        if (res) {
+        if (res || NorthQConfig.isMOCK()) {
             qPlug.getBs().pos = 0;
         }
     }
@@ -148,7 +148,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
      */
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOnPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
-        if (res) {
+        if (res || NorthQConfig.isMOCK()) {
             qPlug.getBs().pos = 1;
         }
     }
@@ -189,7 +189,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
             String userID = NorthQConfig.getNETWORK().getUserId();
 
             // 200 = success code, everything else is some fail
-            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200) {
+            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200
+                    && !NorthQConfig.isMOCK()) {
                 updateStatus(ThingStatus.OFFLINE);
                 return;
             } else {

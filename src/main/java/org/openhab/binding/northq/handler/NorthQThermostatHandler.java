@@ -167,7 +167,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             String userID = NorthQConfig.getNETWORK().getUserId();
 
             // 200 = success code, everything else is some fail
-            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200) {
+            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200
+                    && !NorthQConfig.isMOCK()) {
                 updateStatus(ThingStatus.OFFLINE);
                 return;
             } else {

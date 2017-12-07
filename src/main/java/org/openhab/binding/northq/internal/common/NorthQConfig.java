@@ -45,7 +45,7 @@ public class NorthQConfig {
     private static float DAYTEMP = 20;
     private static float NIGHTTEMP = 17;
 
-    private static boolean MOCK = true;
+    private static boolean MOCK = false;
     private static NorthQMockNetwork MOCK_NETWORK;
 
     private static Map<String, Boolean> PHONE_MAP = new HashMap<String, Boolean>();

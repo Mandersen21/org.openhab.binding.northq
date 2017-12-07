@@ -102,6 +102,12 @@ public class MockGui extends JFrame {
     private JLabel batteryTherLabel = new JLabel("Battery:");
     private JButton submitThermostatButton = new JButton("Submit");
 
+    // Gateway Panel
+    private JPanel gatewayPanel = new JPanel();
+    private JTextField isHomeField = new JTextField();
+    private JLabel isHomeLabel = new JLabel("Is Home");
+    private JButton submitGatewayButton = new JButton("Submit");
+
     public MockGui() {
         super();
         // Change Mock to false when gui is closed
@@ -130,6 +136,7 @@ public class MockGui extends JFrame {
         plugPanel();
         motionPanel();
         thermostatPanel();
+        gatewayPanel();
 
         // The two main panels of the left part of the gui
         settingsPanel();
@@ -170,7 +177,9 @@ public class MockGui extends JFrame {
         constraints.gridy = 0;
         addPanel.add(addDropDown, constraints);
 
-        addButton.addActionListener(new mockAddButtonListener());
+        if (addButton.getActionListeners().length == 0) {
+            addButton.addActionListener(new mockAddButtonListener());
+        }
         constraints.gridx = 2;
         constraints.gridy = 0;
         addPanel.add(addButton, constraints);
@@ -179,7 +188,10 @@ public class MockGui extends JFrame {
         constraints.gridy = 1;
         addPanel.add(chooseGateway, constraints);
 
-        deleteButton.addActionListener(new mockDeleteButtonListener());
+        if (deleteButton.getActionListeners().length == 0) {
+
+            deleteButton.addActionListener(new mockDeleteButtonListener());
+        }
         constraints.gridx = 2;
         constraints.gridy = 1;
         addPanel.add(deleteButton, constraints);
@@ -246,8 +258,15 @@ public class MockGui extends JFrame {
         thermostatPanel.add(submitThermostatButton);
     }
 
-    public void phonePanel() {
+    public void gatewayPanel() {
+        gatewayPanel.setLayout(new BoxLayout(gatewayPanel, BoxLayout.Y_AXIS));
 
+        isHomeLabel.setLabelFor(isHomeField);
+        gatewayPanel.add(isHomeLabel);
+        gatewayPanel.add(isHomeField);
+
+        submitGatewayButton.addActionListener(new mockSubmitButtonListener());
+        gatewayPanel.add(submitGatewayButton);
     }
 
     public void settingsPanel() {
@@ -305,38 +324,48 @@ public class MockGui extends JFrame {
             int thingNumber = -1;
 
             if (network != null) {
-                gatewayNumber = Integer.valueOf(
-                        thingSelection.substring(thingSelection.indexOf(" ") + 1, thingSelection.indexOf("."))) - 1;
 
-                thingNumber = Integer.valueOf(thingSelection.substring(thingSelection.indexOf(".") + 1)) - 1;
-
-                if (gateways.size() > gatewayNumber) {
-
-                    NGateway ngate = gateways.get(gatewayNumber);
-                    Thing thing = ngate.getThings().get(thingNumber);
-
-                    String thingtype = thing.toString().substring(42, thing.toString().length() - 1).split("@")[0];
-
-                    if (thingtype.equals("Qplug")) {
-                        Qplug plug = (Qplug) ngate.getThings().get(thingNumber);
-
-                        plug.getBs().pos = Integer.valueOf(statusField.getText());
-                        plug.getBs().wattage = Float.valueOf(powerconField.getText());
+                if (thingSelection.substring(0, thingSelection.indexOf(" ")).equals("NGateway")) {
+                    if (isHomeField.getText().equals("0")) {
+                        NorthQConfig.setISHOME(false);
+                    } else {
+                        NorthQConfig.setISHOME(true);
                     }
-                    if (thingtype.equals("Qmotion")) {
-                        Qmotion motion = (Qmotion) ngate.getThings().get(thingNumber);
+                } else {
 
-                        motion.getBs().pos = Integer.valueOf(armedField.getText());
-                        motion.getBs().battery = Integer.valueOf(batteryMotionField.getText());
-                        motion.getBs().sensors.get(0).value = Float.valueOf(temperatureField.getText());
-                        motion.getBs().sensors.get(1).value = Float.valueOf(lightField.getText());
-                        motion.getBs().sensors.get(2).value = Float.valueOf(humidityField.getText());
-                    }
-                    if (thingtype.equals("Qthermostat")) {
-                        Qthermostat thermostat = (Qthermostat) ngate.getThings().get(thingNumber);
+                    gatewayNumber = Integer.valueOf(
+                            thingSelection.substring(thingSelection.indexOf(" ") + 1, thingSelection.indexOf("."))) - 1;
 
-                        thermostat.getTher().temperature = Float.valueOf(temperatureTherField.getText());
-                        thermostat.getTher().battery = Integer.valueOf(batteryTherField.getText());
+                    thingNumber = Integer.valueOf(thingSelection.substring(thingSelection.indexOf(".") + 1)) - 1;
+
+                    if (gateways.size() > gatewayNumber) {
+
+                        NGateway ngate = gateways.get(gatewayNumber);
+                        Thing thing = ngate.getThings().get(thingNumber);
+
+                        String thingtype = thing.toString().substring(42, thing.toString().length() - 1).split("@")[0];
+
+                        if (thingtype.equals("Qplug")) {
+                            Qplug plug = (Qplug) ngate.getThings().get(thingNumber);
+
+                            plug.getBs().pos = Integer.valueOf(statusField.getText());
+                            plug.getBs().wattage = Float.valueOf(powerconField.getText());
+                        }
+                        if (thingtype.equals("Qmotion")) {
+                            Qmotion motion = (Qmotion) ngate.getThings().get(thingNumber);
+
+                            motion.getBs().armed = Integer.valueOf(armedField.getText());
+                            motion.getBs().battery = Integer.valueOf(batteryMotionField.getText());
+                            motion.getBs().sensors.get(0).value = Float.valueOf(temperatureField.getText());
+                            motion.getBs().sensors.get(1).value = Float.valueOf(lightField.getText());
+                            motion.getBs().sensors.get(2).value = Float.valueOf(humidityField.getText());
+                        }
+                        if (thingtype.equals("Qthermostat")) {
+                            Qthermostat thermostat = (Qthermostat) ngate.getThings().get(thingNumber);
+
+                            thermostat.getTher().temperature = Float.valueOf(temperatureTherField.getText());
+                            thermostat.getTher().battery = Integer.valueOf(batteryTherField.getText());
+                        }
                     }
                 }
             }
@@ -359,6 +388,7 @@ public class MockGui extends JFrame {
 
                 if (thingSelection.substring(0, thingSelection.indexOf(" ")).equals("NGateway")) {
                     settingsPanel.removeAll();
+                    settingsPanel.add(gatewayPanel);
                     settingsPanel.revalidate();
                     settingsPanel.repaint();
 
@@ -389,7 +419,7 @@ public class MockGui extends JFrame {
                         if (thingtype.equals("Qmotion")) {
                             Qmotion motion = (Qmotion) ngate.getThings().get(thingNumber);
 
-                            armedField.setText(String.valueOf(motion.getBs().pos));
+                            armedField.setText(String.valueOf(motion.getBs().armed));
                             batteryMotionField.setText(String.valueOf(motion.getBattery()));
                             temperatureField.setText(String.valueOf(motion.getTmp()));
                             lightField.setText(String.valueOf(motion.getLight()));
@@ -422,6 +452,7 @@ public class MockGui extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("How many times? AAAARGH");
             NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
 
             String thingSelection = addDropDown.getSelectedItem().toString();

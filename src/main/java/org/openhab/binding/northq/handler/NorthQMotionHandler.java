@@ -203,10 +203,13 @@ public class NorthQMotionHandler extends BaseThingHandler {
 
             String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qmotion qMotion = getQmotion(nodeId);
+            boolean triggered = false;
 
-            boolean triggered = services.isTriggered(services.getNotificationArray(
-                    NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
-                    NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
+            if (!NorthQConfig.isMOCK()) {
+                triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.getNETWORK().getUserId(),
+                        NorthQConfig.getNETWORK().getToken(), NorthQConfig.getNETWORK().getHouses()[0].id + "",
+                        1 + ""));
+            }
 
             // Moved here
             if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
@@ -229,7 +232,8 @@ public class NorthQMotionHandler extends BaseThingHandler {
             if (services
                     .getGatewayStatus(NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId(),
                             NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken())
-                    .getStatus() != 200) {
+                    .getStatus() != 200 && !NorthQConfig.isMOCK()) {
+                System.out.println();
                 updateStatus(ThingStatus.OFFLINE);
                 return;
             } else {
