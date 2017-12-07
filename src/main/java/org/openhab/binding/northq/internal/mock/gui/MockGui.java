@@ -65,7 +65,8 @@ public class MockGui extends JFrame {
     private JComboBox<String> addDropDown = new JComboBox<String>(deviceNames);
     private String[] gatewaysChoice;
     private JComboBox<String> chooseGateway;
-    private JButton addButton = new JButton("Add Selection");
+    private JButton addButton = new JButton("Add");
+    private JButton deleteButton = new JButton("Delete");
 
     // Settings Panels
 
@@ -150,21 +151,24 @@ public class MockGui extends JFrame {
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridwidth = 2;
-        constraints.gridx = 0;
+        constraints.gridwidth = 1;
+        constraints.gridx = 1;
         constraints.gridy = 0;
         addPanel.add(addDropDown, constraints);
 
         addButton.addActionListener(new mockAddButtonListener());
-        constraints.gridwidth = 1;
         constraints.gridx = 2;
         constraints.gridy = 0;
         addPanel.add(addButton, constraints);
 
-        constraints.gridwidth = 1;
         constraints.gridx = 1;
         constraints.gridy = 1;
         addPanel.add(chooseGateway, constraints);
+
+        deleteButton.addActionListener(new mockDeleteButtonListener());
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        addPanel.add(deleteButton, constraints);
     }
 
     public void plugPanel() {
@@ -226,10 +230,6 @@ public class MockGui extends JFrame {
 
         submitThermostatButton.addActionListener(new mockSubmitButtonListener());
         thermostatPanel.add(submitThermostatButton);
-    }
-
-    public void gatewayPanel() {
-
     }
 
     public void settingsPanel() {
@@ -338,29 +338,23 @@ public class MockGui extends JFrame {
             int thingNumber = -1;
 
             if (network != null && thingSelection != null) {
-                System.out.println("THING SELECTION:" + thingSelection.substring(0, thingSelection.indexOf(" ")));
 
                 if (thingSelection.substring(0, thingSelection.indexOf(" ")).equals("NGateway")) {
-                    // gatewayNumber = Integer.valueOf(thingSelection.split(" ")[1]);
-                    //
-                    // if (gateways.size() > gatewayNumber) {
-                    // NGateway gateway = gateways.get(gatewayNumber);
-                    // }
+                    settingsPanel.removeAll();
+                    settingsPanel.revalidate();
+                    settingsPanel.repaint();
+
                 } else {
                     gatewayNumber = Integer.valueOf(
                             thingSelection.substring(thingSelection.indexOf(" ") + 1, thingSelection.indexOf("."))) - 1;
 
                     thingNumber = Integer.valueOf(thingSelection.substring(thingSelection.indexOf(".") + 1)) - 1;
 
-                    System.out.println("THINGNUMBER: " + thingNumber);
-
                     if (gateways.size() > gatewayNumber) {
                         NGateway ngate = gateways.get(gatewayNumber);
                         Thing thing = ngate.getThings().get(thingNumber);
 
                         String thingtype = thing.toString().substring(42, thing.toString().length() - 1).split("@")[0];
-
-                        System.out.println("THINGTYPE SELECTED: " + thingtype);
 
                         if (thingtype.equals("Qplug")) {
                             Qplug plug = (Qplug) ngate.getThings().get(thingNumber);
@@ -426,7 +420,7 @@ public class MockGui extends JFrame {
                 } else if (thingSelection.equals("Q Thermostat")) {
                     gateway.addThing(MockFactory.createQthermostat());
 
-                } else if (thingSelection.equals("N Gateway")) {
+                } else if (thingSelection.equals("NGateway")) {
                     int newGatewayId = Integer.valueOf(gateway.getGatewayId()) + 1111;
 
                     NGateway gatewayAdd = MockFactory.createGateway("000000" + newGatewayId + "");
@@ -434,6 +428,51 @@ public class MockGui extends JFrame {
                     gatewaysAdd.add(gatewayAdd);
 
                     NorthQConfig.getMOCK_NETWORK().getNetwork().setGateways(gatewaysAdd);
+                }
+            }
+            overviewPanel.removeAll();
+            listModel.clear();
+            addNetworkToOverview();
+            overviewPanel.add(overviewList);
+            overviewPanel.revalidate();
+            overviewPanel.repaint();
+
+            addPanel.removeAll();
+            addPanel();
+            addPanel.revalidate();
+            addPanel.repaint();
+        }
+    }
+
+    // Add ButtonListener for the list on the right. Each item.
+    class mockDeleteButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
+            String thingSelection = overviewList.getSelectedValue();
+            ArrayList<NGateway> gateways = network.getGateways();
+
+            int gatewayNumber = -1;
+            int thingNumber = -1;
+
+            if (network != null && thingSelection != null) {
+
+                if (thingSelection.substring(0, thingSelection.indexOf(" ")).equals("NGateway")) {
+                    gatewayNumber = Integer.valueOf(thingSelection.substring(thingSelection.indexOf(" ") + 1)) - 1;
+                    network.getGateways().remove(gatewayNumber);
+
+                } else {
+                    gatewayNumber = Integer.valueOf(
+                            thingSelection.substring(thingSelection.indexOf(" ") + 1, thingSelection.indexOf("."))) - 1;
+
+                    thingNumber = Integer.valueOf(thingSelection.substring(thingSelection.indexOf(".") + 1)) - 1;
+
+                    if (gateways.size() > gatewayNumber) {
+                        NGateway ngate = gateways.get(gatewayNumber);
+                        ngate.getThings().remove(thingNumber);
+
+                    }
                 }
             }
             overviewPanel.removeAll();
