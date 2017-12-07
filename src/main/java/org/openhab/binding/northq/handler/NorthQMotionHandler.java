@@ -147,6 +147,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 qMotion);
         currentStatus = false;
         qMotion.getBs().armed = 0;
+        lastNotification = 0;
     }
 
     /**
@@ -209,12 +210,14 @@ public class NorthQMotionHandler extends BaseThingHandler {
                     NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
 
             // Moved here
-            if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
+            if (triggered && !NorthQConfig.ISHOME()
+                    && (lastNotification + (1000 * 60 * 15)) < System.currentTimeMillis()) {
                 // unregister database tracking
                 Connection conn;
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
-                    conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+                    conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", NorthQConfig.getSQL_USERNAME(),
+                            NorthQConfig.getSQL_PASSWORD());
                     PreparedStatement createStatement = null;
                     createStatement = conn.prepareStatement(
                             "insert into gpsapp.notifications (`TimeStamp`,`Device`) values (NOW(),?);");
