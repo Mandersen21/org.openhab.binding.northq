@@ -147,6 +147,7 @@ public class NorthQMotionHandler extends BaseThingHandler {
                 qMotion);
         currentStatus = false;
         qMotion.getBs().armed = 0;
+        lastNotification = 0;
     }
 
     /**
@@ -205,88 +206,87 @@ public class NorthQMotionHandler extends BaseThingHandler {
             Qmotion qMotion = getQmotion(nodeId);
             boolean triggered = false;
 
-            if (!NorthQConfig.isMOCK()) {
-                triggered = services.isTriggered(services.getNotificationArray(NorthQConfig.getNETWORK().getUserId(),
-                        NorthQConfig.getNETWORK().getToken(), NorthQConfig.getNETWORK().getHouses()[0].id + "",
-                        1 + ""));
-            }
-
-            // Moved here
-            if (triggered && (lastNotification + 900000) < System.currentTimeMillis()) {
-                // unregister database tracking
-                Connection conn;
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
-                    PreparedStatement createStatement = null;
-                    createStatement = conn.prepareStatement(
-                            "insert into gpsapp.notifications (`TimeStamp`,`Device`) values (NOW(),?);");
-                    createStatement.setString(1, qMotion.getBs().name);
-                    createStatement.executeQuery();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                lastNotification = System.currentTimeMillis();
-            }
-            // 200 = success code, everything else is some fail
-            if (services
-                    .getGatewayStatus(NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId(),
-                            NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken())
-                    .getStatus() != 200 && !NorthQConfig.isMOCK()) {
-                System.out.println();
-                updateStatus(ThingStatus.OFFLINE);
-                return;
-            } else {
+            if (qMotion != null) {
                 updateStatus(ThingStatus.ONLINE);
-            }
 
-            if (qMotion != null && qMotion.getStatus()) { // Trigger state update
+                if (!NorthQConfig.isMOCK()) {
+                    triggered = services.isTriggered(services.getNotificationArray(
+                            NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
+                            NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
+                }
+                // Moved here
+                if (triggered && !NorthQConfig.ISHOME()
+                        && (lastNotification + (1000 * 60 * 15)) < System.currentTimeMillis()) {
+                    // unregister database tracking
+                    Connection conn;
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306",
+                                NorthQConfig.getSQL_USERNAME(), NorthQConfig.getSQL_PASSWORD());
+                        PreparedStatement createStatement = null;
+                        createStatement = conn.prepareStatement(
+                                "insert into gpsapp.notifications (`TimeStamp`,`Device`) values (NOW(),?);");
+                        createStatement.setString(1, qMotion.getBs().name);
+                        createStatement.executeUpdate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    lastNotification = System.currentTimeMillis();
+                }
 
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType
-                        .valueOf(triggered ? NorthQStringConstants.TRIGGERED : NorthQStringConstants.NOT_TRIGGERED));
-            } else {
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
-                        StringType.valueOf(NorthQStringConstants.NOT_ARMED));
-            }
+                if (qMotion != null && qMotion.getStatus()) { // Trigger state update
 
-            if (qMotion != null && qMotion.getStatus() != currentStatus) { // Check if external change occurs
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION, qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                currentStatus = qMotion.getStatus();
-            }
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION, StringType.valueOf(
+                            triggered ? NorthQStringConstants.TRIGGERED : NorthQStringConstants.NOT_TRIGGERED));
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_NOTIFICATION,
+                            StringType.valueOf(NorthQStringConstants.NOT_ARMED));
+                }
 
-            if (qMotion != null) { // Update items:
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_TEMP,
-                        DecimalType.valueOf(String.valueOf(qMotion.getTmp())));
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT,
-                        DecimalType.valueOf(String.valueOf(qMotion.getLight())));
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
-                        DecimalType.valueOf(String.valueOf(qMotion.getHumidity())));
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
-                        DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
-            }
-            // Update status of power on motion
-            if (powerOnMotion) {
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_POWER_ON_MOTION,
-                        StringType.valueOf(triggered ? "Power On" : "Not Triggered"));
-            } else {
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_POWER_ON_MOTION, StringType.valueOf("Not Enabled"));
-            }
+                if (qMotion != null && qMotion.getStatus() != currentStatus) { // Check if external change occurs
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION,
+                            qMotion.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                    currentStatus = qMotion.getStatus();
+                }
 
-            // Update status of light percent
-            if (lightOnPercent) {
-                if ((lightTriggered + 900000) > System.currentTimeMillis()) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
-                            StringType.valueOf("Light On"));
-                } else if ((int) qMotion.getLight() < 20) {
-                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
-                            StringType.valueOf("Light On"));
-                    lightTriggered = System.currentTimeMillis();
+                if (qMotion != null) { // Update items:
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_TEMP,
+                            DecimalType.valueOf(String.valueOf(qMotion.getTmp())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT,
+                            DecimalType.valueOf(String.valueOf(qMotion.getLight())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_HUMIDITY,
+                            DecimalType.valueOf(String.valueOf(qMotion.getHumidity())));
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_BATTERY,
+                            DecimalType.valueOf(String.valueOf(qMotion.getBattery())));
+                }
+                // Update status of power on motion
+                if (powerOnMotion) {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_POWER_ON_MOTION,
+                            StringType.valueOf(triggered ? "Power On" : "Not Triggered"));
+                } else {
+                    updateState(NorthQBindingConstants.CHANNEL_QMOTION_POWER_ON_MOTION,
+                            StringType.valueOf("Not Enabled"));
+                }
+
+                // Update status of light percent
+                if (lightOnPercent) {
+                    if ((lightTriggered + 900000) > System.currentTimeMillis()) {
+                        updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
+                                StringType.valueOf("Light On"));
+                    } else if ((int) qMotion.getLight() < 20) {
+                        updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
+                                StringType.valueOf("Light On"));
+                        lightTriggered = System.currentTimeMillis();
+                    } else {
+                        updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
+                                StringType.valueOf("Not Triggered"));
+                    }
                 } else {
                     updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT,
-                            StringType.valueOf("Not Triggered"));
+                            StringType.valueOf("Not Enabled"));
                 }
             } else {
-                updateState(NorthQBindingConstants.CHANNEL_QMOTION_LIGHT_ON_PERCENT, StringType.valueOf("Not Enabled"));
+                updateStatus(ThingStatus.OFFLINE);
             }
 
         } catch (Exception e) {

@@ -177,9 +177,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
      */
     private void scheduleCode() {
         try {
-            ReadWriteLock.getInstance().lockRead();
             logger.debug("Polling data for plug");
-
+            ReadWriteLock.getInstance().lockRead();
             String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qplug qplug = getPlug(nodeId);
 
@@ -187,31 +186,32 @@ public class NorthQPlugHandler extends BaseThingHandler {
             String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
             String userID = NorthQConfig.getNETWORK().getUserId();
 
-            // 200 = success code, everything else is some fail
-            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200
-                    && !NorthQConfig.isMOCK()) {
+            if (qplug != null) {
+
+                updateStatus(ThingStatus.ONLINE);
+
+                // power based on gps
+                if (qplug != null && !NorthQConfig.ISHOME() && NorthQConfig.isPOWERONLOCATION()) {
+                    try {
+                        boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID,
+                                gatewayID);
+                        qplug.getBs().pos = 0;
+                        updateState("channelplug", OnOffType.OFF);
+                        updateStatus(ThingStatus.ONLINE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        updateStatus(ThingStatus.OFFLINE);
+                    }
+                }
+
+                updateState(NorthQBindingConstants.CHANNEL_QPLUG, qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
+                updateState(NorthQBindingConstants.CHANNEL_QPLUG_POWER,
+                        DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
+
+            } else {
                 updateStatus(ThingStatus.OFFLINE);
                 return;
-            } else {
-                updateStatus(ThingStatus.ONLINE);
             }
-
-            // power based on gps
-            if (qplug != null && !NorthQConfig.ISHOME() && NorthQConfig.isPOWERONLOCATION()) {
-                try {
-                    boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
-                    qplug.getBs().pos = 0;
-                    updateState("channelplug", OnOffType.OFF);
-                    updateStatus(ThingStatus.ONLINE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    updateStatus(ThingStatus.OFFLINE);
-                }
-            }
-
-            updateState(NorthQBindingConstants.CHANNEL_QPLUG, qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-            updateState(NorthQBindingConstants.CHANNEL_QPLUG_POWER,
-                    DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
 
         } catch (Exception e) {
             logger.error("An unexpected error occurred: {}", e.getMessage(), e);

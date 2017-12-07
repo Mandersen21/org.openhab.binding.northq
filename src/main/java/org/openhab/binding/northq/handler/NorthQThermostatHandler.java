@@ -46,6 +46,10 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
     private NorthqServices services;
 
+    private float currentTemperature;
+    private boolean waitForUpdate = false;
+    private long waitTime = 0;
+
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
         @Override
@@ -61,8 +65,10 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     public NorthQThermostatHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
+        currentTemperature = 0;
         services = new NorthqServices();
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 10, TimeUnit.SECONDS);
     }
 
     /**
@@ -100,12 +106,13 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
-                if (command.toString() != null) {
-                    // Stop polling job for a moment when temperature is changed for better userexperience.
-
+                if (command.toString() != null && command.toString() != "REFRESH") {
                     String temperature = command.toString();
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
+                    currentTemperature = Float.parseFloat(temperature);
+                    waitForUpdate = true;
+                    waitTime = System.currentTimeMillis();
                     qThermostat.getTher().temperature = Float.valueOf(temperature);
                 }
 
@@ -115,6 +122,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 ReadWriteLock.getInstance().unlockRead();
             }
         }
+
     }
 
     /**
@@ -156,8 +164,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
      */
     public void ScheduleCode() {
         try {
-            ReadWriteLock.getInstance().lockWrite();
             logger.debug("Polling data for thermostat");
+            ReadWriteLock.getInstance().lockWrite();
 
             String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qthermostat qthermostat = getThermostat(nodeId);
@@ -166,40 +174,66 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
             String userID = NorthQConfig.getNETWORK().getUserId();
 
-            // 200 = success code, everything else is some fail
-            if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200
-                    && !NorthQConfig.isMOCK()) {
-                updateStatus(ThingStatus.OFFLINE);
-                return;
-            } else {
-                updateStatus(ThingStatus.ONLINE);
-            }
-
             if (qthermostat != null) {
-                updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
-                        DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+
+                // Set thing to online
+                updateStatus(ThingStatus.ONLINE);
+
+                // detect deadlock
+                if (waitForUpdate && waitTime + (1000 * 60 * 6) < System.currentTimeMillis()) {
+                    waitForUpdate = false;
+                    waitTime = 0;
+                }
+
+                // if(first run after boot) set temp directly
+                if (currentTemperature == 0) {
+                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+                    currentTemperature = qthermostat.getTemp();
+                }
+                // else if(internal change wait) wait for change
+                else if (waitForUpdate) {
+                    if (currentTemperature == qthermostat.getTemp()) {
+                        waitForUpdate = false;
+                    }
+                }
+                // else if(external change) set temp directly
+                else if (currentTemperature != qthermostat.getTemp()) {
+                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+                    currentTemperature = qthermostat.getTemp();
+                }
                 updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
                         DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
-            }
 
-            // Temperature based on location activated
-            if (NorthQConfig.isHEATONLOCATION()) {
-                // If no one is home
-                if (!NorthQConfig.ISHOME()) {
-                    int temp = (int) NorthQConfig.getNOTHOMETEMP();
-                    if (temp > 30) {
-                        temp = 30;
+                // Temperature based on location activated
+                if (NorthQConfig.isHEATONLOCATION()) {
+                    // If no one is home
+                    if (!NorthQConfig.ISHOME()) {
+                        int temp = (int) NorthQConfig.getNOTHOMETEMP();
+                        if (temp > 30) {
+                            temp = 30;
+                        }
+                        services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                                qthermostat);
+                    } else if (NorthQConfig.ISHOME()) {
+                        int temp = (int) NorthQConfig.getISHOMETEMP();
+                        if (temp < 5) {
+                            temp = 5;
+                        }
+                        services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                                qthermostat);
                     }
-                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                            qthermostat);
-                } else if (NorthQConfig.ISHOME()) {
-                    int temp = (int) NorthQConfig.getISHOMETEMP();
-                    if (temp < 5) {
-                        temp = 5;
+
+                    // Temperature scheduler activated
+                    if (NorthQConfig.isTEMP_SCHEDULER()) {
+                        System.out.println("Daily temp scheduler");
                     }
-                    services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                            qthermostat);
                 }
+            } else {
+                // Set thing to offline
+                updateStatus(ThingStatus.OFFLINE);
+                return;
             }
 
         } catch (Exception e) {
