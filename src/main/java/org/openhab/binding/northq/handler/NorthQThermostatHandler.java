@@ -46,6 +46,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
     private NorthqServices services;
 
+    private float currentTemperature;
+
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
         @Override
@@ -61,8 +63,9 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     public NorthQThermostatHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
 
+        currentTemperature = 0;
         services = new NorthqServices();
-        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+        pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 10, TimeUnit.SECONDS);
     }
 
     /**
@@ -102,7 +105,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
                 if (command.toString() != null && command.toString() != "REFRESH") {
                     String temperature = command.toString();
-                    NorthQConfig.setTHERMOSTAT_TEMPERATURE(temperature);
+                    currentTemperature = Float.parseFloat(temperature);
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
                     qThermostat.getTher().temperature = Float.valueOf(temperature);
@@ -174,8 +177,7 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             }
 
             if (qthermostat != null) {
-                if (NorthQConfig.getTHERMOSTAT_TEMPERATURE() == null
-                        || NorthQConfig.getTHERMOSTAT_TEMPERATURE() == String.valueOf(qthermostat.getTemp())) {
+                if (currentTemperature == 0 || currentTemperature == qthermostat.getTemp()) {
                     updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
                             DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
                 }
