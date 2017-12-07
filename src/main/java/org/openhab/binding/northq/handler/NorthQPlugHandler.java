@@ -94,9 +94,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
                 if (qPlug == null) {
                     updateStatus(ThingStatus.OFFLINE);
                     return;
-                } else {
-                    updateStatus(ThingStatus.ONLINE);
                 }
+                updateStatus(ThingStatus.ONLINE);
 
                 String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.getNETWORK().getUserId();
@@ -137,7 +136,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
      */
     private void turnPlugOff(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOffPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
-        if (res) {
+        if (res || NorthQConfig.isMOCK()) {
             qPlug.getBs().pos = 0;
         }
     }
@@ -148,7 +147,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
      */
     private void turnPlugOn(Qplug qPlug, String gatewayID, String userID) throws IOException, Exception {
         boolean res = services.turnOnPlug(qPlug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
-        if (res) {
+        if (res || NorthQConfig.isMOCK()) {
             qPlug.getBs().pos = 1;
         }
     }
@@ -188,6 +187,7 @@ public class NorthQPlugHandler extends BaseThingHandler {
             String userID = NorthQConfig.getNETWORK().getUserId();
 
             if (qplug != null) {
+
                 updateStatus(ThingStatus.ONLINE);
 
                 // power based on gps

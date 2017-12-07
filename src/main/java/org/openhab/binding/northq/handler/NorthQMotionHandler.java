@@ -204,14 +204,16 @@ public class NorthQMotionHandler extends BaseThingHandler {
 
             String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
             Qmotion qMotion = getQmotion(nodeId);
+            boolean triggered = false;
 
             if (qMotion != null) {
                 updateStatus(ThingStatus.ONLINE);
 
-                boolean triggered = services.isTriggered(services.getNotificationArray(
-                        NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
-                        NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
-
+                if (!NorthQConfig.isMOCK()) {
+                    triggered = services.isTriggered(services.getNotificationArray(
+                            NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken(),
+                            NorthQConfig.getNETWORK().getHouses()[0].id + "", 1 + ""));
+                }
                 // Moved here
                 if (triggered && !NorthQConfig.ISHOME()
                         && (lastNotification + (1000 * 60 * 15)) < System.currentTimeMillis()) {
@@ -230,16 +232,6 @@ public class NorthQMotionHandler extends BaseThingHandler {
                         e.printStackTrace();
                     }
                     lastNotification = System.currentTimeMillis();
-                }
-                // 200 = success code, everything else is some fail
-                if (services
-                        .getGatewayStatus(NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId(),
-                                NorthQConfig.getNETWORK().getUserId(), NorthQConfig.getNETWORK().getToken())
-                        .getStatus() != 200) {
-                    updateStatus(ThingStatus.OFFLINE);
-                    return;
-                } else {
-                    updateStatus(ThingStatus.ONLINE);
                 }
 
                 if (qMotion != null && qMotion.getStatus()) { // Trigger state update

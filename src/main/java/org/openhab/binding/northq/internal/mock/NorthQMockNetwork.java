@@ -26,11 +26,11 @@ public class NorthQMockNetwork {
 
     public NorthQMockNetwork() {
         String mockToken = "mock_token";
-        String muckUserId = "0000";
+        String mockUserId = "0000";
         House[] mockHouses = null;
         ArrayList<NGateway> mockGates = new ArrayList<NGateway>();
 
-        mockNetwork = new NorthNetwork(mockToken, muckUserId, mockHouses, mockGates);
+        mockNetwork = new NorthNetwork(mockToken, mockUserId, mockHouses, mockGates);
 
         NGateway gate1 = MockFactory.createGateway("0000001111");
         gate1.addThing(MockFactory.createQplug());

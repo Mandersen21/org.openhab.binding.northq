@@ -72,7 +72,6 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
      */
     @Override
     public void initialize() {
-
         // Get parameters from configuration
         NorthQConfig.setUSERNAME(getThing().getConfiguration().get(NorthQStringConstants.USERNAME).toString());
         NorthQConfig.setPASSWORD(getThing().getConfiguration().get(NorthQStringConstants.PASSWORD).toString());
@@ -122,8 +121,9 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
     private void scheduleCode() {
         logger.debug("In network handler");
         // Only run polling job with NETWORK is not null
-        if (NorthQConfig.getNETWORK() != null) {
-            try {
+
+        try {
+            if (NorthQConfig.getNETWORK() != null && !NorthQConfig.isMOCK()) {
                 ReadWriteLock.getInstance().lockWrite();
 
                 // Configurations
@@ -131,35 +131,34 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 // 200 = success code, everything else is some fail
-                if (!NorthQConfig.isMOCK() && services
-                        .getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken()).getStatus() != 200) {
+                if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken())
+                        .getStatus() != 200) {
                     updateStatus(ThingStatus.OFFLINE);
                     return;
                 } else {
                     updateStatus(ThingStatus.ONLINE);
                 }
 
-                if (!NorthQConfig.isMOCK()) {
-                    // live
-                    NorthQConfig.setNETWORK(
-                            services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
-                } else {
+                // live
+                NorthQConfig
+                        .setNETWORK(services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
 
-                    // mock network
-                    if (NorthQConfig.getMOCK_NETWORK() == null) {
-                        NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
+            } else if (NorthQConfig.getNETWORK() != null) {
 
-                        MockGui gui = new MockGui();
-                        gui.setVisible(true);
-                    }
-                    NorthQConfig.setNETWORK(NorthQConfig.getMOCK_NETWORK().getNetwork());
+                // mock network
+                if (NorthQConfig.getMOCK_NETWORK() == null) {
+                    NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
+
+                    MockGui gui = new MockGui();
+                    gui.setVisible(true);
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                ReadWriteLock.getInstance().unlockWrite();
+                NorthQConfig.setNETWORK(NorthQConfig.getMOCK_NETWORK().getNetwork());
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ReadWriteLock.getInstance().unlockWrite();
         }
     }
 }
