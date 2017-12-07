@@ -47,6 +47,9 @@ public class NorthQThermostatHandler extends BaseThingHandler {
     private NorthqServices services;
 
     private float currentTemperature;
+    private boolean waitForUpdate = false;
+    private long waitTime = 0;
+
     private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
         @Override
@@ -105,9 +108,11 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
                 if (command.toString() != null && command.toString() != "REFRESH") {
                     String temperature = command.toString();
-                    currentTemperature = Float.parseFloat(temperature);
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
+                    currentTemperature = Float.parseFloat(temperature);
+                    waitForUpdate = true;
+                    waitTime = System.currentTimeMillis();
                     qThermostat.getTher().temperature = Float.valueOf(temperature);
                 }
 
@@ -178,9 +183,26 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             }
 
             if (qthermostat != null) {
-                if (currentTemperature == 0 || currentTemperature == qthermostat.getTemp()) {
+                // detect deadlock
+                if (waitForUpdate && waitTime + (1000 * 60 * 6) < System.currentTimeMillis()) {
+                    waitForUpdate = false;
+                    waitTime = 0;
+                }
+                // if(first run after boot) set temp directly
+                // else if(internal change wait) wait for change
+                // else if(external change) set temp directly
+                if (currentTemperature == 0) {
                     updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
                             DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+                    currentTemperature = qthermostat.getTemp();
+                } else if (waitForUpdate) {
+                    if (currentTemperature == qthermostat.getTemp()) {
+                        waitForUpdate = false;
+                    }
+                } else if (currentTemperature != qthermostat.getTemp()) {
+                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+                    currentTemperature = qthermostat.getTemp();
                 }
                 updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
                         DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
