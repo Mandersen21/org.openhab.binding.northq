@@ -176,7 +176,8 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             }
 
             if (qthermostat != null) {
-                if (NorthQConfig.getTHERMOSTAT_TEMPERATURE() == String.valueOf(qthermostat.getTemp())) {
+                if (NorthQConfig.getTHERMOSTAT_TEMPERATURE() == String.valueOf(qthermostat.getTemp())
+                        || NorthQConfig.getTHERMOSTAT_TEMPERATURE() == "undefined") {
                     updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
                             DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
                     updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
