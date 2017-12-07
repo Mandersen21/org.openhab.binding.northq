@@ -89,8 +89,8 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService {
                 properties.put(NorthQStringConstants.THING_ID, thingID);
 
                 DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                        .withLabel("Gateway: " + thingID).withThingType(NorthQBindingConstants.THING_TYPE_GATEWAY)
-                        .build();
+                        .withLabel("Gateway: " + thingID.substring(5))
+                        .withThingType(NorthQBindingConstants.THING_TYPE_GATEWAY).build();
 
                 thingDiscovered(dr);
             }

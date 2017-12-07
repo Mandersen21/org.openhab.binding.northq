@@ -85,6 +85,9 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
         if (channelUID.getId().equals(CHANNEL_QTHERMOSTAT)) {
             try {
+                // Sets current temperature requested from user
+                NorthQConfig.setTHERMOSTAT_TEMPERATURE(command.toString());
+
                 ReadWriteLock.getInstance().lockRead();
                 String nodeId = getThing().getProperties().get(NorthQStringConstants.THING_ID);
                 Qthermostat qThermostat = getThermostat(nodeId);
@@ -101,8 +104,6 @@ public class NorthQThermostatHandler extends BaseThingHandler {
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
                 if (command.toString() != null) {
-                    // Stop polling job for a moment when temperature is changed for better userexperience.
-
                     String temperature = command.toString();
                     services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temperature,
                             qThermostat);
@@ -175,10 +176,12 @@ public class NorthQThermostatHandler extends BaseThingHandler {
             }
 
             if (qthermostat != null) {
-                updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
-                        DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
-                updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
-                        DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
+                if (NorthQConfig.getTHERMOSTAT_TEMPERATURE() == String.valueOf(qthermostat.getTemp())) {
+                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
+                            DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
+                }
             }
 
             // Temperature based on location activated

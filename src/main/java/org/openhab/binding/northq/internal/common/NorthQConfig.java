@@ -37,6 +37,8 @@ public class NorthQConfig {
     private static boolean ISHOME = true;
     private static boolean POWERONLOCATION = false;
 
+    private static String THERMOSTAT_TEMPERATURE;
+
     private static boolean HEATONLOCATION = false;
     private static float ISHOMETEMP = 23;
     private static float NOTHOMETEMP = 18;
@@ -192,6 +194,14 @@ public class NorthQConfig {
 
     public static void setNIGHTTEMP(float nIGHTTEMP) {
         NIGHTTEMP = nIGHTTEMP;
+    }
+
+    public static String getTHERMOSTAT_TEMPERATURE() {
+        return THERMOSTAT_TEMPERATURE;
+    }
+
+    public static void setTHERMOSTAT_TEMPERATURE(String tHERMOSTAT_TEMPERATURE) {
+        THERMOSTAT_TEMPERATURE = tHERMOSTAT_TEMPERATURE;
     }
 
 }
