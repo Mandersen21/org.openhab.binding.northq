@@ -33,6 +33,9 @@ public class CredentialsService {
     private final String PATH = new File(System.getProperty("user.dir")) + "";
 
     public CredentialsService() {
+
+        System.out.println("Path that config.txt should be placed in: " + PATH);
+
         // Set user credentials
         ArrayList<String> userCre = getUserCredentials();
         NorthQConfig.setUSERNAME(userCre.get(0));
