@@ -34,8 +34,6 @@ public class CredentialsService {
 
     public CredentialsService() {
 
-        System.out.println("Path that config.txt should be placed in: " + PATH);
-
         // Set user credentials
         ArrayList<String> userCre = getUserCredentials();
         NorthQConfig.setUSERNAME(userCre.get(0));
@@ -45,14 +43,9 @@ public class CredentialsService {
         ArrayList<String> databaseCre = getDatabaseCredentials();
         NorthQConfig.setSQL_USERNAME(databaseCre.get(0));
         NorthQConfig.setSQL_PASSWORD(databaseCre.get(1));
-
-        // Set secret key
-        NorthQConfig.setSECRET_KEY(getSecretKey());
     }
 
     public ArrayList<String> getUserCredentials() {
-
-        System.out.println("Path that config.txt should be placed in: " + PATH);
 
         ArrayList<String> credentials = new ArrayList<>();
 
@@ -69,14 +62,13 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            logger.error("Could not read file config.txt");
+            System.out.println("Config.txt could not be found, please place in inside: " + PATH);
+            e.printStackTrace();
         }
         return credentials;
     }
 
     public ArrayList<String> getDatabaseCredentials() {
-
-        System.out.println("Path that config.txt should be placed in: " + PATH);
 
         ArrayList<String> credentials = new ArrayList<>();
 
@@ -93,28 +85,10 @@ public class CredentialsService {
                 }
             }
         } catch (Exception e) {
-            logger.error("Could not read file config.txt");
+            System.out.println("Config.txt could not be found, please place in inside: " + PATH);
+            e.printStackTrace();
         }
         return credentials;
-    }
-
-    public String getSecretKey() {
-
-        System.out.println("Path that config.txt should be placed in: " + PATH);
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(PATH + "/config.txt"));
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.substring(0, line.indexOf("#")).equals("secretKey")) {
-                    return line.substring(line.indexOf("#") + 1);
-                }
-            }
-        } catch (Exception e) {
-            logger.error("Could not read file config.txt");
-        }
-        return null;
     }
 
 }
