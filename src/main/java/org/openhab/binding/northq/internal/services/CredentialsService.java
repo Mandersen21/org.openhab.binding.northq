@@ -49,6 +49,8 @@ public class CredentialsService {
 
     public ArrayList<String> getUserCredentials() {
 
+        System.out.println("Path that config.txt should be placed in: " + PATH);
+
         ArrayList<String> credentials = new ArrayList<>();
 
         try {
@@ -70,6 +72,9 @@ public class CredentialsService {
     }
 
     public ArrayList<String> getDatabaseCredentials() {
+
+        System.out.println("Path that config.txt should be placed in: " + PATH);
+
         ArrayList<String> credentials = new ArrayList<>();
 
         try {
@@ -91,6 +96,8 @@ public class CredentialsService {
     }
 
     public String getSecretKey() {
+
+        System.out.println("Path that config.txt should be placed in: " + PATH);
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(PATH + "/config.txt"));
