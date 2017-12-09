@@ -17,7 +17,8 @@ import org.openhab.binding.northq.internal.model.NorthNetwork;
 /**
  * The {@link NorthQConfig} is responsible for keeping config variables to use in the binding.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Mads / Mikkel - Initial contribution
+ * @author Dan/Jakob/Philip/Nicolaj/Aslan - updated class
  */
 
 public class NorthQConfig {

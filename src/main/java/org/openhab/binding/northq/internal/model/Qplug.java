@@ -13,10 +13,10 @@ import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.model.json.BinarySwitch;
 
 /**
- * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
- * sent to one of the channels.
+ * The {@link NorthQNetworkHandler} is a pojo using the interface Ithing, extending thing, which holds the Qplug
+ * variables
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution (from standalone java)
  */
 
 public class Qplug extends Thing implements IThing {

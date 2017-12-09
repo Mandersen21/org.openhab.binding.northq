@@ -33,10 +33,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The {@link NorthQDiscoveryService} is responsible for creating things and thing
- * handlers, auto discoverable by framework (openhab).
+ * The {@link NorthQDiscoveryService} is responsible for discovering things, auto discoverable by framework.
  *
- * @author Dan - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution
  */
 @Component(service = DiscoveryService.class, immediate = true, configurationPid = "discovery.northq")
 public class NorthQDiscoveryService extends AbstractDiscoveryService {
@@ -74,82 +73,119 @@ public class NorthQDiscoveryService extends AbstractDiscoveryService {
         }
     }
 
+    /**
+     * Requires:The network to which discovery is to take place
+     * Returns: Discovers all devices in network
+     */
     public void discoverAlldevices(NorthNetwork n) {
         ArrayList<NGateway> g = n.getGateways();
-
         // for each gateway get things
         for (int i = 0; i < g.size(); i++) {
             ArrayList<Thing> things = g.get(i).getThings();
             if (g != null) {
-                logger.debug("Discovered a gateway");
-                String thingID = g.get(i).getGatewayId();
-                ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
-                Map<String, Object> properties = new HashMap<>(1);
-
-                properties.put(NorthQStringConstants.THING_ID, thingID);
-
-                DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                        .withLabel("Gateway: " + thingID.substring(5))
-                        .withThingType(NorthQBindingConstants.THING_TYPE_GATEWAY).build();
-
-                thingDiscovered(dr);
+                discoverGateway(g, i);
             }
             // for each thing found in gateway
             for (int j = 0; j < things.size(); j++) {
                 Thing thing = things.get(j);
 
                 if (thing instanceof Qplug) {
-                    logger.debug("Discovered thing type Q plug");
-
-                    String thingID = thing.getNodeID();
-                    ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
-                    Map<String, Object> properties = new HashMap<>(2);
-
-                    properties.put(NorthQStringConstants.THING_ID, thingID);
-                    properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qplug) thing).getBs().room));
-
-                    DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                            .withLabel(((Qplug) thing).getBs().name)
-                            .withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
-
-                    thingDiscovered(dr);
-
+                    discoverQplug(n, thing);
                 } else if (thing instanceof Qmotion) {
-                    logger.debug("Discovered thing type Q motion");
-
-                    String thingID = thing.getNodeID();
-                    ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
-                    Map<String, Object> properties = new HashMap<>(2);
-
-                    properties.put(NorthQStringConstants.THING_ID, thingID);
-                    properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qmotion) thing).getBs().room));
-
-                    DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                            .withLabel(((Qmotion) thing).getBs().name)
-                            .withThingType(NorthQBindingConstants.THING_TYPE_QMOTION).build();
-
-                    thingDiscovered(dr);
+                    discoverQmotion(n, thing);
                 } else if (thing instanceof Qthermostat) {
-                    logger.debug("Discovered thing type Q thermostat");
-
-                    String thingID = thing.getNodeID();
-                    ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
-                    Map<String, Object> properties = new HashMap<>(2);
-
-                    properties.put(NorthQStringConstants.THING_ID, thingID);
-                    properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qthermostat) thing).getTher().room));
-
-                    DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
-                            .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
-                            .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
-
-                    thingDiscovered(dr);
+                    discoveryQthermostat(n, thing);
 
                 }
             }
         }
     }
 
+    /**
+     * Requires: the network context and a found thing
+     * Returns: Informs framework of a discovered gateway
+     */
+    private void discoverGateway(ArrayList<NGateway> g, int i) {
+        logger.debug("Discovered a gateway");
+        String thingID = g.get(i).getGatewayId();
+        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
+        Map<String, Object> properties = new HashMap<>(1);
+
+        properties.put(NorthQStringConstants.THING_ID, thingID);
+
+        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                .withLabel("Gateway: " + thingID.substring(5)).withThingType(NorthQBindingConstants.THING_TYPE_GATEWAY)
+                .build();
+
+        thingDiscovered(dr);
+    }
+
+    /**
+     * Requires: the network context and a found thing
+     * Returns: Informs framework of a discovered Qplug
+     */
+    private void discoverQplug(NorthNetwork n, Thing thing) {
+        logger.debug("Discovered thing type Q plug");
+
+        String thingID = thing.getNodeID();
+        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QPLUG, thingID);
+        Map<String, Object> properties = new HashMap<>(2);
+
+        properties.put(NorthQStringConstants.THING_ID, thingID);
+        properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qplug) thing).getBs().room));
+
+        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                .withLabel(((Qplug) thing).getBs().name).withThingType(NorthQBindingConstants.THING_TYPE_QPLUG).build();
+
+        thingDiscovered(dr);
+    }
+
+    /**
+     * Requires: the network context and a found thing
+     * Returns: Informs framework of a discovered Qmotion
+     */
+    private void discoverQmotion(NorthNetwork n, Thing thing) {
+        logger.debug("Discovered thing type Q motion");
+
+        String thingID = thing.getNodeID();
+        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QMOTION, thingID);
+        Map<String, Object> properties = new HashMap<>(2);
+
+        properties.put(NorthQStringConstants.THING_ID, thingID);
+        properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qmotion) thing).getBs().room));
+
+        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                .withLabel(((Qmotion) thing).getBs().name).withThingType(NorthQBindingConstants.THING_TYPE_QMOTION)
+                .build();
+
+        thingDiscovered(dr);
+    }
+
+    /**
+     * Requires: the network context and a found thing
+     * Returns: Informs framework of a discovered Qthermostat
+     */
+    private void discoveryQthermostat(NorthNetwork n, Thing thing) {
+        logger.debug("Discovered thing type Q thermostat");
+
+        String thingID = thing.getNodeID();
+        ThingUID newThing = new ThingUID(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT, thingID);
+        Map<String, Object> properties = new HashMap<>(2);
+
+        properties.put(NorthQStringConstants.THING_ID, thingID);
+        properties.put(NorthQStringConstants.ROOM, getRoomName(n, ((Qthermostat) thing).getTher().room));
+
+        DiscoveryResult dr = DiscoveryResultBuilder.create(newThing).withProperties(properties)
+                .withLabel("Thermostat" + ((Qthermostat) thing).getTher().node_id)
+                .withThingType(NorthQBindingConstants.THING_TYPE_QTHERMOSTAT).build();
+
+        thingDiscovered(dr);
+    }
+
+    /**
+     * Requires: the network context and a room id
+     * Returns: extracts the room name from network given the Id
+     */
     public String getRoomName(NorthNetwork n, int roomid) {
         String res = "";
         ArrayList<NGateway> g = n.getGateways();

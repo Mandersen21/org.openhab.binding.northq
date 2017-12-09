@@ -9,14 +9,13 @@
 
 package org.openhab.binding.northq.internal.model;
 
-import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.model.json.BinarySensor;
 
 /**
- * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
- * sent to one of the channels.
+ * The {@link Qmotion} is a pojo using the interface Ithing, extending thing, which holds the Qmotion
+ * variables
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution (from standalone java)
  */
 
 public class Qmotion extends Thing implements IThing {

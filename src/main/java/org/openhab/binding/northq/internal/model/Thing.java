@@ -9,13 +9,10 @@
 
 package org.openhab.binding.northq.internal.model;
 
-import org.openhab.binding.northq.handler.NorthQNetworkHandler;
-
 /**
- * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
- * sent to one of the channels.
+ * The {@link Thing} is a pojo using the interface Ithing, implementing default thing methods
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution (from standalone java)
  */
 
 public abstract class Thing implements IThing {

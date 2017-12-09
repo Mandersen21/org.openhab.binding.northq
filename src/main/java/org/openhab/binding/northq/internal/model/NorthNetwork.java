@@ -11,14 +11,12 @@ package org.openhab.binding.northq.internal.model;
 
 import java.util.ArrayList;
 
-import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.model.json.House;
 
 /**
- * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
- * sent to one of the channels.
+ * The {@link NorthNetwork} is a pojo which holds the Network variables and gateways which in turn holds the things
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution (from standalone java)
  */
 
 public class NorthNetwork {

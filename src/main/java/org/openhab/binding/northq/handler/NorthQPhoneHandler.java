@@ -26,7 +26,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import javax.ws.rs.core.Form;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -46,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * The {@link NorthQPhoneHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan & Nicolaj - Initial contribution
  */
 
 @NonNullByDefault
@@ -54,14 +53,9 @@ public class NorthQPhoneHandler extends BaseThingHandler {
 
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPhoneHandler.class);
-
     private boolean phoneEnabledStatus;
-
     public String location = "0";
     public String locationStatus = "home";
-    private String sqlUser;
-    private String sqlPassword;
-
     private final byte[] keyValue;
 
     private ScheduledFuture<?> pollingJob;
@@ -73,14 +67,13 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         }
     };
 
+    /**
+     * Constructor
+     */
     @SuppressWarnings("null")
     public NorthQPhoneHandler(Thing thing) {
         super(thing);
-
-        sqlUser = NorthQConfig.getSQL_USERNAME();
-        sqlPassword = NorthQConfig.getSQL_PASSWORD();
         keyValue = NorthQConfig.getSECRET_KEY().getBytes();
-
         phoneEnabledStatus = false;
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
@@ -128,8 +121,10 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         updateStatus(ThingStatus.REMOVED);
     }
 
-    // Requires: A cipher text string
-    // Returns: The decrypted plain text of text string
+    /**
+     * Requires: A cipher text string
+     * Returns: The decrypted plain text of text string
+     */
     public @Nullable String decrypt(String cipherText) {
         try {
             Cipher AesCipher;
@@ -144,8 +139,10 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         return null;
     }
 
-    // Requires:
-    // Returns: generates the AES key
+    /**
+     * Requires:
+     * Returns: generates the AES key
+     */
     private Key generateKey() {
         Key key = new SecretKeySpec(keyValue, "AES");
         return key;
@@ -158,10 +155,6 @@ public class NorthQPhoneHandler extends BaseThingHandler {
     private void scheduleCode() {
         logger.debug("Polling data for phone");
 
-        Form form = new Form();
-        form.param("getGPS", NorthQConfig.getUSERNAME());
-        form.param("name", getThing().getConfiguration().get("name").toString());
-
         try {
             if (phoneEnabledStatus) {
                 String raw = "";
@@ -173,12 +166,15 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                 if (raw.equals("")) {
                     return;
                 }
+
+                // decrypt and split data
                 String decrypted = decrypt(raw);
                 // 1 or 0 ; home | work
                 String[] data = decrypted.split(";");
                 String locationStatus = data[0];
                 String location = data[1];
 
+                // Set phones status
                 boolean resBol;
                 if (!NorthQPhoneHandler.this.location.equals(NorthQStringConstants.HOME)
                         && NorthQPhoneHandler.this.locationStatus.equals("1")
@@ -199,11 +195,10 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                         StringType.valueOf(isHome ? NorthQStringConstants.HOME : NorthQStringConstants.OUT));
 
                 NorthQConfig.getPHONE_MAP().put(getThing().getConfiguration().get("name").toString(), isHome);
-
                 Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
-
                 NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
 
+                // Update overall phone status
                 boolean allAway = true;
                 for (Boolean b : phoneHome) {
                     boolean bol = b.booleanValue();
@@ -228,12 +223,16 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         }
     }
 
+    /**
+     * Requires:
+     * Returns: registers a user in the database
+     */
     private void createDbUser() {
-        // register database tracking
         Connection conn;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", NorthQConfig.getSQL_USERNAME(),
+                    NorthQConfig.getSQL_PASSWORD());
             PreparedStatement createStatement = null;
             createStatement = conn.prepareStatement(
                     "insert ignore into gpsapp.registeredgpsusers (`username`, `homelocation`) values (?,?);");
@@ -245,12 +244,16 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         }
     }
 
+    /**
+     * Requires:
+     * Returns: Get the newest encrypted gps data for the phone
+     */
     private String getGpsDataFromDb(String raw) {
-        // SQL connection code, fetch newest phone status
         Connection conn;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", NorthQConfig.getSQL_USERNAME(),
+                    NorthQConfig.getSQL_PASSWORD());
             PreparedStatement createStatement = null;
             createStatement = conn.prepareStatement(
                     "select * from `gpsapp`.`gpsdata` where  `user` = ? ORDER BY stamp DESC LIMIT 1;");
@@ -275,12 +278,16 @@ public class NorthQPhoneHandler extends BaseThingHandler {
         return raw;
     }
 
+    /**
+     * Requires:
+     * Returns: removes a user from the database
+     */
     private void removeUserFromDb() {
-        // unregister database tracking
         Connection conn;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", sqlUser, sqlPassword);
+            conn = DriverManager.getConnection("jdbc:Mysql://localhost:3306", NorthQConfig.getSQL_USERNAME(),
+                    NorthQConfig.getSQL_PASSWORD());
             PreparedStatement createStatement = null;
             createStatement = conn
                     .prepareStatement("delete from gpsapp.registeredgpsusers where registeredgpsusers.Username = ?;");

@@ -15,7 +15,6 @@ import java.util.Arrays;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.model.NGateway;
 import org.openhab.binding.northq.internal.model.NorthNetwork;
 import org.openhab.binding.northq.internal.model.Qmotion;
@@ -32,10 +31,10 @@ import org.openhab.binding.northq.internal.model.json.UserNotificationHolder;
 import com.google.gson.Gson;
 
 /**
- * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
- * sent to one of the channels.
+ * The {@link NorthqServices} is responsible for all formatting and handling all http calls
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution (refactored for openHAB)
  */
 
 public class NorthqServices {
