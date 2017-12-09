@@ -44,10 +44,6 @@ public class NorthqServices {
     // Requires: a username and password
     // Returns: returns the NorthNetwork object
     public NorthNetwork mapNorthQNetwork(String username, String password) throws Exception {
-        /*
-         * WARNING: THIS DOES NOT TAKE INTO ACCOUNT WHICH GATEWAYS BELONGS TO WHICH HOUSE
-         * TODO: Consider refactoring along the line.
-         */
         ArrayList<NGateway> gateways = new ArrayList<>();
 
         User user = postLogin(username, password);
