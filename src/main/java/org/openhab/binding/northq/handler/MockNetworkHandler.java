@@ -22,7 +22,8 @@ import org.openhab.binding.northq.internal.common.NorthQConfig;
  * The {@link MockNetworkHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
- * @author Team C - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution.
+ * @author Philip / Jakob - Updated with UI.
  */
 @NonNullByDefault
 public class MockNetworkHandler extends BaseThingHandler {

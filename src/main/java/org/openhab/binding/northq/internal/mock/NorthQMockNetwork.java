@@ -18,7 +18,7 @@ import org.openhab.binding.northq.internal.model.json.House;
  * The {@link NorthQMockNetwork} is responsible generating a mock network
  * that allows us to simulate multiple scenarios.
  *
- * @author Nicolaj - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution
  */
 public class NorthQMockNetwork {
 

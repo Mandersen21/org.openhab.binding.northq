@@ -19,7 +19,8 @@ import com.google.common.collect.ImmutableSet;
  * The {@link NorthQBindingConstants} class defines common constants, which are
  * used across the whole binding.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Mikkel & Mads - Initial contribution
+ * @author Dan/Jakob/Philip/Nicolaj/Aslan - updated class
  */
 @NonNullByDefault
 public class NorthQBindingConstants {

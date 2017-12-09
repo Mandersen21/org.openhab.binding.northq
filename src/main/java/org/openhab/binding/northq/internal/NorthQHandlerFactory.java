@@ -19,8 +19,8 @@ import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.northq.NorthQBindingConstants;
-import org.openhab.binding.northq.handler.NorthQGatewayHandler;
 import org.openhab.binding.northq.handler.MockNetworkHandler;
+import org.openhab.binding.northq.handler.NorthQGatewayHandler;
 import org.openhab.binding.northq.handler.NorthQMotionHandler;
 import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.handler.NorthQPhoneHandler;
@@ -33,7 +33,8 @@ import org.osgi.service.component.annotations.Component;
  * The {@link NorthQHandlerFactory} is responsible for creating things and thing
  * handlers.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Mads / Mikkel - Initial contribution
+ * @author Dan/Jakob/Philip/Nicolaj/Aslan - updated createHaandler
  */
 @Component(service = ThingHandlerFactory.class, immediate = true, configurationPid = "binding.northq")
 @NonNullByDefault

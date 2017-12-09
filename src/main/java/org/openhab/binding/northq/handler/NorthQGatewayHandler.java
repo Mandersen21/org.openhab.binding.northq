@@ -34,7 +34,7 @@ import org.openhab.binding.northq.internal.model.Thing;
  * The {@link NorthQGatewayHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution
  */
 
 public class NorthQGatewayHandler extends BaseThingHandler {
@@ -55,6 +55,17 @@ public class NorthQGatewayHandler extends BaseThingHandler {
         super(thing);
 
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Abstract method overwritten
+     * Requires:
+     * Returns: Initializer
+     */
+    @Override
+    public void initialize() {
+        NorthQConfig.setHEATONLOCATION(false);
+        updateStatus(ThingStatus.ONLINE);
     }
 
     /**
@@ -120,18 +131,7 @@ public class NorthQGatewayHandler extends BaseThingHandler {
                 }
             }
 
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
-                    NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE,
-                    NorthQConfig.isTEMP_SCHEDULER() ? OnOffType.ON : OnOffType.OFF);
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_DAY,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getDAYTEMP())));
-            updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_NIGHT,
-                    DecimalType.valueOf(String.valueOf(NorthQConfig.getNIGHTTEMP())));
+            updateChannelStatus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,21 +154,8 @@ public class NorthQGatewayHandler extends BaseThingHandler {
     }
 
     /**
-     * Abstract method overwritten
-     * Requires:
-     * Returns: Initializer
-     */
-    @Override
-    public void initialize() {
-        NorthQConfig.setHEATONLOCATION(false);
-        updateStatus(ThingStatus.ONLINE);
-    }
-
-    /**
      * Requires: a nodeId
      * Returns: gets the Qplug with nodeId
-     *
-     * @param nodeId
      */
     public @Nullable NGateway getGateway(String nodeId) {
         ArrayList<NGateway> gateways = NorthQConfig.getNETWORK().getGateways();
@@ -185,6 +172,10 @@ public class NorthQGatewayHandler extends BaseThingHandler {
         return null;
     }
 
+    /**
+     * Requires:
+     * Returns: Updates channels based on external changes.
+     */
     private void scheduleCode() {
         try {
 
@@ -197,6 +188,7 @@ public class NorthQGatewayHandler extends BaseThingHandler {
                 Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
                 NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
 
+                // Figure out if all users are home or not.
                 boolean allAway = true;
                 for (Boolean b : phoneHome) {
                     boolean bol = b.booleanValue();
@@ -204,21 +196,7 @@ public class NorthQGatewayHandler extends BaseThingHandler {
                         allAway = false;
                     }
                 }
-
-                if (NorthQConfig.isHEATONLOCATION()) {
-                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
-                            StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
-                } else {
-                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
-                            StringType.valueOf(NorthQStringConstants.INACTIVE));
-                }
-                if (NorthQConfig.isPOWERONLOCATION()) {
-                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
-                            StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
-                } else {
-                    updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
-                            StringType.valueOf(NorthQStringConstants.INACTIVE));
-                }
+                updatePowerAndHeatChannels(allAway);
 
             } else {
                 updateStatus(ThingStatus.OFFLINE);
@@ -226,5 +204,45 @@ public class NorthQGatewayHandler extends BaseThingHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Requires: The summerized gps status as a boolean
+     * Returns: Updates the channel statuses as needed
+     */
+    private void updatePowerAndHeatChannels(boolean allAway) {
+        if (NorthQConfig.isHEATONLOCATION()) {
+            updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
+                    StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
+        } else {
+            updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_HEATING,
+                    StringType.valueOf(NorthQStringConstants.INACTIVE));
+        }
+        if (NorthQConfig.isPOWERONLOCATION()) {
+            updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
+                    StringType.valueOf(allAway ? NorthQStringConstants.OUT : NorthQStringConstants.HOME));
+        } else {
+            updateState(NorthQBindingConstants.CHANNEL_SETTING_STATUS_GPS_POWER,
+                    StringType.valueOf(NorthQStringConstants.INACTIVE));
+        }
+    }
+
+    /**
+     * Requires:
+     * Returns: updates all channel statuses
+     */
+    private void updateChannelStatus() {
+        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TOGGLEHEATLOCATION,
+                NorthQConfig.isHEATONLOCATION() ? OnOffType.ON : OnOffType.OFF);
+        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_ISHOMETEMP,
+                DecimalType.valueOf(String.valueOf(NorthQConfig.getISHOMETEMP())));
+        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_NOTHOMETEMP,
+                DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
+        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE,
+                NorthQConfig.isTEMP_SCHEDULER() ? OnOffType.ON : OnOffType.OFF);
+        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_DAY,
+                DecimalType.valueOf(String.valueOf(NorthQConfig.getDAYTEMP())));
+        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_NIGHT,
+                DecimalType.valueOf(String.valueOf(NorthQConfig.getNIGHTTEMP())));
     }
 }

@@ -10,6 +10,7 @@ package org.openhab.binding.northq.handler;
 
 import static org.openhab.binding.northq.NorthQBindingConstants.CHANNEL_QTHERMOSTAT;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -36,16 +37,15 @@ import org.slf4j.LoggerFactory;
  * The {@link NorthQThermostatHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Jakob / Philip - Initial contribution & scheduled code
+ * @author Aslan - Handler code
  */
 @NonNullByDefault
 public class NorthQThermostatHandler extends BaseThingHandler {
 
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQThermostatHandler.class);
-
     private NorthqServices services;
-
     private float currentTemperature;
     private boolean waitForUpdate = false;
     private long waitTime = 0;
@@ -135,8 +135,6 @@ public class NorthQThermostatHandler extends BaseThingHandler {
         if (pollingJob != null && !pollingJob.isCancelled()) {
             pollingJob.cancel(true);
         }
-
-        // remove thing
         updateStatus(ThingStatus.REMOVED);
     }
 
@@ -178,58 +176,9 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
                 // Set thing to online
                 updateStatus(ThingStatus.ONLINE);
+                thermostatStatusControls(qthermostat);
+                updateHeatOnLocation(qthermostat, gatewayID, userID);
 
-                // detect deadlock
-                if (waitForUpdate && waitTime + (1000 * 60 * 6) < System.currentTimeMillis()) {
-                    waitForUpdate = false;
-                    waitTime = 0;
-                }
-
-                // if(first run after boot) set temp directly
-                if (currentTemperature == 0) {
-                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
-                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
-                    currentTemperature = qthermostat.getTemp();
-                }
-                // else if(internal change wait) wait for change
-                else if (waitForUpdate) {
-                    if (currentTemperature == qthermostat.getTemp()) {
-                        waitForUpdate = false;
-                    }
-                }
-                // else if(external change) set temp directly
-                else if (currentTemperature != qthermostat.getTemp()) {
-                    updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
-                            DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
-                    currentTemperature = qthermostat.getTemp();
-                }
-                updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
-                        DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
-
-                // Temperature based on location activated
-                if (NorthQConfig.isHEATONLOCATION()) {
-                    // If no one is home
-                    if (!NorthQConfig.ISHOME()) {
-                        int temp = (int) NorthQConfig.getNOTHOMETEMP();
-                        if (temp > 30) {
-                            temp = 30;
-                        }
-                        services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                                qthermostat);
-                    } else if (NorthQConfig.ISHOME()) {
-                        int temp = (int) NorthQConfig.getISHOMETEMP();
-                        if (temp < 5) {
-                            temp = 5;
-                        }
-                        services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
-                                qthermostat);
-                    }
-
-                    // Temperature scheduler activated
-                    if (NorthQConfig.isTEMP_SCHEDULER()) {
-                        System.out.println("Daily temp scheduler");
-                    }
-                }
             } else {
                 // Set thing to offline
                 updateStatus(ThingStatus.OFFLINE);
@@ -244,5 +193,66 @@ public class NorthQThermostatHandler extends BaseThingHandler {
 
         Boolean[] phoneHome = new Boolean[NorthQConfig.getPHONE_MAP().values().toArray().length];
         NorthQConfig.getPHONE_MAP().values().toArray(phoneHome);
+    }
+
+    /**
+     * Requires: Qthermostat, gatewayID, userID
+     * Returns: Automatically handles heat on location for northQ devices
+     */
+    private void updateHeatOnLocation(Qthermostat qthermostat, String gatewayID, String userID)
+            throws IOException, Exception {
+        // Temperature based on location activated
+        if (NorthQConfig.isHEATONLOCATION()) {
+            // If no one is home
+            if (!NorthQConfig.ISHOME()) {
+                int temp = (int) NorthQConfig.getNOTHOMETEMP();
+                if (temp > 30) {
+                    temp = 30;
+                }
+                services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                        qthermostat);
+            } else if (NorthQConfig.ISHOME()) {
+                int temp = (int) NorthQConfig.getISHOMETEMP();
+                if (temp < 5) {
+                    temp = 5;
+                }
+                services.setTemperature(NorthQConfig.getNETWORK().getToken(), userID, gatewayID, temp + "",
+                        qthermostat);
+            }
+        }
+    }
+
+    /**
+     * Requires: a thermostat thing
+     * Returns: Ensure consistency between set values and awaited value
+     */
+    private void thermostatStatusControls(Qthermostat qthermostat) {
+        // detect deadlock
+        if (waitForUpdate && waitTime + (1000 * 60 * 6) < System.currentTimeMillis()) {
+            waitForUpdate = false;
+            waitTime = 0;
+        }
+
+        // if(first run after boot) set temp directly
+        if (currentTemperature == 0) {
+            updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                    DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+            currentTemperature = qthermostat.getTemp();
+        }
+        // else if(internal change wait) wait for change
+        else if (waitForUpdate) {
+            if (currentTemperature == qthermostat.getTemp()) {
+                waitForUpdate = false;
+            }
+        }
+        // else if(external change) set temp directly
+        else if (currentTemperature != qthermostat.getTemp()) {
+            updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT,
+                    DecimalType.valueOf(String.valueOf(qthermostat.getTemp())));
+            currentTemperature = qthermostat.getTemp();
+        }
+        // updates battery channel
+        updateState(NorthQBindingConstants.CHANNEL_QTHERMOSTAT_BATTERY,
+                DecimalType.valueOf(String.valueOf(qthermostat.getBattery())));
     }
 }

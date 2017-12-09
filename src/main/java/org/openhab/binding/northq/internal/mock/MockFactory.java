@@ -23,7 +23,7 @@ import org.openhab.binding.northq.internal.model.json.Thermostat;
  * The {@link MockFactory} is responsible generating mock things for
  * the mock network
  *
- * @author Nicolaj - Initial contribution
+ * @author Dan / Nicolaj - Initial contribution
  */
 public class MockFactory {
 

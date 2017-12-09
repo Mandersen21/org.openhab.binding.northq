@@ -38,17 +38,16 @@ import org.slf4j.LoggerFactory;
  * The {@link NorthQPlugHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Mads & Mikkel - Initial contribution
  */
 @NonNullByDefault
 public class NorthQPlugHandler extends BaseThingHandler {
 
     @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(NorthQPlugHandler.class);
-
     private NorthqServices services;
-    private ScheduledFuture<?> pollingJob;
 
+    private ScheduledFuture<?> pollingJob;
     private Runnable pollingRunnable = new Runnable() {
         @Override
         public void run() {
@@ -62,7 +61,6 @@ public class NorthQPlugHandler extends BaseThingHandler {
     @SuppressWarnings("null")
     public NorthQPlugHandler(org.eclipse.smarthome.core.thing.Thing thing) {
         super(thing);
-
         services = new NorthqServices();
         pollingJob = scheduler.scheduleWithFixedDelay(pollingRunnable, 1, 5, TimeUnit.SECONDS);
     }
@@ -187,27 +185,8 @@ public class NorthQPlugHandler extends BaseThingHandler {
             String userID = NorthQConfig.getNETWORK().getUserId();
 
             if (qplug != null) {
-
                 updateStatus(ThingStatus.ONLINE);
-
-                // power based on gps
-                if (qplug != null && !NorthQConfig.ISHOME() && NorthQConfig.isPOWERONLOCATION()) {
-                    try {
-                        boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID,
-                                gatewayID);
-                        qplug.getBs().pos = 0;
-                        updateState("channelplug", OnOffType.OFF);
-                        updateStatus(ThingStatus.ONLINE);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        updateStatus(ThingStatus.OFFLINE);
-                    }
-                }
-
-                updateState(NorthQBindingConstants.CHANNEL_QPLUG, qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
-                updateState(NorthQBindingConstants.CHANNEL_QPLUG_POWER,
-                        DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
-
+                updateChannelStatus(qplug, gatewayID, userID);
             } else {
                 updateStatus(ThingStatus.OFFLINE);
                 return;
@@ -218,5 +197,28 @@ public class NorthQPlugHandler extends BaseThingHandler {
         } finally {
             ReadWriteLock.getInstance().unlockRead();
         }
+    }
+
+    /**
+     * Requires: A plug a gatewayID and a userID
+     * Returns: updates the thing, when run
+     */
+    private void updateChannelStatus(Qplug qplug, String gatewayID, String userID) {
+        // Automated turn off of power based on gps
+        if (qplug != null && !NorthQConfig.ISHOME() && NorthQConfig.isPOWERONLOCATION()) {
+            try {
+                boolean res = services.turnOffPlug(qplug, NorthQConfig.getNETWORK().getToken(), userID, gatewayID);
+                qplug.getBs().pos = 0;
+                updateState("channelplug", OnOffType.OFF);
+                updateStatus(ThingStatus.ONLINE);
+            } catch (Exception e) {
+                e.printStackTrace();
+                updateStatus(ThingStatus.OFFLINE);
+            }
+        }
+        // Updates remaining states
+        updateState(NorthQBindingConstants.CHANNEL_QPLUG, qplug.getStatus() ? OnOffType.ON : OnOffType.OFF);
+        updateState(NorthQBindingConstants.CHANNEL_QPLUG_POWER,
+                DecimalType.valueOf(String.valueOf(qplug.getPowerConsumption())));
     }
 }

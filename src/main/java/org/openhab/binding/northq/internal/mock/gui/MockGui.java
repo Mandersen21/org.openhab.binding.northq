@@ -46,7 +46,7 @@ import org.openhab.binding.northq.internal.model.Thing;
  * The {@link NorthQMockNetwork} is responsible generating a mock network
  * that allows us to simulate multiple scenarios.
  *
- * @author Nicolaj - Initial contribution
+ * @author Jakob / Philip - Initial contribution
  */
 public class MockGui extends JFrame {
     // MainPanel

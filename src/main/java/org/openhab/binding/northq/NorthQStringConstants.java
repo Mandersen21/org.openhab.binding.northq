@@ -9,10 +9,10 @@
 package org.openhab.binding.northq;
 
 /**
- * The {@link NorthQStringConstants} class defines common constants, which are
+ * The {@link NorthQStringConstants} class defines common string constants, which are
  * used across the whole binding.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Aslan / Nicolaj - Initial contribution
  */
 public class NorthQStringConstants {
 

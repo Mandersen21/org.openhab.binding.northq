@@ -14,16 +14,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import org.openhab.binding.northq.handler.NorthQNetworkHandler;
 import org.openhab.binding.northq.internal.common.NorthQConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
- * sent to one of the channels.
+ * The {@link CredentialsService} is responsible for fetching credentials from our password file
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Jakob / Philip - Initial contribution (from standalone java)
+ * @author Mads / Mikkel - updated to openHAB version (All code)
  */
 
 public class CredentialsService {

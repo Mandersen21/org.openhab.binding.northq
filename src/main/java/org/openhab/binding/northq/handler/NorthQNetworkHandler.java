@@ -32,7 +32,9 @@ import org.slf4j.LoggerFactory;
  * The {@link NorthQNetworkHandler} is responsible for handling commands, which are
  * sent to one of the channels.
  *
- * @author DTU_02162_group03 - Initial contribution
+ * @author Mikkel & Aslan - Initial contribution
+ * @author Dan & Nicolaj - Scheduled code
+ * @author Jakob & Philip - Mock instance
  */
 
 @NonNullByDefault
@@ -116,13 +118,12 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
 
     /**
      * Requires:
-     * Returns: updates the thing, when run
+     * Returns: Updates the Network from NorthQs API
      */
     private void scheduleCode() {
         logger.debug("In network handler");
-        // Only run polling job with NETWORK is not null
-
         try {
+            // Updates the network from NorthQ Restful API
             if (NorthQConfig.getNETWORK() != null && !NorthQConfig.isMOCK()) {
                 ReadWriteLock.getInstance().lockWrite();
 
@@ -130,7 +131,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                 String gatewayID = NorthQConfig.getNETWORK().getGateways().get(0).getGatewayId();
                 String userID = NorthQConfig.getNETWORK().getUserId();
 
-                // 200 = success code, everything else is some fail
+                // 200 = success code
                 if (services.getGatewayStatus(gatewayID, userID, NorthQConfig.getNETWORK().getToken())
                         .getStatus() != 200) {
                     updateStatus(ThingStatus.OFFLINE);
@@ -138,14 +139,11 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                 } else {
                     updateStatus(ThingStatus.ONLINE);
                 }
-
-                // live
                 NorthQConfig
                         .setNETWORK(services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
 
-            } else if (NorthQConfig.getNETWORK() != null) {
-
-                // mock network
+            } // else if mock instance is running
+            else if (NorthQConfig.getNETWORK() != null) {
                 if (NorthQConfig.getMOCK_NETWORK() == null) {
                     NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
 
