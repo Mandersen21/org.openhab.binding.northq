@@ -163,16 +163,17 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     return;
                 }
 
-                if (raw.equals("")) {
+                if (raw.equals("") && !NorthQConfig.isMOCK()) {
                     return;
                 }
-
-                // decrypt and split data
-                String decrypted = decrypt(raw);
-                // 1 or 0 ; home | work
-                String[] data = decrypted.split(";");
-                String locationStatus = data[0];
-                String location = data[1];
+                if (!NorthQConfig.isMOCK()) {
+                    // decrypt and split data
+                    String decrypted = decrypt(raw);
+                    // 1 or 0 ; home | work
+                    String[] data = decrypted.split(";");
+                    String locationStatus = data[0];
+                    String location = data[1];
+                }
 
                 // Set phones status
                 boolean resBol;
