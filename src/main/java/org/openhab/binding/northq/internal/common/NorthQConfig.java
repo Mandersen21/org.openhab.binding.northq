@@ -33,7 +33,7 @@ public class NorthQConfig {
     private static String SQL_USERNAME;
     private static String SQL_PASSWORD;
 
-    private static String SECRET_KEY = "Beercalc12DTU123";
+    private static String SECRET_KEY;
 
     private static boolean ISHOME = true;
     private static boolean POWERONLOCATION = false;
