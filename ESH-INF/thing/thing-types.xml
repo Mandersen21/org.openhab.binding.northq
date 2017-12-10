@@ -255,8 +255,6 @@
 			<channel id="channelthermostat" typeId="thermostat-channel" />
 			<channel id="channelthermostatbattery" typeId="thermostat-battery-channel" />
 			<channel id="channelScheduleTemp" typeId="channelScheduleTemp" />
-            <channel id="channelScheduleTempDay" typeId="channelScheduleTempDay" />
-            <channel id="channelScheduleTempNight" typeId="channelScheduleTempNight" />
 		</channels>
 	</thing-type>
 
@@ -278,20 +276,6 @@
         <item-type>Switch</item-type>
         <label>Enable temperature scheduler</label>
         <description>Enable temperature scheduler</description>
-    </channel-type>
-    
-    <channel-type id="channelScheduleTempDay">
-        <item-type>Number</item-type>
-        <label>Temperature Day</label>
-        <description>Temperature in the day</description>
-        <state pattern="%.1d °C" />
-    </channel-type>
-    
-    <channel-type id="channelScheduleTempNight">
-        <item-type>Number</item-type>
-        <label>Temperature Night</label>
-        <description>Temperature in the night</description>
-        <state pattern="%.1d °C" />
     </channel-type>
 
 	<!-- gateway thing -->

@@ -65,8 +65,6 @@ public class NorthQBindingConstants {
     public static final String CHANNEL_SETTINGS_ISHOMETEMP = "channelisHomeTemp";
     public static final String CHANNEL_SETTINGS_NOTHOMETEMP = "channelnotHomeTemp";
     public static final String CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE = "channelScheduleTemp";
-    public static final String CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_DAY = "channelScheduleTempDay";
-    public static final String CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_NIGHT = "channelScheduleTempNight";
     public static final String CHANNEL_QPHONE_GPSLOCATION = "channelgpslocation";
     public static final String CHANNEL_SETTINGS_GPSPOWEROFF = "channelgpspoweroff";
     public static final String CHANNEL_SETTING_STATUS_GPS_POWER = "channlegpspowerstatus";
