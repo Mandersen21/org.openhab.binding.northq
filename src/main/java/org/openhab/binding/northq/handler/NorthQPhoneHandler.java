@@ -173,6 +173,10 @@ public class NorthQPhoneHandler extends BaseThingHandler {
                     String[] data = decrypted.split(";");
                     String locationStatus = data[0];
                     String location = data[1];
+                } else {
+                    String[] data = { "1", "Home" };
+                    String locationStatus = data[0];
+                    String location = data[1];
                 }
 
                 // Set phones status
