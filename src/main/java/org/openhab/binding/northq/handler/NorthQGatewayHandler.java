@@ -118,19 +118,6 @@ public class NorthQGatewayHandler extends BaseThingHandler {
                     NorthQConfig.setTEMP_SCHEDULER(false);
                 }
             }
-            // updating Temperature scheduler day value
-            if (channelUID.getId().equals(CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_DAY)) {
-                if (command.toString() != null) {
-                    NorthQConfig.setDAYTEMP(Float.valueOf(command.toString()));
-                }
-            }
-            // updating Temperature scheduler night value
-            if (channelUID.getId().equals(CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_NIGHT)) {
-                if (command.toString() != null) {
-                    NorthQConfig.setNIGHTTEMP(Float.valueOf(command.toString()));
-                }
-            }
-
             updateChannelStatus();
 
         } catch (Exception e) {
@@ -240,9 +227,5 @@ public class NorthQGatewayHandler extends BaseThingHandler {
                 DecimalType.valueOf(String.valueOf(NorthQConfig.getNOTHOMETEMP())));
         updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE,
                 NorthQConfig.isTEMP_SCHEDULER() ? OnOffType.ON : OnOffType.OFF);
-        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_DAY,
-                DecimalType.valueOf(String.valueOf(NorthQConfig.getDAYTEMP())));
-        updateState(NorthQBindingConstants.CHANNEL_SETTINGS_TEMPERATURE_SCHEDULE_NIGHT,
-                DecimalType.valueOf(String.valueOf(NorthQConfig.getNIGHTTEMP())));
     }
 }
