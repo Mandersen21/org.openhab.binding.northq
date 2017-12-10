@@ -42,6 +42,10 @@ public class CredentialsService {
         ArrayList<String> databaseCre = getDatabaseCredentials();
         NorthQConfig.setSQL_USERNAME(databaseCre.get(0));
         NorthQConfig.setSQL_PASSWORD(databaseCre.get(1));
+
+        // Set SecretKey
+        ArrayList<String> secretKeycre = getSecretKey();
+        NorthQConfig.setSECRET_KEY(secretKeycre.get(0));
     }
 
     public ArrayList<String> getUserCredentials() {
@@ -80,6 +84,26 @@ public class CredentialsService {
                     credentials.add(line.substring(line.indexOf("#") + 1));
                 }
                 if (line.substring(0, line.indexOf("#")).equals("sqlPassword")) {
+                    credentials.add(line.substring(line.indexOf("#") + 1));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Config.txt could not be found, please place in inside: " + PATH);
+            e.printStackTrace();
+        }
+        return credentials;
+    }
+
+    public ArrayList<String> getSecretKey() {
+
+        ArrayList<String> credentials = new ArrayList<>();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(PATH + "/config.txt"));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.substring(0, line.indexOf("#")).equals("secretKey")) {
                     credentials.add(line.substring(line.indexOf("#") + 1));
                 }
             }
