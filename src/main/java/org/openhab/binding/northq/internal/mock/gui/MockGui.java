@@ -108,6 +108,10 @@ public class MockGui extends JFrame {
     private JLabel isHomeLabel = new JLabel("Is Home");
     private JButton submitGatewayButton = new JButton("Submit");
 
+    /**
+     * Description: Contructing the MockGui, which gives the ability to change the Mock network
+     */
+
     public MockGui() {
         super();
         // Change Mock to false when gui is closed
@@ -146,7 +150,9 @@ public class MockGui extends JFrame {
         mainPanel();
     }
 
-    // Panels configuration -- Start
+    /**
+     * Description: Constructs the panel that contains the network in a list
+     */
 
     public void overviewPanel() {
         // OverviewPanel Adds
@@ -161,6 +167,10 @@ public class MockGui extends JFrame {
         overviewPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         overviewPanel.add(overviewList);
     }
+
+    /**
+     * Description: Constructs the panel that gives the user the ability to add and delete new things to the network
+     */
 
     public void addPanel() {
         // AddPanel
@@ -197,6 +207,11 @@ public class MockGui extends JFrame {
         addPanel.add(deleteButton, constraints);
     }
 
+    /**
+     * Description: Constructs the panel that is shown when a plug is selected, and gives the user the ability to change
+     * variable in the plug
+     */
+
     public void plugPanel() {
         // PlugPanel
         plugPanel.setLayout(new BoxLayout(plugPanel, BoxLayout.Y_AXIS));
@@ -213,6 +228,11 @@ public class MockGui extends JFrame {
         plugPanel.add(submitPlugButton);
 
     }
+
+    /**
+     * Description: Constructs the panel that is shown when a motion is selected, and gives the user the ability to
+     * change variable in the motion
+     */
 
     public void motionPanel() {
         // Motion panel
@@ -242,6 +262,11 @@ public class MockGui extends JFrame {
         motionPanel.add(submitMotionButton);
     }
 
+    /**
+     * Description: Constructs the panel that is shown when a thermostat is selected, and gives the user the ability to
+     * change variable in the thermostat
+     */
+
     public void thermostatPanel() {
         // Thermostat panel
         thermostatPanel.setLayout(new BoxLayout(thermostatPanel, BoxLayout.Y_AXIS));
@@ -258,6 +283,11 @@ public class MockGui extends JFrame {
         thermostatPanel.add(submitThermostatButton);
     }
 
+    /**
+     * Description: Constructs the panel that is shown when a gateway is selected, and gives the user the ability to
+     * change variable in the gateway
+     */
+
     public void gatewayPanel() {
         gatewayPanel.setLayout(new BoxLayout(gatewayPanel, BoxLayout.Y_AXIS));
 
@@ -269,11 +299,19 @@ public class MockGui extends JFrame {
         gatewayPanel.add(submitGatewayButton);
     }
 
+    /**
+     * Description: Constructs the panel, which the selection panels are added to
+     */
+
     public void settingsPanel() {
         // SettingsPanel
         settingsPanel.setPreferredSize(new Dimension(250, 250));
         settingsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     }
+
+    /**
+     * Description: Constructs the panel, which the add and settings panels are added to, i.e the left side of the gui
+     */
 
     public void configPanel() {
         // Config Panel
@@ -282,13 +320,20 @@ public class MockGui extends JFrame {
         configPanel.add(settingsPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Description: Constructs the main panel of the gui
+     */
+
     public void mainPanel() {
         // MainPanel Adds
         mainPanel.add(overviewPanel, BorderLayout.EAST);
         mainPanel.add(configPanel, BorderLayout.WEST);
         add(mainPanel);
     }
-    // Panels configuration -- End
+
+    /**
+     * Description: add the things of the network to the list model
+     */
 
     private void addNetworkToOverview() {
         NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
@@ -311,7 +356,11 @@ public class MockGui extends JFrame {
         }
     }
 
-    // ActionListener to change values in the mock network
+    /**
+     * Description: Submits the variables from the textfields on the selected thing panel and stores them in the
+     * appropriate models
+     */
+
     class mockSubmitButtonListener implements ActionListener {
 
         @Override
@@ -372,7 +421,10 @@ public class MockGui extends JFrame {
         }
     }
 
-    // Add ButtonListener for the list on the right. Each item.
+    /**
+     * Description: Listens to the list selection and adds the appropriate panel to the settings panel
+     */
+
     class mockListSelectionlistener implements ListSelectionListener {
 
         @Override
@@ -447,7 +499,10 @@ public class MockGui extends JFrame {
         }
     }
 
-    // ActionListener to add things to the mock network
+    /**
+     * Description: Adds the thing corresponding to the thingtype to the gateway selected.
+     */
+
     class mockAddButtonListener implements ActionListener {
 
         @Override
@@ -493,7 +548,10 @@ public class MockGui extends JFrame {
         }
     }
 
-    // Add ButtonListener for the list on the right. Each item.
+    /**
+     * Description: Deletes the selected thing from the network
+     */
+
     class mockDeleteButtonListener implements ActionListener {
 
         @Override
