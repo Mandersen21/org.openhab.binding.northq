@@ -254,9 +254,9 @@
 		<channels>
 			<channel id="channelthermostat" typeId="thermostat-channel" />
 			<channel id="channelthermostatbattery" typeId="thermostat-battery-channel" />
-			<channel id="channel-thermostat-scheduler" typeId="channel-thermostat-scheduler" />
-			<channel id="channel-thermostat-day" typeId="channel-thermostat-day" />
-			<channel id="channel-thermostat-night" typeId="channel-thermostat-night" />
+			<channel id="channelScheduleTemp" typeId="channelScheduleTemp" />
+            <channel id="channelScheduleTempDay" typeId="channelScheduleTempDay" />
+            <channel id="channelScheduleTempNight" typeId="channelScheduleTempNight" />
 		</channels>
 	</thing-type>
 
@@ -274,25 +274,25 @@
 		<state pattern="%.1d %%" readOnly="true" />
 	</channel-type>
 
-	<channel-type id="channel-thermostat-scheduler">
-		<item-type>Switch</item-type>
-		<label>Temperature scheduler</label>
-		<description>Turn temperature scheduling on or off</description>
-	</channel-type>
-
-	<channel-type id="channel-thermostat-day">
-		<item-type>Number</item-type>
-		<label>Day temperature</label>
-		<description>Temperature at day</description>
-		<state pattern="%.1d °C" />
-	</channel-type>
-
-	<channel-type id="channel-thermostat-night">
-		<item-type>Number</item-type>
-		<label>Night temperature</label>
-		<description>Temperature at night</description>
-		<state pattern="%.1d °C" />
-	</channel-type>
+	<channel-type id="channelScheduleTemp">
+        <item-type>Switch</item-type>
+        <label>Enable temperature scheduler</label>
+        <description>Enable temperature scheduler</description>
+    </channel-type>
+    
+    <channel-type id="channelScheduleTempDay">
+        <item-type>Number</item-type>
+        <label>Temperature Day</label>
+        <description>Temperature in the day</description>
+        <state pattern="%.1d °C" />
+    </channel-type>
+    
+    <channel-type id="channelScheduleTempNight">
+        <item-type>Number</item-type>
+        <label>Temperature Night</label>
+        <description>Temperature in the night</description>
+        <state pattern="%.1d °C" />
+    </channel-type>
 
 	<!-- gateway thing -->
 	<thing-type id="gateway">
@@ -309,10 +309,6 @@
 			<channel id="channelisHomeTemp" typeId="isHomeTemp-channel" />
 			<channel id="channelnotHomeTemp" typeId="notHomeTemp-channel" />
 			<channel id="channlegpsheatingtatus" typeId="gpslocationheatingstatus-channel" />
-			
-			<channel id="channelScheduleTemp" typeId="channelScheduleTemp" />
-			<channel id="channelScheduleTempDay" typeId="channelScheduleTempDay" />
-			<channel id="channelScheduleTempNight" typeId="channelScheduleTempNight" />
 			
 			<channel id="channelgpspoweroff" typeId="gpspoweroffenabled-channel" />
 			<channel id="channlegpspowerstatus" typeId="gpslocationpowerstatus-channel" />
@@ -369,24 +365,6 @@
 		<description>Temperature when not home</description>
 	</channel-type>
     
-    <channel-type id="channelScheduleTemp">
-        <item-type>Switch</item-type>
-        <label>Enable temperature scheduler</label>
-        <description>Enable temperature scheduler</description>
-    </channel-type>
-    
-    <channel-type id="channelScheduleTempDay">
-        <item-type>Number</item-type>
-        <label>Temperature Day</label>
-        <description>Temperature in the day</description>
-    </channel-type>
-    
-    <channel-type id="channelScheduleTempNight">
-        <item-type>Number</item-type>
-        <label>Temperature Night</label>
-        <description>Temperature in the night</description>
-    </channel-type>
-
 	<!-- mock network on/off -->
 	<thing-type id="mocknetwork">
 
