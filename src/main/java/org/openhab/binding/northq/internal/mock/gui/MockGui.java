@@ -507,7 +507,6 @@ public class MockGui extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("How many times? AAAARGH");
             NorthNetwork network = NorthQConfig.getMOCK_NETWORK().getNetwork();
 
             String thingSelection = addDropDown.getSelectedItem().toString();
@@ -594,5 +593,21 @@ public class MockGui extends JFrame {
             addPanel.revalidate();
             addPanel.repaint();
         }
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
+
+    public JButton getSubmitButton() {
+        return submitPlugButton;
+    }
+
+    public void selectOnList() {
+        overviewList.setSelectedIndex(2);
     }
 }
