@@ -45,8 +45,6 @@ public class NorthQConfig {
     private static float NOTHOMETEMP = 18;
 
     private static boolean TEMP_SCHEDULER = false;
-    private static float DAYTEMP = 20;
-    private static float NIGHTTEMP = 17;
 
     private static boolean MOCK = false;
     private static NorthQMockNetwork MOCK_NETWORK;
@@ -179,22 +177,6 @@ public class NorthQConfig {
 
     public static void setTEMP_SCHEDULER(boolean tEMP_SCHEDULER) {
         TEMP_SCHEDULER = tEMP_SCHEDULER;
-    }
-
-    public static float getDAYTEMP() {
-        return DAYTEMP;
-    }
-
-    public static void setDAYTEMP(float dAYTEMP) {
-        DAYTEMP = dAYTEMP;
-    }
-
-    public static float getNIGHTTEMP() {
-        return NIGHTTEMP;
-    }
-
-    public static void setNIGHTTEMP(float nIGHTTEMP) {
-        NIGHTTEMP = nIGHTTEMP;
     }
 
     public static String getTHERMOSTAT_TEMPERATURE() {
