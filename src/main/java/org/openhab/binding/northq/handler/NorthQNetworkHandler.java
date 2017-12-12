@@ -142,7 +142,7 @@ public class NorthQNetworkHandler extends BaseBridgeHandler {
                         .setNETWORK(services.mapNorthQNetwork(NorthQConfig.getUSERNAME(), NorthQConfig.getPASSWORD()));
 
             } // else if mock instance is running
-            else if (NorthQConfig.getNETWORK() != null) {
+            else if (NorthQConfig.isMOCK()) {
                 if (NorthQConfig.getMOCK_NETWORK() == null) {
                     NorthQConfig.setMOCK_NETWORK(new NorthQMockNetwork());
 
